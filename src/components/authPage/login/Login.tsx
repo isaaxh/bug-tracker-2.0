@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 
 const Login = () => {
   const [error, setError] = useState<string>("");
+
   return (
     <div className={style.container}>
       <div className={style.header}>
@@ -17,6 +18,7 @@ const Login = () => {
       <div className={style.body}>
         <div className={style.card}>
           <h1 className={style["card-title"]}>Sign In</h1>
+          {/* <h1>import.meta.env.VITE_AUTH_API_KEY}</h1> */}
           {error && error ? (
             <div className={style["error-card"]}>
               <InfoIcon
