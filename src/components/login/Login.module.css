@@ -35,6 +35,7 @@
 .input-container {
   display: flex;
   flex-direction: column;
+  margin-top: 1rem;
 }
 
 .input-field {
@@ -44,6 +45,8 @@
   padding: 0.6rem 1.2rem;
   border: none;
   border-radius: var(--border-radius);
+  width: 100%;
+  outline: none;
 }
 
 .btn-container {

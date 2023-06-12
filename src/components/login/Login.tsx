@@ -15,8 +15,16 @@ const Login = () => {
           <h1 className={style.title}>Sign In</h1>
           <form className={style.form} onSubmit={() => {}}>
             <div className={style["input-container"]}>
-              <label htmlFor='input'>Email</label>
-              <input className={style["input-field"]} type='text' id='input' />
+              <label htmlFor='email'>Email</label>
+              <input className={style["input-field"]} type='text' id='email' />
+            </div>
+            <div className={style["input-container"]}>
+              <label htmlFor='password'>Password</label>
+              <input
+                className={style["input-field"]}
+                type='text'
+                id='password'
+              />
             </div>
             <div className={style["btn-container"]}>
               <button
@@ -27,7 +35,7 @@ const Login = () => {
               </button>
             </div>
             <div className={style["forgot-pass-container"]}>
-              <a href='#'>Forgot password</a>
+              <a href='#'>Forgot password?</a>
             </div>
           </form>
           <div className={style["hr-container"]}>
