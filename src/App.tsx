@@ -5,16 +5,26 @@ import Home from "./components/Home";
 import Tickets from "./components/Tickets";
 import Profile from "./components/Profile";
 import ClippedDrawer from "./components/SideBar";
+import Login from "./components/authPage/login/Login";
+import SignUp from "./components/authPage/signup/Signup";
+import ChangePassword from "./components/authPage/changePass/ChangePassword";
+{
+  /* <ResponsiveAppBar /> */
+}
+{
+  /* <ClippedDrawer /> */
+}
 
 function App() {
   return (
     <div className='App'>
-      {/* <ResponsiveAppBar /> */}
       <div className='body'>
-        {/* <ClippedDrawer /> */}
         <div className='main-content'></div>
         <Routes>
-          <Route path='/' element={<Home />} />
+          <Route path='/' element={<Login />} />
+          <Route path='signup' element={<SignUp />} />
+          <Route path='changepass' element={<ChangePassword />} />
+          <Route path='home' element={<Home />} />
           <Route path='Profile' element={<Profile />} />
           <Route path='Tickets' element={<Tickets />} />
         </Routes>

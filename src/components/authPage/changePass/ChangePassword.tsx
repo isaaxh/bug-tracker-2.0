@@ -1,9 +1,10 @@
 import { useState } from "react";
-import style from "./Login.module.css";
+import style from "../authPage.module.css";
 import LanguageIcon from "@mui/icons-material/Language";
 import InfoIcon from "@mui/icons-material/Info";
+import { Link } from "react-router-dom";
 
-const Login = () => {
+const ChangePassword = () => {
   const [error, setError] = useState<string>("");
   return (
     <div className={style.container}>
@@ -15,7 +16,7 @@ const Login = () => {
       </div>
       <div className={style.body}>
         <div className={style.card}>
-          <h1 className={style["card-title"]}>Sign In</h1>
+          <h1 className={style["card-title"]}>Change Password</h1>
           {error && error ? (
             <div className={style["error-card"]}>
               <InfoIcon
@@ -39,33 +40,33 @@ const Login = () => {
                 id='password'
               />
             </div>
+            <div className={style["input-container"]}>
+              <label htmlFor='confirm-password'>Confirm Password</label>
+              <input
+                className={style["input-field"]}
+                type='text'
+                id='confirm-password'
+              />
+            </div>
             <div className={style["btn-container"]}>
               <button
-                className={`${style.btn} ${style["btn-next"]}`}
+                className={`${style.btn} ${style["btn-auth"]}`}
                 type='button'
               >
-                Next
+                Change Password
               </button>
             </div>
-            <div className={style["forgot-pass-container"]}>
-              <a href='#'>Forgot password?</a>
+            <div className={style["alternate-option-container"]}>
+              Already have an account?
+              <Link to={"/"} style={{ textDecoration: "underline" }}>
+                Log in
+              </Link>
             </div>
           </form>
-          <div className={style["hr-container"]}>
-            <hr /> or <hr />
-          </div>
-          <div className={style["btn-container"]}>
-            <button
-              className={`${style.btn} ${style["btn-create"]}`}
-              type='button'
-            >
-              Create Account
-            </button>
-          </div>
         </div>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default ChangePassword;
