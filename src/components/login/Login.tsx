@@ -4,9 +4,7 @@ import LanguageIcon from "@mui/icons-material/Language";
 import InfoIcon from "@mui/icons-material/Info";
 
 const Login = () => {
-  const [error, setError] = useState<string>(
-    "We don't recognize this sign in combination"
-  );
+  const [error, setError] = useState<string>("");
   return (
     <div className={style.container}>
       <div className={style.header}>
@@ -18,10 +16,16 @@ const Login = () => {
       <div className={style.body}>
         <div className={style.card}>
           <h1 className={style["card-title"]}>Sign In</h1>
-          <div className={style["error-card"]}>
-            <InfoIcon style={{ color: "var(--color-error)" }} />
-            {error}
-          </div>
+          {error && error ? (
+            <div className={style["error-card"]}>
+              <InfoIcon
+                fontSize='large'
+                style={{ color: "var(--color-error)" }}
+              />
+              {error}
+            </div>
+          ) : null}
+
           <form className={style.form} onSubmit={() => {}}>
             <div className={style["input-container"]}>
               <label htmlFor='email'>Email</label>
