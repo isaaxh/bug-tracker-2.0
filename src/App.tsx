@@ -5,7 +5,7 @@ import Home from "./components/Home";
 import Tickets from "./components/Tickets";
 import Profile from "./components/Profile";
 import ClippedDrawer from "./components/SideBar";
-import Login from "./components/authPage/login/Login";
+import Login from "./components/authPage/signin/SignIn";
 import SignUp from "./components/authPage/signup/Signup";
 import ChangePassword from "./components/authPage/changePass/ChangePassword";
 {

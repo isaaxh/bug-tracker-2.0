@@ -1,11 +1,26 @@
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import style from "../authPage.module.css";
 import LanguageIcon from "@mui/icons-material/Language";
 import InfoIcon from "@mui/icons-material/Info";
 import { Link } from "react-router-dom";
+import { auth } from "../../../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 
-const Login = () => {
+const SignIn = () => {
   const [error, setError] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+
+  const signIn = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className={style.container}>
@@ -18,7 +33,6 @@ const Login = () => {
       <div className={style.body}>
         <div className={style.card}>
           <h1 className={style["card-title"]}>Sign In</h1>
-          {/* <h1>import.meta.env.VITE_AUTH_API_KEY}</h1> */}
           {error && error ? (
             <div className={style["error-card"]}>
               <InfoIcon
@@ -29,23 +43,35 @@ const Login = () => {
             </div>
           ) : null}
 
-          <form className={style.form} onSubmit={() => {}}>
+          <form className={style.form} onSubmit={signIn}>
             <div className={style["input-container"]}>
               <label htmlFor='email'>Email</label>
-              <input className={style["input-field"]} type='email' id='email' />
+              <input
+                className={style["input-field"]}
+                type='email'
+                id='email'
+                value={email}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                }}
+              />
             </div>
             <div className={style["input-container"]}>
               <label htmlFor='password'>Password</label>
               <input
                 className={style["input-field"]}
-                type='text'
+                type='password'
                 id='password'
+                value={password}
+                onChange={(e) => {
+                  setPassword(e.target.value);
+                }}
               />
             </div>
             <div className={style["btn-container"]}>
               <button
                 className={`${style.btn} ${style["btn-auth"]}`}
-                type='button'
+                type='submit'
               >
                 Sign In
               </button>
@@ -75,4 +101,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default SignIn;

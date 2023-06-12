@@ -5,8 +5,11 @@ import { getAuth } from 'firebase/auth';
 // https://firebase.google.com/docs/web/setup#available-libraries
 
 // Your web app's Firebase configuration
+
+const apiKey = import.meta.env.VITE_AUTH_API_KEY;
+
 const firebaseConfig = {
-    apiKey: "AIzaSyCInlo8qD7SxtkXl6Y1fZqp9QZErBhgloE",
+    apiKey: apiKey,
     authDomain: "bug-tracker-2.firebaseapp.com",
     projectId: "bug-tracker-2",
     storageBucket: "bug-tracker-2.appspot.com",
@@ -18,4 +21,4 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 
 // Initialize Firebase Authentication and get a reference to the service
-const auth = getAuth(app);
+export const auth = getAuth(app);
