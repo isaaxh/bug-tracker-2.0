@@ -20,4 +20,12 @@
   background-color: coral;
   margin: 50px auto;
   max-width: 400px;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  gap: 2.5rem;
+}
+
+.title {
 }

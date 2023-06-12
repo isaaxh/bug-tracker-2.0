@@ -12,8 +12,8 @@ const Login = () => {
       </div>
       <div className={style.body}>
         <div className={style.card}>
-          <form onSubmit={() => {}}>
-            <h1>Sign In</h1>
+          <h1 className={style.title}>Sign In</h1>
+          <form className={style.form} onSubmit={() => {}}>
             <div className={style["input-container"]}>
               <label htmlFor='input'>Email</label>
               <input className={style["input-field"]} type='text' id='input' />
