@@ -1,5 +1,13 @@
+:root {
+}
+
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+}
+
+.App {
+  background-color: coral;
+  height: 100vh;
 }

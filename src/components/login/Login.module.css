@@ -1,0 +1,23 @@
+.container {
+  background-color: blanchedalmond;
+  height: 100vh;
+}
+
+.header {
+  background-color: coral;
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+}
+
+.body {
+  /* background-color: rebeccapurple; */
+  height: 100%;
+  padding: 1rem;
+}
+
+.card {
+  background-color: coral;
+  margin: 50px auto;
+  max-width: 400px;
+}
