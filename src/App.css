@@ -1,15 +1,45 @@
 :root {
   --font-family: ;
 
-  /* Colors */
-  --clr-primary: ;
-  --clr-accent: ;
-  --clr-success: #81c784;
-  --clr-error: #e57373;
-  --clr-warning: #ffb74d;
-  --clr-info: #4fc3f7;
+  --font-weight-400: 400;
+  --font-weight-600: 600;
+  --font-weight-800: 800;
 
-  --border-radius: 6px;
+  --font-size-400: 1.4rem;
+  --font-size-600: 1.8rem;
+  --font-size-800: 2.8rem;
+
+  /* Colors */
+  --color-primary: ;
+  --color-accent: ;
+  --color-success: #81c784;
+  --color-error: #e57373;
+  --color-warning: #ffb74d;
+  --color-info: #4fc3f7;
+
+  --color-yellow: #fbb01b;
+  --color-white: #fff;
+  --color-red-20: #ed4e3b;
+  --color-red-10: #b74134;
+  --color-grey-70: #f4f4f4;
+  --color-grey-65: #eee;
+  --color-grey-60: #e2e3e3;
+  --color-grey-50: #d0d1d2;
+  --color-grey-45: #bbb;
+  --color-grey-40: #a2a3a5;
+  --color-grey-35: #8e8e8e;
+  --color-grey-30: #5c5e62;
+  --color-grey-25: #444;
+  --color-grey-20: #393c41;
+  --color-grey-15: #222;
+  --color-grey-10: #171a20;
+  --color-green: #12bb00;
+  --color-blue-40: #3368ff;
+  --color-blue-30: #3e6ae1;
+  --color-blue-20: #3457b1;
+  --color-black: #000;
+
+  --border-radius: 4px;
 }
 
 *,
@@ -25,7 +55,30 @@ html {
   font-size: 62.5%;
 }
 
+body {
+  font-size: var(--font-size-400);
+}
+
+h1 {
+  font-size: var(--font-size-800);
+}
+
+h2 {
+  font-size: var(--font-size-600);
+}
+
+p {
+  font-size: var(--font-size-400);
+}
+
+hr {
+  border: 0;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+  /* background: #999; */
+}
+
 .App {
-  background-color: coral;
+  background-color: #fefefe;
   height: 100vh;
 }

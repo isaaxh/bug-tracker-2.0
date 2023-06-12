@@ -1,13 +1,12 @@
 .container {
-  background-color: blanchedalmond;
+  /* background-color: blanchedalmond; */
   height: 100vh;
 }
 
 .header {
-  background-color: coral;
   display: flex;
   justify-content: space-between;
-  padding: 1rem;
+  padding: 2rem 2.5rem;
 }
 
 .body {
@@ -17,10 +16,10 @@
 }
 
 .card {
-  background-color: coral;
-  margin: 50px auto;
-  max-width: 400px;
-  padding: 1.5rem;
+  /* background-color: coral; */
+  margin: 2.5rem auto;
+  max-width: 53rem;
+  padding: 0 12rem;
   border-radius: var(--border-radius);
   display: flex;
   flex-direction: column;
@@ -28,4 +27,54 @@
 }
 
 .title {
+}
+
+.form {
+}
+
+.input-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.input-field {
+  margin-top: 0.5rem;
+  height: 3.5rem;
+  background-color: var(--color-grey-70);
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: var(--border-radius);
+}
+
+.btn-container {
+  margin: 1.8rem 0;
+  display: flex;
+}
+
+.btn {
+  width: 100%;
+  background-color: var(--color-grey-70);
+  border-radius: var(--border-radius);
+}
+
+.btn-next {
+  /* margin-top: 1rem; */
+  color: white;
+  background-color: var(--color-blue-30);
+  margin-top: 0.5rem;
+}
+
+.btn-create {
+}
+
+.forgot-pass-container {
+  display: flex;
+  justify-content: center;
+}
+
+.hr-container {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0 1.5rem;
 }

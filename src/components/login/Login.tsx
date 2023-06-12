@@ -19,17 +19,25 @@ const Login = () => {
               <input className={style["input-field"]} type='text' id='input' />
             </div>
             <div className={style["btn-container"]}>
-              <button className={style["btn-login"]} type='button'>
+              <button
+                className={`${style.btn} ${style["btn-next"]}`}
+                type='button'
+              >
                 Next
               </button>
             </div>
-            <a>Forgot password?</a>
+            <div className={style["forgot-pass-container"]}>
+              <a href='#'>Forgot password</a>
+            </div>
           </form>
           <div className={style["hr-container"]}>
             <hr /> or <hr />
           </div>
           <div className={style["btn-container"]}>
-            <button className={style["btn-create"]} type='button'>
+            <button
+              className={`${style.btn} ${style["btn-create"]}`}
+              type='button'
+            >
               Create Account
             </button>
           </div>
