@@ -5,6 +5,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import { Link } from "react-router-dom";
 import { auth } from "../../../firebase";
 import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [error, setError] = useState<string>("");
@@ -12,6 +13,8 @@ const SignUp = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+  const navigate = useNavigate();
 
   const signUp = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -24,12 +27,13 @@ const SignUp = () => {
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
+        navigate("/home");
       })
       .catch((error) => {
         console.log(error);
       });
 
-    setSuccess("Successful");
+    setSuccess("Account created Successfully");
   };
   return (
     <div className={style.container}>
