@@ -15,6 +15,13 @@ const SignIn = () => {
 
   const signIn = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setError("");
+
+    if (email === "" || password === "") {
+      setError("All fields are required");
+      return;
+    }
+
     signInWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
         console.log(userCredential);
@@ -22,6 +29,7 @@ const SignIn = () => {
       })
       .catch((error) => {
         console.log(error);
+        setError("Something went wrong");
       });
   };
 
@@ -55,6 +63,7 @@ const SignIn = () => {
                 id='email'
                 value={email}
                 onChange={(e) => {
+                  setError("");
                   setEmail(e.target.value);
                 }}
               />
@@ -67,6 +76,7 @@ const SignIn = () => {
                 id='password'
                 value={password}
                 onChange={(e) => {
+                  setError("");
                   setPassword(e.target.value);
                 }}
               />
