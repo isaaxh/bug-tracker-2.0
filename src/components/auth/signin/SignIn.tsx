@@ -80,7 +80,7 @@ const SignIn = () => {
               </button>
             </div>
             <div className={style["alternate-option-container"]}>
-              <Link to={"/changepass"} style={{ textDecoration: "underline" }}>
+              <Link to={"/resetpass"} style={{ textDecoration: "underline" }}>
                 Forgot password?
               </Link>
             </div>

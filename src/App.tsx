@@ -7,7 +7,7 @@ import Profile from "./components/Profile";
 import ClippedDrawer from "./components/SideBar";
 import Login from "./components/auth/signin/SignIn";
 import SignUp from "./components/auth/signup/Signup";
-import ChangePassword from "./components/auth/changePass/ChangePassword";
+import ResetPassword from "./components/auth/resetPass/ResetPassword";
 {
   /* <ResponsiveAppBar /> */
 }
@@ -23,7 +23,7 @@ function App() {
         <Routes>
           <Route path='/' element={<Login />} />
           <Route path='signup' element={<SignUp />} />
-          <Route path='changepass' element={<ChangePassword />} />
+          <Route path='resetpass' element={<ResetPassword />} />
           <Route path='home' element={<Home />} />
           <Route path='Profile' element={<Profile />} />
           <Route path='Tickets' element={<Tickets />} />

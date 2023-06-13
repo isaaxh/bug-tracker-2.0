@@ -19,18 +19,15 @@ const SignUp = () => {
   const signUp = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      console.log("error pass");
-
-      setError("Passwords Don't match");
+      setError("Password don't match");
       return;
     }
     createUserWithEmailAndPassword(auth, email, password)
       .then((userCredential) => {
-        console.log(userCredential);
         navigate("/home");
       })
       .catch((error) => {
-        console.log(error);
+        setError("Something went wrong");
       });
 
     setSuccess("Account created Successfully");
