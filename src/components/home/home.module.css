@@ -3,7 +3,7 @@
 }
 
 .header {
-  background-color: rgb(var(--color-grey-70));
+  /* background-color: rgb(var(--color-grey-70)); */
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -16,8 +16,8 @@
 }
 
 .sidebar {
-  /* background-color: coral; */
-  /* background-color: var(--color-grey-70); */
+  background-color: coral;
+  /* background-color: rgb(var(--color-grey-70)); */
   min-width: 24rem;
 }
 

@@ -1,0 +1,5 @@
+.container {
+  margin: 10rem 1rem;
+  font-size: var(--font-size-20);
+  color: var(--text-color-1);
+}

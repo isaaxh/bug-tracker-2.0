@@ -6,6 +6,7 @@ import style from "./home.module.css";
 import { Avatar } from "@mui/material";
 import { useEffect, useState } from "react";
 import img1 from "../../assets/man-smiling.jpg";
+import Sidebar from "../sidebar/Sidebar";
 
 const Home = () => {
   const [userInitial, setUserInitial] = useState("");
@@ -48,7 +49,9 @@ const Home = () => {
         </div>
       </div>
       <div className={style.body}>
-        <div className={style.sidebar}>Side bar</div>
+        <div className={style.sidebar}>
+          <Sidebar />
+        </div>
         <div className={style["main-content"]}>
           <h1>Home</h1>
           <div>name: {user?.displayName}</div>

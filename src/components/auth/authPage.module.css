@@ -87,10 +87,16 @@
   background-color: rgb(var(--color-grey-60));
 }
 
-.alternate-option-container {
+.alternate-option-container,
+.demo-user-container {
   display: flex;
   justify-content: center;
   gap: 0.5rem;
+}
+
+.demo-user-link {
+  text-decoration: underline;
+  cursor: pointer;
 }
 
 .hr-container {

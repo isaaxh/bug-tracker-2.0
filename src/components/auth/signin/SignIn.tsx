@@ -7,11 +7,20 @@ import { auth } from "../../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import BarLoader from "react-spinners/BarLoader";
 
+interface demoUserData {
+  email: string;
+  password: string;
+}
+
 const SignIn = () => {
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
+  const [demoUser, setDemoUser] = useState<demoUserData>({
+    email: "isaac@gmail.com",
+    password: "Aa123456",
+  });
 
   const navigate = useNavigate();
 
@@ -36,12 +45,11 @@ const SignIn = () => {
       setError("Something went wrong");
       setLoading(false);
     }
+  };
 
-    // .then((userCredential) => {
-    //   console.log(userCredential);
-    // })
-    // .catch((error) => {
-    // });
+  const fillDemoUserCredential = () => {
+    setEmail(demoUser.email);
+    setPassword(demoUser.password);
   };
 
   return (
@@ -114,6 +122,14 @@ const SignIn = () => {
               <Link to={"/resetpass"} style={{ textDecoration: "underline" }}>
                 Forgot password?
               </Link>
+            </div>
+            <div className={style["demo-user-container"]}>
+              <a
+                className={style["demo-user-link"]}
+                onClick={fillDemoUserCredential}
+              >
+                demo user
+              </a>
             </div>
           </form>
           <div className={style["hr-container"]}>
