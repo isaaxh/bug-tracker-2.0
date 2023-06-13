@@ -33,7 +33,7 @@ const ResetPassword = () => {
   return (
     <div className={style.container}>
       <div className={style.header}>
-        <h1 className={style.title}>BugTracker 2.0</h1>
+        <h1 className='app-title'>BugTracker 2.0</h1>
         <h1>
           <LanguageIcon fontSize='large' />
         </h1>

@@ -22,7 +22,9 @@ const Home = () => {
   return (
     <div className={style.container}>
       <div className={style.header}>
-        <div className={style["logo-container"]}></div>
+        <div className={style["logo-container"]}>
+          <h1 className='app-title'>Bug Tracker 2.0</h1>
+        </div>
         <div className={style["avatar-container"]}></div>
       </div>
       <div className={style.body}>

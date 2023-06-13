@@ -121,3 +121,7 @@ button {
   background-color: #fefefe;
   height: 100vh;
 }
+
+.app-title {
+  font-family: "Kalam", cursive;
+}
