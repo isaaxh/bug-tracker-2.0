@@ -1,6 +1,6 @@
 import { Outlet } from "react-router";
 import SignIn from "./components/auth/signin/SignIn";
-import { useAuth } from "./hooks/useAuth";
+import useAuth from "./hooks/useAuth";
 import { useEffect, useState } from "react";
 
 const getAuthStatus = () => {
