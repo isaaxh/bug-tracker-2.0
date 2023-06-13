@@ -14,19 +14,6 @@
   padding: 1rem;
 }
 
-.loader-container {
-  background-color: rgba(var(--color-grey-70), 0.8);
-  /* background-color: coral; */
-  height: 100vh;
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute;
-  top: 0;
-  right: 0;
-}
-
 .card {
   /* background-color: coral; */
   margin: 2.5rem auto;
@@ -38,19 +25,19 @@
   gap: 2.5rem;
 }
 .error-card {
-  background-color: var(--color-grey-70);
+  background-color: rgb(var(--color-grey-70));
   display: flex;
   gap: 0.5rem;
   padding: 0.6em 1.2em;
-  color: var(--color-error);
+  color: rbg(var(--color-error));
 }
 
 .success-card {
-  background-color: var(--color-grey-70);
+  background-color: rgb(var(--color-grey-70));
   display: flex;
   gap: 0.5rem;
   padding: 0.6em 1.2em;
-  color: var(--color-success);
+  color: rgb(var(--color-success));
 }
 
 .input-container {
@@ -62,7 +49,7 @@
 .input-field {
   margin-top: 0.5rem;
   height: 3.5rem;
-  background-color: var(--color-grey-70);
+  background-color: rgb(var(--color-grey-70));
   padding: 0.6rem 1.2rem;
   border: none;
   border-radius: var(--border-radius);
@@ -78,18 +65,18 @@
 
 .btn {
   width: 100%;
-  background-color: var(--color-grey-70);
+  background-color: rgb(var(--color-grey-70));
   border-radius: var(--border-radius);
 }
 
 .btn-auth {
   color: var(--text-color-2);
-  background-color: var(--color-blue-30);
+  background-color: rgb(var(--color-blue-30));
   margin-top: 0.5rem;
 }
 
 .btn-auth:hover {
-  background-color: var(--color-blue-20);
+  background-color: rgb(var(--color-blue-20));
 }
 
 .btn-create {
@@ -97,7 +84,7 @@
 }
 
 .btn-create:hover {
-  background-color: var(--color-grey-60);
+  background-color: rgb(var(--color-grey-60));
 }
 
 .alternate-option-container {

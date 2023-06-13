@@ -1,0 +1,27 @@
+.container {
+  height: 100vh;
+}
+
+.header {
+  background-color: var(--color-grey-70);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 2.5rem;
+}
+
+.body {
+  height: 100%;
+  display: flex;
+}
+
+.sidebar {
+  /* background-color: coral; */
+  /* background-color: var(--color-grey-70); */
+  min-width: 24rem;
+}
+
+.main-content {
+  /* background-color: blueviolet; */
+  flex: 1;
+}

@@ -44,25 +44,22 @@ const Home = () => {
           <h1 className='app-title'>Bug Tracker 2.0</h1>
         </div>
         <div className={style["avatar-container"]}>
-          <Avatar
-            alt='man smiling'
-            src={img1}
-            sx={{ width: 100, height: 100 }}
-          />
+          <Avatar alt='man smiling' src={img1} sx={{ width: 60, height: 60 }} />
         </div>
       </div>
       <div className={style.body}>
-        <div className={style.sidebar}></div>
-        <div className={style["main-content"]}></div>
-      </div>
-      <h1>Home</h1>
-      <div>name: {user?.displayName}</div>
-      <div>email: {user?.email}</div>
-      <Link to='/profile'>Profile</Link>
-      <Link to='/tickets'>Tickets</Link>
+        <div className={style.sidebar}>Side bar</div>
+        <div className={style["main-content"]}>
+          <h1>Home</h1>
+          <div>name: {user?.displayName}</div>
+          <div>email: {user?.email}</div>
+          <Link to='/profile'>Profile</Link>
+          <Link to='/tickets'>Tickets</Link>
 
-      <div className='logout'>
-        <button onClick={logout}>Logout</button>
+          <div className='logout'>
+            <button onClick={logout}>Logout</button>
+          </div>
+        </div>
       </div>
     </div>
   );
