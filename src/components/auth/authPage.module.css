@@ -45,9 +45,6 @@
   color: var(--color-success);
 }
 
-.form {
-}
-
 .input-container {
   display: flex;
   flex-direction: column;
