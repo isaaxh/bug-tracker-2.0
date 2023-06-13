@@ -3,7 +3,7 @@ import "./App.css";
 import Home from "./components/Home";
 import Tickets from "./components/Tickets";
 import Profile from "./components/Profile";
-import Login from "./components/auth/signin/SignIn";
+import SignIn from "./components/auth/signin/SignIn";
 import SignUp from "./components/auth/signup/Signup";
 import ResetPassword from "./components/auth/resetPass/ResetPassword";
 import ProtectedRoutes from "./ProtectedRoutes";
@@ -14,7 +14,7 @@ function App() {
       <div className='body'>
         <div className='main-content'></div>
         <Routes>
-          <Route path='/' element={<Login />} />
+          <Route path='/' element={<SignIn />} />
           <Route path='signup' element={<SignUp />} />
           <Route path='resetpass' element={<ResetPassword />} />
           <Route element={<ProtectedRoutes />}>

@@ -10,9 +10,21 @@
 }
 
 .body {
-  /* background-color: rebeccapurple; */
   height: 100%;
   padding: 1rem;
+}
+
+.loader-container {
+  background-color: rgba(var(--color-grey-70), 0.8);
+  /* background-color: coral; */
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 0;
+  right: 0;
 }
 
 .title {
