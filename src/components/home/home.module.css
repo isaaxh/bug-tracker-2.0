@@ -3,7 +3,7 @@
 }
 
 .header {
-  background-color: var(--color-grey-70);
+  background-color: rgb(var(--color-grey-70));
   display: flex;
   justify-content: space-between;
   align-items: center;

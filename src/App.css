@@ -58,13 +58,13 @@
 
   --color-primary: ;
   --color-accent: ;
-  --color-success: var(--color-green);
-  --color-error: var(--color-red-20);
-  --color-warning: var(--color-yellow);
-  --color-info: var(--color-blue-40);
+  --color-success: rgb(var(--color-green));
+  --color-error: rgb(var(--color-red-20));
+  --color-warning: rgb(var(--color-yellow));
+  --color-info: rgb(var(--color-blue-40));
 
-  --text-color-1: var(--color-grey-10);
-  --text-color-2: var(--color-white);
+  --text-color-1: rgb(var(--color-grey-10));
+  --text-color-2: rgb(var(--color-white));
 
   --border-radius: 4px;
 }
@@ -108,20 +108,17 @@ hr {
 
 textarea:focus,
 input:focus {
-  outline: 1px solid var(--color-grey-50);
+  outline: 1px solid rgb(var(--color-grey-50));
 }
 
 button {
   border-radius: var(--border-radius);
   border: 1px solid transparent;
-  /* border: none; */
   padding: 0.6em 1.2em;
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
-  /* transition: border-color 0.25s; */
   transition: 0.5s all;
 }
 

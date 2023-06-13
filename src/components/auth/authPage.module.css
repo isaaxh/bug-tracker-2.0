@@ -29,7 +29,7 @@
   display: flex;
   gap: 0.5rem;
   padding: 0.6em 1.2em;
-  color: rbg(var(--color-error));
+  color: var(--color-error);
 }
 
 .success-card {
@@ -37,7 +37,7 @@
   display: flex;
   gap: 0.5rem;
   padding: 0.6em 1.2em;
-  color: rgb(var(--color-success));
+  color: var(--color-success);
 }
 
 .input-container {
