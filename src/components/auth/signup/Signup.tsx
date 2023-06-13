@@ -1,11 +1,36 @@
-import { useState } from "react";
+import { useState, FormEvent } from "react";
 import style from "../authPage.module.css";
 import LanguageIcon from "@mui/icons-material/Language";
 import InfoIcon from "@mui/icons-material/Info";
 import { Link } from "react-router-dom";
+import { auth } from "../../../firebase";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
 const SignUp = () => {
   const [error, setError] = useState<string>("");
+  const [success, setSuccess] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [password, setPassword] = useState<string>("");
+  const [confirmPassword, setConfirmPassword] = useState<string>("");
+
+  const signUp = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      console.log("error pass");
+
+      setError("Passwords Don't match");
+      return;
+    }
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        console.log(userCredential);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+
+    setSuccess("Successful");
+  };
   return (
     <div className={style.container}>
       <div className={style.header}>
@@ -16,7 +41,7 @@ const SignUp = () => {
       </div>
       <div className={style.body}>
         <div className={style.card}>
-          <h1 className={style["card-title"]}>Create Account</h1>
+          <h1 className={style["card-title"]}>Create an Account</h1>
           {error && error ? (
             <div className={style["error-card"]}>
               <InfoIcon
@@ -27,33 +52,49 @@ const SignUp = () => {
             </div>
           ) : null}
 
-          <form className={style.form} onSubmit={() => {}}>
+          <form className={style.form} onSubmit={signUp}>
             <div className={style["input-container"]}>
               <label htmlFor='email'>Email</label>
-              <input className={style["input-field"]} type='email' id='email' />
+              <input
+                className={style["input-field"]}
+                type='email'
+                id='email'
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </div>
             <div className={style["input-container"]}>
               <label htmlFor='password'>Password</label>
               <input
                 className={style["input-field"]}
-                type='text'
+                type='password'
                 id='password'
+                value={password}
+                onChange={(e) => {
+                  setError("");
+                  setPassword(e.target.value);
+                }}
               />
             </div>
             <div className={style["input-container"]}>
               <label htmlFor='confirm-password'>Confirm Password</label>
               <input
                 className={style["input-field"]}
-                type='text'
+                type='password'
                 id='confirm-password'
+                value={confirmPassword}
+                onChange={(e) => {
+                  setError("");
+                  setConfirmPassword(e.target.value);
+                }}
               />
             </div>
             <div className={style["btn-container"]}>
               <button
                 className={`${style.btn} ${style["btn-auth"]}`}
-                type='button'
+                type='submit'
               >
-                Create Account
+                Sign Up
               </button>
             </div>
             <div className={style["alternate-option-container"]}>

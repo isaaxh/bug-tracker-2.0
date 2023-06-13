@@ -1,4 +1,4 @@
-import LoginPage from "./authPage/signin/SignIn";
+import LoginPage from "./auth/signin/SignIn";
 
 const Home = () => {
   return <div>Home</div>;
