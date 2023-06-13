@@ -63,97 +63,95 @@ const SignUp = () => {
       </div>
       <div className={style.body}>
         {loading ? (
-          <div className={style["loader-container"]}>
+          <div className='loader-container'>
             <BarLoader
               loading={loading}
               aria-label='Loading Spinner'
               data-testid='loader'
-              // color='#8e8e8e'
             />
           </div>
-        ) : (
-          <div className={style.card}>
-            <h1 className={style["card-title"]}>Create an Account</h1>
-            {error && error ? (
-              <div className={style["error-card"]}>
-                <InfoIcon
-                  fontSize='large'
-                  style={{ color: "var(--color-error)" }}
-                />
-                {error}
-              </div>
-            ) : null}
+        ) : null}
+        <div className={style.card}>
+          <h1 className={style["card-title"]}>Create an Account</h1>
+          {error && error ? (
+            <div className={style["error-card"]}>
+              <InfoIcon
+                fontSize='large'
+                style={{ color: "var(--color-error)" }}
+              />
+              {error}
+            </div>
+          ) : null}
 
-            <form className={style.form} onSubmit={signUp}>
-              <div className={style["input-container"]}>
-                <label htmlFor='name'>Name</label>
-                <input
-                  className={style["input-field"]}
-                  type='text'
-                  id='name'
-                  value={displayName}
-                  onChange={(e) => {
-                    setError("");
-                    setDisplayName(e.target.value);
-                  }}
-                />
-              </div>
-              <div className={style["input-container"]}>
-                <label htmlFor='email'>Email</label>
-                <input
-                  className={style["input-field"]}
-                  type='email'
-                  id='email'
-                  value={email}
-                  onChange={(e) => {
-                    setError("");
-                    setEmail(e.target.value);
-                  }}
-                />
-              </div>
-              <div className={style["input-container"]}>
-                <label htmlFor='password'>Password</label>
-                <input
-                  className={style["input-field"]}
-                  type='password'
-                  id='password'
-                  value={password}
-                  onChange={(e) => {
-                    setError("");
-                    setPassword(e.target.value);
-                  }}
-                />
-              </div>
-              <div className={style["input-container"]}>
-                <label htmlFor='confirm-password'>Confirm Password</label>
-                <input
-                  className={style["input-field"]}
-                  type='password'
-                  id='confirm-password'
-                  value={confirmPassword}
-                  onChange={(e) => {
-                    setError("");
-                    setConfirmPassword(e.target.value);
-                  }}
-                />
-              </div>
-              <div className={style["btn-container"]}>
-                <button
-                  className={`${style.btn} ${style["btn-auth"]}`}
-                  type='submit'
-                >
-                  Sign Up
-                </button>
-              </div>
-              <div className={style["alternate-option-container"]}>
-                Already have an account?
-                <Link to={"/"} style={{ textDecoration: "underline" }}>
-                  Log in
-                </Link>
-              </div>
-            </form>
-          </div>
-        )}
+          <form className={style.form} onSubmit={signUp}>
+            <div className={style["input-container"]}>
+              <label htmlFor='name'>Name</label>
+              <input
+                className={style["input-field"]}
+                type='text'
+                id='name'
+                value={displayName}
+                onChange={(e) => {
+                  setError("");
+                  setDisplayName(e.target.value);
+                }}
+              />
+            </div>
+            <div className={style["input-container"]}>
+              <label htmlFor='email'>Email</label>
+              <input
+                className={style["input-field"]}
+                type='email'
+                id='email'
+                value={email}
+                onChange={(e) => {
+                  setError("");
+                  setEmail(e.target.value);
+                }}
+              />
+            </div>
+            <div className={style["input-container"]}>
+              <label htmlFor='password'>Password</label>
+              <input
+                className={style["input-field"]}
+                type='password'
+                id='password'
+                value={password}
+                onChange={(e) => {
+                  setError("");
+                  setPassword(e.target.value);
+                }}
+              />
+            </div>
+            <div className={style["input-container"]}>
+              <label htmlFor='confirm-password'>Confirm Password</label>
+              <input
+                className={style["input-field"]}
+                type='password'
+                id='confirm-password'
+                value={confirmPassword}
+                onChange={(e) => {
+                  setError("");
+                  setConfirmPassword(e.target.value);
+                }}
+              />
+            </div>
+            <div className={style["btn-container"]}>
+              <button
+                className={`${style.btn} ${style["btn-auth"]}`}
+                type='submit'
+              >
+                Sign Up
+              </button>
+            </div>
+            <div className={style["alternate-option-container"]}>
+              Already have an account?
+              <Link to={"/"} style={{ textDecoration: "underline" }}>
+                Log in
+              </Link>
+            </div>
+          </form>
+        </div>
       </div>
     </div>
   );
