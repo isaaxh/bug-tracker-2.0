@@ -1,17 +1,16 @@
 import { auth } from "../firebase";
 import { useNavigate } from "react-router";
-import { useFetchAuth } from "../hooks/useFetchAuth";
+import { useAuth } from "../hooks/useAuth";
 
 const Home = () => {
   const navigate = useNavigate();
-  const user = useFetchAuth();
+  const user = useAuth();
 
   const logout = () => {
     auth
       .signOut()
       .then(() => {
         navigate("/");
-        console.log("user logged out");
       })
       .catch((error) => {
         console.log(error);
@@ -23,8 +22,9 @@ const Home = () => {
       <h1>Home</h1>
       {/* <AuthDetails /> */}
       <div>name: {user?.displayName}</div>
+      <div>email: {user?.email}</div>
       <div className='logout'>
-        <button onClick={logout}>Logout</button>A
+        <button onClick={logout}>Logout</button>
       </div>
     </div>
   );
