@@ -45,7 +45,7 @@ const SignUp = () => {
         displayName: displayName,
       });
 
-      navigate("/home");
+      navigate("/");
       setLoading(false);
     } catch (error) {
       console.log(error);
