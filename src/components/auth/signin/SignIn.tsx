@@ -39,7 +39,6 @@ const SignIn = () => {
       await signInWithEmailAndPassword(auth, email, password);
 
       navigate("/home");
-      setLoading(false);
     } catch (error) {
       console.log(error);
       setError("Something went wrong");
@@ -67,7 +66,6 @@ const SignIn = () => {
               loading={loading}
               aria-label='Loading Spinner'
               data-testid='loader'
-              // color='#8e8e8e'
             />
           </div>
         ) : null}
