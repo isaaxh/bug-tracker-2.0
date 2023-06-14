@@ -40,7 +40,6 @@ const Home = () => {
 
   return (
     <div className={style.container}>
-      {/* <div className={style.sidebar}><Sidebar /></div> */}
       <h1>Home</h1>
       <div>name: {user?.displayName}</div>
       <div>email: {user?.email}</div>

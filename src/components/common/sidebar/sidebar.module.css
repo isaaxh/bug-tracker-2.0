@@ -1,7 +1,19 @@
 .container {
   background-color: coral;
   min-width: 24rem;
-  padding: 1rem;
+  padding: 10.4rem 0;
   font-size: var(--font-size-20);
   color: var(--text-color-1);
+}
+
+.tab-list {
+  background-color: bisque;
+  padding: 0 1rem;
+  list-style: none;
+}
+
+.links {
+  font-size: var(--font-size-20);
+  color: black;
+  text-decoration: none;
 }

@@ -1,5 +1,5 @@
 .container {
-  background-color: rgb(var(--color-grey-70));
+  /* background-color: rgb(var(--color-grey-70)); */
 }
 .header {
   display: flex;
