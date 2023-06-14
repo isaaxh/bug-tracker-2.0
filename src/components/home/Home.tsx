@@ -58,7 +58,6 @@ const Home = () => {
           <div>email: {user?.email}</div>
           <Link to='/profile'>Profile</Link>
           <Link to='/tickets'>Tickets</Link>
-
           <div className='logout'>
             <button onClick={logout}>Logout</button>
           </div>

@@ -3,6 +3,7 @@ import "./App.css";
 import Home from "./components/home/Home";
 import Tickets from "./components/tickets/Tickets";
 import Profile from "./components/profile/Profile";
+import Projects from "./components/projects/Projects";
 import SignIn from "./components/auth/signin/SignIn";
 import SignUp from "./components/auth/signup/Signup";
 import ResetPassword from "./components/auth/resetPass/ResetPassword";
@@ -17,8 +18,9 @@ function App() {
         <Route path='resetpass' element={<ResetPassword />} />
         <Route element={<ProtectedRoutes />}>
           <Route path='home' element={<Home />} />
-          <Route path='profile' element={<Profile />} />
+          <Route path='projects' element={<Projects />} />
           <Route path='tickets' element={<Tickets />} />
+          <Route path='profile' element={<Profile />} />
         </Route>
       </Routes>
     </div>
