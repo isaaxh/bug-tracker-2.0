@@ -40,18 +40,14 @@ const Home = () => {
 
   return (
     <div className={style.container}>
-      <div className={style.body}>
-        {/* <div className={style.sidebar}><Sidebar /></div> */}
-        <div className={style["main-content"]}>
-          <h1>Home</h1>
-          <div>name: {user?.displayName}</div>
-          <div>email: {user?.email}</div>
-          <Link to='/profile'>Profile</Link>
-          <Link to='/tickets'>Tickets</Link>
-          <div className='logout'>
-            <button onClick={logout}>Logout</button>
-          </div>
-        </div>
+      {/* <div className={style.sidebar}><Sidebar /></div> */}
+      <h1>Home</h1>
+      <div>name: {user?.displayName}</div>
+      <div>email: {user?.email}</div>
+      <Link to='/profile'>Profile</Link>
+      <Link to='/tickets'>Tickets</Link>
+      <div className='logout'>
+        <button onClick={logout}>Logout</button>
       </div>
     </div>
   );

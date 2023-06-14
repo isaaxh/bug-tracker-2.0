@@ -1,24 +1,7 @@
 .container {
   /* background-color: black; */
-  height: 100vh;
-  /* flex: 1; */
+  /* height: 100vh; */
+  flex: 1;
   display: flex;
   flex-direction: column;
-}
-
-.body {
-  /* height: 100%; */
-  flex: 1;
-  display: flex;
-}
-
-.sidebar {
-  background-color: coral;
-  /* background-color: rgb(var(--color-grey-70)); */
-  min-width: 24rem;
-}
-
-.main-content {
-  /* background-color: blueviolet; */
-  flex: 1;
 }

@@ -1,5 +1,9 @@
 .container {
-  margin: 10rem 1rem;
+  background-color: coral;
+  /* flex: 1; */
+  min-width: 24rem;
+  /* margin: 10rem 1rem; */
+  padding: 1rem;
   font-size: var(--font-size-20);
   color: var(--text-color-1);
 }
