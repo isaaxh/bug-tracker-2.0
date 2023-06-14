@@ -1,19 +1,46 @@
 .container {
-  background-color: coral;
+  /* background-color: coral; */
   min-width: 24rem;
-  padding: 10.4rem 0;
+  padding: 4.4rem 0;
   font-size: var(--font-size-20);
   color: var(--text-color-1);
 }
 
 .tab-list {
-  background-color: bisque;
+  /* background-color: bisque; */
   padding: 0 1rem;
   list-style: none;
 }
 
 .links {
   font-size: var(--font-size-20);
-  color: black;
+  color: rgb(var(--color-grey-20));
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  margin: 2rem 0.8rem;
+  padding: 0.5rem 0;
+}
+
+.icon-container {
+  margin: 0 2rem 0 0;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s;
+}
+
+.links:hover .icon-container {
+  background-color: rgb(var(--color-grey-65));
+}
+
+.icons {
+  transform: scale(1.4);
+}
+
+a {
   text-decoration: none;
 }
