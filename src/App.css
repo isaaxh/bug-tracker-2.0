@@ -140,6 +140,8 @@ button {
 .App {
   background-color: #fefefe;
   height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 .app-title {

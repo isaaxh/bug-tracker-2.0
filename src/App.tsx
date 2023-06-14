@@ -11,19 +11,16 @@ import ProtectedRoutes from "./ProtectedRoutes";
 function App() {
   return (
     <div className='App'>
-      <div className='body'>
-        <div className='main-content'></div>
-        <Routes>
-          <Route path='/' element={<SignIn />} />
-          <Route path='signup' element={<SignUp />} />
-          <Route path='resetpass' element={<ResetPassword />} />
-          <Route element={<ProtectedRoutes />}>
-            <Route path='home' element={<Home />} />
-            <Route path='profile' element={<Profile />} />
-            <Route path='tickets' element={<Tickets />} />
-          </Route>
-        </Routes>
-      </div>
+      <Routes>
+        <Route path='/' element={<SignIn />} />
+        <Route path='signup' element={<SignUp />} />
+        <Route path='resetpass' element={<ResetPassword />} />
+        <Route element={<ProtectedRoutes />}>
+          <Route path='home' element={<Home />} />
+          <Route path='profile' element={<Profile />} />
+          <Route path='tickets' element={<Tickets />} />
+        </Route>
+      </Routes>
     </div>
   );
 }
