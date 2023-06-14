@@ -46,7 +46,6 @@ const SignUp = () => {
       });
 
       navigate("/");
-      setLoading(false);
     } catch (error) {
       console.log(error);
       setError("Something went wrong");
