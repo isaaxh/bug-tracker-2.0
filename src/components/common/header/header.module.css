@@ -1,0 +1,9 @@
+.container {
+  background-color: rgb(var(--color-grey-70));
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem 2.5rem;
+}

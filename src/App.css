@@ -160,3 +160,17 @@ button {
   top: 0;
   right: 0;
 }
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-container {
+}
+
+.content-container {
+  display: flex;
+  /* flex: 1; */
+  /* background-color: coral; */
+}

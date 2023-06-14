@@ -6,14 +6,6 @@
   flex-direction: column;
 }
 
-.header {
-  /* background-color: rgb(var(--color-grey-70)); */
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 2rem 2.5rem;
-}
-
 .body {
   /* height: 100%; */
   flex: 1;

@@ -6,7 +6,7 @@ import style from "./home.module.css";
 import { Avatar } from "@mui/material";
 import { useEffect, useState } from "react";
 import img1 from "../../assets/man-smiling.jpg";
-import Sidebar from "../sidebar/Sidebar";
+import Sidebar from "../common/sidebar/Sidebar";
 
 const Home = () => {
   const [userInitial, setUserInitial] = useState("");
@@ -40,18 +40,8 @@ const Home = () => {
 
   return (
     <div className={style.container}>
-      <div className={style.header}>
-        <div className={style["logo-container"]}>
-          <h1 className='app-title'>Bug Tracker 2.0</h1>
-        </div>
-        <div className={style["avatar-container"]}>
-          <Avatar alt='man smiling' src={img1} sx={{ width: 60, height: 60 }} />
-        </div>
-      </div>
       <div className={style.body}>
-        <div className={style.sidebar}>
-          <Sidebar />
-        </div>
+        {/* <div className={style.sidebar}><Sidebar /></div> */}
         <div className={style["main-content"]}>
           <h1>Home</h1>
           <div>name: {user?.displayName}</div>
