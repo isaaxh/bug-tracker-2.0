@@ -41,8 +41,8 @@ const useAuth = () => {
 
             navigate("/");
         } catch (error) {
-            console.log(error);
-            setError("Something went wrong");
+            console.log(error.message.Firebase);
+            setError(error.message);
             setLoading(false);
         }
     };
@@ -61,7 +61,7 @@ const useAuth = () => {
         };
     }, []);
 
-    return { currentUser, signOut, signIn, loading };
+    return { currentUser, signOut, signIn, loading, error, setError };
 }
 
 export default useAuth;

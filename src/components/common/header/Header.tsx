@@ -8,6 +8,7 @@ import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRig
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { auth } from "../../../firebase";
+import useAuth from "../../../hooks/useAuth";
 
 const subMenuLinks = [
   {
@@ -40,18 +41,19 @@ const Header = () => {
   const [userActionIsActive, setUserActionIsActive] = useState<boolean>(false);
 
   const navigate = useNavigate();
+  const { signOut } = useAuth();
 
-  const signOut = () => {
-    auth
-      .signOut()
-      .then(() => {
-        navigate("/");
-        console.log("helo");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const signOut = () => {
+  //   auth
+  //     .signOut()
+  //     .then(() => {
+  //       navigate("/");
+  //       console.log("helo");
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // };
 
   const toggleUserActionMenu = () => {
     setUserActionIsActive((current) => !current);

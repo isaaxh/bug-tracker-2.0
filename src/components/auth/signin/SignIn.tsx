@@ -1,10 +1,8 @@
-import { useState, FormEvent } from "react";
+import { useState } from "react";
 import style from "../authPage.module.css";
 import LanguageIcon from "@mui/icons-material/Language";
 import InfoIcon from "@mui/icons-material/Info";
-import { Link, useNavigate } from "react-router-dom";
-import { auth } from "../../../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { Link } from "react-router-dom";
 import BarLoader from "react-spinners/BarLoader";
 import useAuth from "../../../hooks/useAuth";
 
@@ -15,7 +13,7 @@ interface demoUserData {
 
 const SignIn = () => {
   // const [loading, setLoading] = useState<boolean>(false);
-  const [error, setError] = useState<string>("");
+  // const [error, setError] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [demoUser, setDemoUser] = useState<demoUserData>({
@@ -23,10 +21,7 @@ const SignIn = () => {
     password: "Aa123456",
   });
 
-  // const navigate = useNavigate();
-  const { signIn, loading } = useAuth();
-
-  // signIn(e, email, password);
+  const { signIn, loading, error, setError } = useAuth();
 
   const fillDemoUserCredential = () => {
     setEmail(demoUser.email);
