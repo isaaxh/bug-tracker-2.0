@@ -1,16 +1,27 @@
 import { User, onAuthStateChanged } from "firebase/auth";
 import { useEffect, useState } from "react";
 import { auth } from "../firebase";
+import { useNavigate } from "react-router";
 
 const useAuth = () => {
-    const [authUser, setAuthUser] = useState<User | null>(null);
+    const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const navigate = useNavigate();
+
+    const signOut = () => {
+        auth.signOut().then(() => {
+            navigate("/")
+        }
+        ).catch((error) => {
+            console.log(error)
+        })
+    }
 
     useEffect(() => {
         const listen = onAuthStateChanged(auth, (user) => {
             if (user) {
-                setAuthUser(user);
+                setCurrentUser(user);
             } else {
-                setAuthUser(null);
+                setCurrentUser(null);
             }
         });
 
@@ -19,7 +30,7 @@ const useAuth = () => {
         };
     }, []);
 
-    return authUser;
+    return { currentUser, signOut };
 }
 
 export default useAuth;

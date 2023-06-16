@@ -10,6 +10,23 @@
 
 .menu-wrapper {
   /* background-color: green; */
+  /* position: absolute; */
+}
+
+.avatar-container {
+  background-color: rgba(var(--color-grey-65), 0);
+  height: 9rem;
+  width: 9rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.5s;
+}
+
+.avatar-container:hover {
+  background-color: rgba(var(--color-grey-65), 1);
 }
 
 .sub-menu-wrap {
@@ -18,10 +35,18 @@
   top: 10%;
   right: 3%;
   min-width: 25rem;
+  max-height: 0px;
+  border-radius: var(--border-radius);
+  overflow: hidden;
+  transition: max-height 0.5s;
+}
+
+.sub-menu-wrap.open-menu {
+  max-height: 500px;
+  /* background-color: black; */
 }
 
 .sub-menu {
-  /* background-color: bisque; */
   padding: 2rem;
   margin: 1rem;
 }
@@ -55,6 +80,7 @@
   text-decoration: none;
   margin: 1.2rem 0;
   transition: all 0.5s;
+  cursor: pointer;
 }
 
 .user-info-links p {

@@ -5,7 +5,10 @@ import { Logout } from "@mui/icons-material";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useRef, useState } from "react";
+import { auth } from "../../../firebase";
+import useAuth from "../../../hooks/useAuth";
 
 const subMenuLinks = [
   {
@@ -32,36 +35,74 @@ const subMenuLinks = [
       />
     ),
   },
-  {
-    title: "Log out",
-    className: "user-info-links",
-    path: "",
-    icon: (
-      <Logout
-        className={style.icons}
-        sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
-        fontSize='large'
-      />
-    ),
-  },
+  // {
+  //   title: "Log out",
+  //   className: "user-info-links",
+  //   path: "",
+  //   icon: (
+  //     <Logout
+  //       className={style.icons}
+  //       sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
+  //       fontSize='large'
+  //     />
+  //   ),
+  //   action: signOut,
+  // },
 ];
 
 const Header = () => {
+  const [userActionIsActive, setUserActionIsActive] = useState<boolean>(false);
+
+  const navigate = useNavigate();
+
+  const signOut = () => {
+    auth
+      .signOut()
+      .then(() => {
+        navigate("/");
+        console.log("helo");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const toggleUserActionMenu = () => {
+    setUserActionIsActive((current) => !current);
+  };
+
+  const handleProfileClick = () => {
+    toggleUserActionMenu();
+  };
+
+  useEffect(() => {
+    console.log(userActionIsActive);
+  }, [userActionIsActive]);
+
   return (
     <div className={style.container}>
       <nav className={style.header}>
         <div className={style["logo-container"]}>
           <h1 className='app-title'>Bug Tracker 2.0</h1>
         </div>
-        <div className='menu-wrapper'>
-          <div className={style["avatar-container"]}>
+        <div className={style["menu-wrapper"]}>
+          <div
+            className={style["avatar-container"]}
+            onClick={handleProfileClick}
+          >
             <Avatar
               alt='man smiling'
               src={img1}
               sx={{ width: 60, height: 60 }}
             />
           </div>
-          <div className={style["sub-menu-wrap"]}>
+          <div
+            className={
+              userActionIsActive
+                ? `${style["open-menu"]} ${style["sub-menu-wrap"]}`
+                : style["sub-menu-wrap"]
+            }
+          >
             <div className={style["sub-menu"]}>
               <div className={style["user-info"]}>
                 <Avatar
@@ -88,6 +129,23 @@ const Header = () => {
                   </div>
                 </Link>
               ))}
+              <div className={style["user-info-links"]} onClick={signOut}>
+                <div className={style["icon-container"]}>
+                  <Logout
+                    className={style.icons}
+                    sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
+                    fontSize='large'
+                  />
+                </div>
+                <p>Log out</p>
+                <span>
+                  <KeyboardArrowRightOutlinedIcon
+                    className={style["right-arrows"]}
+                    sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
+                    fontSize='large'
+                  />
+                </span>
+              </div>
             </div>
           </div>
         </div>

@@ -9,23 +9,8 @@ import img1 from "../../assets/man-smiling.jpg";
 import Sidebar from "../common/sidebar/Sidebar";
 
 const Home = () => {
-  const [userInitial, setUserInitial] = useState("");
-
+  const { currentUser } = useAuth();
   const navigate = useNavigate();
-  const user = useAuth();
-
-  // useEffect(() => {
-  //   const getUserInitials = (name: string) => {
-  //     let userInitial: string = "";
-  //     userInitial = name;
-
-  //     console.log(userInitial);
-
-  //     // setUserInitial(userInitial);
-  //   };
-
-  //   getUserInitials(user.displayName);
-  // }, [user]);
 
   const logout = () => {
     auth
@@ -41,13 +26,10 @@ const Home = () => {
   return (
     <div className={style.container}>
       <h1 className={style.title}>Dashboard</h1>
-      <div>name: {user?.displayName}</div>
-      <div>email: {user?.email}</div>
+      <div>name: {currentUser?.displayName}</div>
+      <div>email: {currentUser?.email}</div>
       <Link to='/profile'>Profile</Link>
       <Link to='/tickets'>Tickets</Link>
-      <div className='logout'>
-        <button onClick={logout}>Logout</button>
-      </div>
     </div>
   );
 };

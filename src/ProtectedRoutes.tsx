@@ -7,15 +7,15 @@ import Header from "./components/common/header/Header";
 
 const getAuthStatus = () => {
   const [authLoaded, setAuthLoaded] = useState<boolean>(false);
-  const user = useAuth();
+  const { currentUser } = useAuth();
 
   useEffect(() => {
-    if (user) {
+    if (currentUser) {
       setAuthLoaded(true);
     } else {
       setAuthLoaded(false);
     }
-  }, [user]);
+  }, [currentUser]);
 
   return authLoaded;
 };
