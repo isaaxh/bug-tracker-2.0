@@ -1,10 +1,19 @@
 import { User, onAuthStateChanged } from "firebase/auth";
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { auth } from "../firebase";
+import { signInWithEmailAndPassword } from "firebase/auth";
 import { useNavigate } from "react-router";
+
+interface signInProps {
+    e: FormEvent<HTMLFormElement>,
+    email: string,
+    password: string,
+}
 
 const useAuth = () => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState('')
     const navigate = useNavigate();
 
     const signOut = () => {
@@ -15,6 +24,28 @@ const useAuth = () => {
             console.log(error)
         })
     }
+
+    const signIn = async ({ e, email, password }: signInProps) => {
+        e.preventDefault();
+        setLoading(true);
+        setError("");
+
+        if (email === "" || password === "") {
+            setError("All fields are required");
+            setLoading(false);
+            return;
+        }
+
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+
+            navigate("/");
+        } catch (error) {
+            console.log(error);
+            setError("Something went wrong");
+            setLoading(false);
+        }
+    };
 
     useEffect(() => {
         const listen = onAuthStateChanged(auth, (user) => {
@@ -30,7 +61,7 @@ const useAuth = () => {
         };
     }, []);
 
-    return { currentUser, signOut };
+    return { currentUser, signOut, signIn, loading };
 }
 
 export default useAuth;

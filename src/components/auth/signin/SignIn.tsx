@@ -6,6 +6,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../../../firebase";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import BarLoader from "react-spinners/BarLoader";
+import useAuth from "../../../hooks/useAuth";
 
 interface demoUserData {
   email: string;
@@ -13,7 +14,7 @@ interface demoUserData {
 }
 
 const SignIn = () => {
-  const [loading, setLoading] = useState<boolean>(false);
+  // const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
@@ -22,29 +23,10 @@ const SignIn = () => {
     password: "Aa123456",
   });
 
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
+  const { signIn, loading } = useAuth();
 
-  const signIn = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-    setError("");
-
-    if (email === "" || password === "") {
-      setError("All fields are required");
-      setLoading(false);
-      return;
-    }
-
-    try {
-      await signInWithEmailAndPassword(auth, email, password);
-
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-      setError("Something went wrong");
-      setLoading(false);
-    }
-  };
+  // signIn(e, email, password);
 
   const fillDemoUserCredential = () => {
     setEmail(demoUser.email);
@@ -81,7 +63,10 @@ const SignIn = () => {
             </div>
           ) : null}
 
-          <form className={style.form} onSubmit={signIn}>
+          <form
+            className={style.form}
+            onSubmit={(e) => signIn({ e, email, password })}
+          >
             <div className={style["input-container"]}>
               <label htmlFor='email'>Email</label>
               <input

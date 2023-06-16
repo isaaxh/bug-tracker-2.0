@@ -3,10 +3,12 @@ import style from "../authPage.module.css";
 import LanguageIcon from "@mui/icons-material/Language";
 import InfoIcon from "@mui/icons-material/Info";
 import { Link } from "react-router-dom";
-import { auth } from "../../../firebase";
+import { auth, db } from "../../../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import { useNavigate } from "react-router-dom";
 import BarLoader from "react-spinners/BarLoader";
+// import useFirestore, { writeData } from "../../../hooks/useFirestore";
+import { collection, addDoc } from "firebase/firestore";
 
 const SignUp = () => {
   const [email, setEmail] = useState<string>("");
@@ -17,6 +19,7 @@ const SignUp = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const navigate = useNavigate();
+  // const writeData = useFirestore();
 
   const signUp = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,6 +37,11 @@ const SignUp = () => {
       return;
     }
 
+    // const data = {
+    //   displayName,
+    //   email,
+    // };
+
     try {
       const userCredential = await createUserWithEmailAndPassword(
         auth,
@@ -44,6 +52,19 @@ const SignUp = () => {
       await updateProfile(userCredential.user, {
         displayName: displayName,
       });
+
+      // writeData("users", data);
+
+      try {
+        const docRef = await addDoc(collection(db, "users"), {
+          email,
+          displayName,
+        });
+
+        console.log("Document written with ID: ", docRef.id);
+      } catch (error) {
+        console.log("Error adding document: ", error);
+      }
 
       navigate("/");
     } catch (error) {
