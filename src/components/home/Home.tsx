@@ -40,7 +40,7 @@ const Home = () => {
 
   return (
     <div className={style.container}>
-      <h1>Home</h1>
+      <h1 className={style.title}>Dashboard</h1>
       <div>name: {user?.displayName}</div>
       <div>email: {user?.email}</div>
       <Link to='/profile'>Profile</Link>
