@@ -6,9 +6,8 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { auth } from "../../../firebase";
-import useAuth from "../../../hooks/useAuth";
 
 const subMenuLinks = [
   {
@@ -35,19 +34,6 @@ const subMenuLinks = [
       />
     ),
   },
-  // {
-  //   title: "Log out",
-  //   className: "user-info-links",
-  //   path: "",
-  //   icon: (
-  //     <Logout
-  //       className={style.icons}
-  //       sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
-  //       fontSize='large'
-  //     />
-  //   ),
-  //   action: signOut,
-  // },
 ];
 
 const Header = () => {

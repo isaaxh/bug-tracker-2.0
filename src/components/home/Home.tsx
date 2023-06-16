@@ -10,24 +10,19 @@ import Sidebar from "../common/sidebar/Sidebar";
 
 const Home = () => {
   const { currentUser } = useAuth();
-  const navigate = useNavigate();
 
-  const logout = () => {
-    auth
-      .signOut()
-      .then(() => {
-        navigate("/");
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-  };
+  // const userDetails =
+
+  useEffect(() => {
+    console.log(currentUser?.uid);
+  }, [currentUser]);
 
   return (
     <div className={style.container}>
       <h1 className={style.title}>Dashboard</h1>
       <div>name: {currentUser?.displayName}</div>
       <div>email: {currentUser?.email}</div>
+      <div>Role: {currentUser?.email}</div>
       <Link to='/profile'>Profile</Link>
       <Link to='/tickets'>Tickets</Link>
     </div>

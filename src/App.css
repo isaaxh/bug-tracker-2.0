@@ -105,6 +105,10 @@ p {
   font-size: var(--font-size-10);
 }
 
+a {
+  text-decoration: none;
+}
+
 hr {
   border: 0;
   width: 100%;
