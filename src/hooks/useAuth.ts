@@ -10,6 +10,8 @@ interface signInProps {
     password: string,
 }
 
+type FirebaseErrorCode = string;
+
 const useAuth = () => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
     const [loading, setLoading] = useState(false)
@@ -41,8 +43,25 @@ const useAuth = () => {
 
             navigate("/");
         } catch (error) {
-            console.log(error.message.Firebase);
-            setError(error.message);
+
+            switch (error.code) {
+                case "auth/user-not-found":
+                    setError("User not found");
+                    break;
+                case "auth/too-many-requests":
+                    setError('Too many attempts, please try again later')
+                    break;
+                case "auth/network-request-failed":
+                    setError("A network error occurred")
+                    break;
+                case "auth/user-token-expired":
+                    setError("User session expired")
+                    break;
+                default:
+                    setError('Something went wrong, please try again later')
+                    break;
+            }
+
             setLoading(false);
         }
     };
