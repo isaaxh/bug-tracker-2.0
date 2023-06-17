@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import style from "../authPage.module.css";
 import LanguageIcon from "@mui/icons-material/Language";
 import InfoIcon from "@mui/icons-material/Info";
@@ -115,6 +115,7 @@ const SignUp = () => {
                       setError("Please choose a role");
                       break;
                     case "manager":
+                      setError("");
                       SetRole({
                         admin: false,
                         manager: true,
@@ -122,6 +123,7 @@ const SignUp = () => {
                       });
                       break;
                     case "developer":
+                      setError("");
                       SetRole({
                         admin: false,
                         manager: false,
