@@ -22,6 +22,7 @@ const getAuthStatus = () => {
 
 const ProtectedRoutes = () => {
   const isAuth = getAuthStatus();
+
   return isAuth ? (
     <div className='main-container'>
       <div className='header-container'>

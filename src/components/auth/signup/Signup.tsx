@@ -1,78 +1,21 @@
-import { useState, FormEvent } from "react";
+import { useState } from "react";
 import style from "../authPage.module.css";
 import LanguageIcon from "@mui/icons-material/Language";
 import InfoIcon from "@mui/icons-material/Info";
 import { Link } from "react-router-dom";
-import { auth, db } from "../../../firebase";
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import { useNavigate } from "react-router-dom";
 import BarLoader from "react-spinners/BarLoader";
 // import useFirestore, { writeData } from "../../../hooks/useFirestore";
-import { collection, addDoc } from "firebase/firestore";
+import useAuth from "../../../hooks/useAuth";
 
 const SignUp = () => {
   const [email, setEmail] = useState<string>("");
   const [displayName, setDisplayName] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
-  const [error, setError] = useState<string>("");
-  const [loading, setLoading] = useState<boolean>(false);
 
-  const navigate = useNavigate();
+  const { signUp, loading, error, setError } = useAuth();
   // const writeData = useFirestore();
 
-  const signUp = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setLoading(true);
-
-    if (email === "" || password === "" || confirmPassword === "") {
-      setError("All fields are required");
-      setLoading(false);
-      return;
-    }
-
-    if (password !== confirmPassword) {
-      setError("Password don't match");
-      setLoading(false);
-      return;
-    }
-
-    // const data = {
-    //   displayName,
-    //   email,
-    // };
-
-    try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-
-      await updateProfile(userCredential.user, {
-        displayName: displayName,
-      });
-
-      // writeData("users", data);
-
-      try {
-        const docRef = await addDoc(collection(db, "users"), {
-          email,
-          displayName,
-        });
-
-        console.log("Document written with ID: ", docRef.id);
-      } catch (error) {
-        console.log("Error adding document: ", error);
-      }
-
-      navigate("/");
-    } catch (error) {
-      console.log(error);
-      setError("Something went wrong");
-      setLoading(false);
-    }
-  };
   return (
     <div className={style.container}>
       <div className={style.header}>
@@ -103,7 +46,12 @@ const SignUp = () => {
             </div>
           ) : null}
 
-          <form className={style.form} onSubmit={signUp}>
+          <form
+            className={style.form}
+            onSubmit={(e) =>
+              signUp({ e, email, password, confirmPassword, displayName })
+            }
+          >
             <div className={style["input-container"]}>
               <label htmlFor='name'>Name</label>
               <input

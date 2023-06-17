@@ -1,8 +1,14 @@
-import { User, onAuthStateChanged } from "firebase/auth";
+import {
+    User,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    onAuthStateChanged,
+    updateProfile
+} from "firebase/auth";
 import { FormEvent, useEffect, useState } from "react";
-import { auth } from "../firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, db } from "../firebase";
 import { useNavigate } from "react-router";
+// import { addDoc, collection } from "firebase/firestore";
 
 interface signInProps {
     e: FormEvent<HTMLFormElement>,
@@ -10,7 +16,15 @@ interface signInProps {
     password: string,
 }
 
-type FirebaseErrorCode = string;
+interface signUpProps {
+    e: FormEvent<HTMLFormElement>,
+    email: string,
+    password: string,
+    confirmPassword: string,
+    displayName: string,
+
+}
+
 
 const useAuth = () => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -38,12 +52,15 @@ const useAuth = () => {
             return;
         }
 
+
+
         try {
-            await signInWithEmailAndPassword(auth, email, password);
+            const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
             navigate("/");
-        } catch (error) {
-
+            console.log(userCredential);
+            setLoading(false);
+        } catch (error: any) {
             switch (error.code) {
                 case "auth/user-not-found":
                     setError("User not found");
@@ -57,6 +74,9 @@ const useAuth = () => {
                 case "auth/user-token-expired":
                     setError("User session expired")
                     break;
+                case "auth/wrong-password":
+                    setError("Wrong password, please try again")
+                    break;
                 default:
                     setError('Something went wrong, please try again later')
                     break;
@@ -64,7 +84,56 @@ const useAuth = () => {
 
             setLoading(false);
         }
+
     };
+
+    const signUp = async ({ e, email, password, confirmPassword, displayName }: signUpProps) => {
+        e.preventDefault();
+        setLoading(true);
+
+        if (email === "" || password === "" || confirmPassword === "") {
+            setError("All fields are required");
+            setLoading(false);
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            setError("Password don't match");
+            setLoading(false);
+            return;
+        }
+
+        try {
+            const userCredential = await createUserWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
+
+            await updateProfile(userCredential.user, {
+                displayName: displayName,
+            });
+
+            // writeData("users", data);
+
+            // try {
+            //     const docRef = await addDoc(collection(db, "users"), {
+            //         email,
+            //         displayName,
+            //     });
+
+            //     console.log("Document written with ID: ", docRef.id);
+            // } catch (error) {
+            //     console.log("Error adding document: ", error);
+            // }
+
+            navigate("/");
+        } catch (error) {
+            console.log(error);
+            setError("Something went wrong");
+            setLoading(false);
+        }
+    }
 
     useEffect(() => {
         const listen = onAuthStateChanged(auth, (user) => {
@@ -78,9 +147,9 @@ const useAuth = () => {
         return () => {
             listen();
         };
-    }, []);
+    }, [])
 
-    return { currentUser, signOut, signIn, loading, error, setError };
+    return { currentUser, signOut, signIn, signUp, loading, error, setError };
 }
 
 export default useAuth;
