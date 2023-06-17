@@ -43,18 +43,6 @@ const Header = () => {
   const navigate = useNavigate();
   const { signOut } = useAuth();
 
-  // const signOut = () => {
-  //   auth
-  //     .signOut()
-  //     .then(() => {
-  //       navigate("/");
-  //       console.log("helo");
-  //     })
-  //     .catch((error) => {
-  //       console.log(error);
-  //     });
-  // };
-
   const toggleUserActionMenu = () => {
     setUserActionIsActive((current) => !current);
   };
@@ -62,10 +50,6 @@ const Header = () => {
   const handleProfileClick = () => {
     toggleUserActionMenu();
   };
-
-  useEffect(() => {
-    console.log(userActionIsActive);
-  }, [userActionIsActive]);
 
   return (
     <div className={style.container}>
