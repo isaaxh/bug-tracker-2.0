@@ -69,7 +69,6 @@ const useAuth = () => {
             await signInWithEmailAndPassword(auth, email, password);
 
             navigate("/");
-            setLoading(false);
         } catch (error: any) {
             switch (error.code) {
                 case "auth/user-not-found":

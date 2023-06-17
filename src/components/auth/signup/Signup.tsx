@@ -110,10 +110,6 @@ const SignUp = () => {
                 id='role'
                 defaultValue={"default"}
                 onChange={(e) => {
-                  // e.target.value === "default"
-                  //   ? setError("Please choose a role")
-                  //   : SetRole(e.target.value);
-
                   switch (e.target.value) {
                     case "default":
                       setError("Please choose a role");

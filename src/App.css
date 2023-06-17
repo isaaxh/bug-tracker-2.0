@@ -1,6 +1,34 @@
 @import url("https://fonts.googleapis.com/css2?family=Barlow+Condensed&family=Bellefair&family=Kalam:wght@300;400;700&display=swap");
 
+/* for-phone-only */
+@media (max-width: 599px) {
+}
+
+/* for-tablet-portrait-up */
+@media (min-width: 600px) {
+}
+
+/* for-tablet-landscape-up */
+@media (min-width: 900px) {
+}
+
+/* for-desktop-up */
+@media (min-width: 1200px) {
+}
+
+/* for-medium-desktop-up */
+@media (min-width: 1400px) {
+}
+
+/* for-big-desktop-up */
+@media (min-width: 1800px) {
+}
+
 :root {
+  --screen-laptop: 1200px;
+  --screen-mobile: 640px;
+  /* --screen-laptop: max-width(425px); */
+
   --font-family: ;
 
   --font-weight-10: 400;

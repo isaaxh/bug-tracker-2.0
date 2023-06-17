@@ -1,12 +1,6 @@
-import { auth } from "../../firebase";
-import { useNavigate } from "react-router";
 import useAuth from "../../hooks/useAuth";
-import { Link } from "react-router-dom";
 import style from "./home.module.css";
-import { Avatar } from "@mui/material";
 import { useEffect, useState } from "react";
-import img1 from "../../assets/man-smiling.jpg";
-import Sidebar from "../common/sidebar/Sidebar";
 import useFirestore from "../../hooks/useFirestore";
 import { DocumentData } from "firebase/firestore";
 
@@ -15,7 +9,6 @@ const Home = () => {
   const { currentUser } = useAuth();
 
   const { readData } = useFirestore();
-  // const userDetails =
 
   useEffect(() => {
     if (currentUser?.uid === undefined) return;
@@ -33,20 +26,22 @@ const Home = () => {
 
   return (
     <div className={style.container}>
-      <h1 className={style.title}>Dashboard</h1>
-      <div>name: {currentUser?.displayName}</div>
-      <div>email: {currentUser?.email}</div>
-      <div>
-        {userData && userData.role.admin
-          ? "Admin"
-          : userData && userData.role.manager
-          ? "Manager"
-          : userData && userData.role.developer
-          ? "Developer"
-          : "no role found"}
+      <div className={style["page-title-container"]}>
+        <h1 className={style.title}>Dashboard</h1>
       </div>
-      <Link to='/profile'>Profile</Link>
-      <Link to='/tickets'>Tickets</Link>
+      <div className={style["content-container"]}>
+        <div>name: {currentUser?.displayName}</div>
+        <div>email: {currentUser?.email}</div>
+        <div>
+          {userData && userData.role.admin
+            ? "Admin"
+            : userData && userData.role.manager
+            ? "Manager"
+            : userData && userData.role.developer
+            ? "Developer"
+            : "no role found"}
+        </div>
+      </div>
     </div>
   );
 };

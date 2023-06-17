@@ -14,15 +14,22 @@
 }
 
 .card {
-  /* background-color: coral; */
   margin: 2.5rem auto;
-  max-width: 53rem;
-  padding: 0 12rem;
+  max-width: 40rem;
+  padding: 0 5rem;
   border-radius: var(--border-radius);
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
 }
+
+@media (min-width: 640px) {
+  .card {
+    /* max-width: 53rem; */
+    /* padding: 0 12rem; */
+  }
+}
+
 .error-card {
   background-color: rgb(var(--color-grey-70));
   display: flex;
@@ -55,6 +62,21 @@
   border-radius: var(--border-radius);
   width: 100%;
   outline: none;
+}
+
+select {
+  display: block;
+  width: 100%;
+  font-size: inherit;
+  padding: 0.8rem 0.5rem;
+  border: 1px solid #333;
+  font-family: inherit;
+  /** for the dropdown indicator */
+  appearance: none;
+  background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+  background-repeat: no-repeat;
+  background-position: right 1rem center;
+  background-size: 1em;
 }
 
 .btn-container {
