@@ -4,7 +4,6 @@ import LanguageIcon from "@mui/icons-material/Language";
 import InfoIcon from "@mui/icons-material/Info";
 import { Link } from "react-router-dom";
 import BarLoader from "react-spinners/BarLoader";
-// import useFirestore, { writeData } from "../../../hooks/useFirestore";
 import useAuth from "../../../hooks/useAuth";
 
 interface userDataProps {
