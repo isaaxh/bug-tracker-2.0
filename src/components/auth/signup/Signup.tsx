@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "../authPage.module.css";
 import LanguageIcon from "@mui/icons-material/Language";
 import InfoIcon from "@mui/icons-material/Info";
@@ -10,10 +10,23 @@ import useAuth from "../../../hooks/useAuth";
 const SignUp = () => {
   const [email, setEmail] = useState<string>("");
   const [displayName, setDisplayName] = useState<string>("");
+  const [role, SetRole] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
   const { signUp, loading, error, setError } = useAuth();
+
+  const userData = {
+    email,
+    role,
+    password,
+    confirmPassword,
+    displayName,
+  };
+
+  useEffect(() => {
+    console.log(role);
+  }, [role]);
 
   return (
     <div className={style.container}>
@@ -47,9 +60,7 @@ const SignUp = () => {
 
           <form
             className={style.form}
-            onSubmit={(e) =>
-              signUp({ e, email, password, confirmPassword, displayName })
-            }
+            onSubmit={(e) => signUp({ e, userData })}
           >
             <div className={style["input-container"]}>
               <label htmlFor='name'>Name</label>
@@ -76,6 +87,26 @@ const SignUp = () => {
                   setEmail(e.target.value);
                 }}
               />
+            </div>
+            <div className={style["input-container"]}>
+              <label htmlFor='role'>Role</label>
+              <select
+                className={style["input-field"]}
+                name='role'
+                id='role'
+                defaultValue={"default"}
+                onChange={(e) => {
+                  e.target.value === "default"
+                    ? setError("Please choose a role")
+                    : SetRole(e.target.value);
+                }}
+              >
+                <option value='default' disabled>
+                  Choose here
+                </option>
+                <option value='manager'>Project Manager</option>
+                <option value='developer'>Developer</option>
+              </select>
             </div>
             <div className={style["input-container"]}>
               <label htmlFor='password'>Password</label>

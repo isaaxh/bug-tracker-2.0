@@ -6,9 +6,8 @@ import {
     updateProfile
 } from "firebase/auth";
 import { FormEvent, useEffect, useState } from "react";
-import { auth, db } from "../firebase";
+import { auth } from "../firebase";
 import { useNavigate } from "react-router";
-import { addDoc, collection } from "firebase/firestore";
 import useFirestore from "./useFirestore";
 
 interface signInProps {
@@ -19,13 +18,17 @@ interface signInProps {
 
 interface signUpProps {
     e: FormEvent<HTMLFormElement>,
-    email: string,
-    password: string,
-    confirmPassword: string,
-    displayName: string,
+    userData: userData,
 
 }
 
+interface userData {
+    email: string,
+    role: string,
+    password: string,
+    confirmPassword: string,
+    displayName: string,
+}
 
 const useAuth = () => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);
@@ -57,7 +60,7 @@ const useAuth = () => {
 
 
         try {
-            const userCredential = await signInWithEmailAndPassword(auth, email, password);
+            await signInWithEmailAndPassword(auth, email, password);
 
             navigate("/");
             setLoading(false);
@@ -88,17 +91,18 @@ const useAuth = () => {
 
     };
 
-    const signUp = async ({ e, email, password, confirmPassword, displayName }: signUpProps) => {
+    const signUp = async ({ e, userData }: signUpProps) => {
         e.preventDefault();
         setLoading(true);
 
-        if (email === "" || password === "" || confirmPassword === "") {
+        if (userData.email === "" || userData.role === "" || userData.password === "" || userData.confirmPassword === "") {
             setError("All fields are required");
             setLoading(false);
             return;
         }
 
-        if (password !== confirmPassword) {
+
+        if (userData.password !== userData.confirmPassword) {
             setError("Password don't match");
             setLoading(false);
             return;
@@ -107,32 +111,22 @@ const useAuth = () => {
         try {
             const userCredential = await createUserWithEmailAndPassword(
                 auth,
-                email,
-                password
+                userData.email,
+                userData.password
             );
 
             await updateProfile(userCredential.user, {
-                displayName: displayName,
+                displayName: userData.displayName,
             });
 
             const data = {
-                displayName,
-                email,
-                // role,
+                uid: userCredential.user.uid,
+                displayName: userData.displayName,
+                email: userData.email,
+                role: userData.role,
             }
 
             writeData("users", userCredential.user.uid, data);
-
-            // try {
-            //     const docRef = await addDoc(collection(db, "users"), {
-            //         email,
-            //         displayName,
-            //     });
-
-            //     console.log("Document written with ID: ", docRef.id);
-            // } catch (error) {
-            //     console.log("Error adding document: ", error);
-            // }
 
             navigate("/");
         } catch (error) {
