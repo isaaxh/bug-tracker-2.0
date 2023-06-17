@@ -40,7 +40,6 @@ const useFirestore = () => {
 
         if (docSnap.exists()) {
             const documentData = docSnap.data()
-            // console.log(documentData);
 
             return documentData;
         } else {

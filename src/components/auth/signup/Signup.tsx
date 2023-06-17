@@ -7,26 +7,40 @@ import BarLoader from "react-spinners/BarLoader";
 // import useFirestore, { writeData } from "../../../hooks/useFirestore";
 import useAuth from "../../../hooks/useAuth";
 
+interface userDataProps {
+  displayName: string;
+  email: string;
+  role: roleProps;
+  password: string;
+  confirmPassword: string;
+}
+
+interface roleProps {
+  admin: boolean;
+  manager: boolean;
+  developer: boolean;
+}
+
 const SignUp = () => {
   const [email, setEmail] = useState<string>("");
   const [displayName, setDisplayName] = useState<string>("");
-  const [role, SetRole] = useState<string>("");
+  const [role, SetRole] = useState<roleProps>({
+    admin: false,
+    manager: false,
+    developer: false,
+  });
   const [password, setPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
   const { signUp, loading, error, setError } = useAuth();
 
-  const userData = {
+  const userData: userDataProps = {
     email,
-    role,
+    role: role,
     password,
     confirmPassword,
     displayName,
   };
-
-  useEffect(() => {
-    console.log(role);
-  }, [role]);
 
   return (
     <div className={style.container}>
@@ -96,9 +110,31 @@ const SignUp = () => {
                 id='role'
                 defaultValue={"default"}
                 onChange={(e) => {
-                  e.target.value === "default"
-                    ? setError("Please choose a role")
-                    : SetRole(e.target.value);
+                  // e.target.value === "default"
+                  //   ? setError("Please choose a role")
+                  //   : SetRole(e.target.value);
+
+                  switch (e.target.value) {
+                    case "default":
+                      setError("Please choose a role");
+                      break;
+                    case "manager":
+                      SetRole({
+                        admin: false,
+                        manager: true,
+                        developer: false,
+                      });
+                      break;
+                    case "developer":
+                      SetRole({
+                        admin: false,
+                        manager: false,
+                        developer: true,
+                      });
+                      break;
+                    default:
+                      break;
+                  }
                 }}
               >
                 <option value='default' disabled>

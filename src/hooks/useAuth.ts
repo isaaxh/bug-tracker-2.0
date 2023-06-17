@@ -24,10 +24,16 @@ interface signUpProps {
 
 interface userData {
     email: string,
-    role: string,
+    role: roleProps,
     password: string,
     confirmPassword: string,
     displayName: string,
+}
+
+interface roleProps {
+    admin: boolean;
+    manager: boolean;
+    developer: boolean;
 }
 
 const useAuth = () => {
@@ -95,7 +101,7 @@ const useAuth = () => {
         e.preventDefault();
         setLoading(true);
 
-        if (userData.email === "" || userData.role === "" || userData.password === "" || userData.confirmPassword === "") {
+        if (userData.email === "" || userData.password === "" || userData.confirmPassword === "") {
             setError("All fields are required");
             setLoading(false);
             return;
