@@ -14,7 +14,6 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
   const { signUp, loading, error, setError } = useAuth();
-  // const writeData = useFirestore();
 
   return (
     <div className={style.container}>

@@ -8,7 +8,8 @@ import {
 import { FormEvent, useEffect, useState } from "react";
 import { auth, db } from "../firebase";
 import { useNavigate } from "react-router";
-// import { addDoc, collection } from "firebase/firestore";
+import { addDoc, collection } from "firebase/firestore";
+import useFirestore from "./useFirestore";
 
 interface signInProps {
     e: FormEvent<HTMLFormElement>,
@@ -31,6 +32,7 @@ const useAuth = () => {
     const [loading, setLoading] = useState(false)
     const [error, setError] = useState('')
     const navigate = useNavigate();
+    const { writeData } = useFirestore();
 
     const signOut = () => {
         auth.signOut().then(() => {
@@ -58,7 +60,6 @@ const useAuth = () => {
             const userCredential = await signInWithEmailAndPassword(auth, email, password);
 
             navigate("/");
-            console.log(userCredential);
             setLoading(false);
         } catch (error: any) {
             switch (error.code) {
@@ -114,7 +115,13 @@ const useAuth = () => {
                 displayName: displayName,
             });
 
-            // writeData("users", data);
+            const data = {
+                displayName,
+                email,
+                // role,
+            }
+
+            writeData("users", userCredential.user.uid, data);
 
             // try {
             //     const docRef = await addDoc(collection(db, "users"), {
@@ -129,7 +136,6 @@ const useAuth = () => {
 
             navigate("/");
         } catch (error) {
-            console.log(error);
             setError("Something went wrong");
             setLoading(false);
         }
