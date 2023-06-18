@@ -7,7 +7,6 @@ import Header from "./components/common/header/Header";
 import useWindowDimensions from "./hooks/useWindowDimensions";
 import SidebarMobile from "./components/common/sidebar/SidebarMobile";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import { Scale } from "@mui/icons-material";
 
 const getAuthStatus = () => {
   const [authLoaded, setAuthLoaded] = useState<boolean>(false);
