@@ -50,9 +50,9 @@ const RoleAssignment = () => {
         <h1 className={style.title}>Manage User Roles</h1>
       </div>
       <div className={style["content-container"]}>
-        <div className={style["select-users-container"]}>
-          <form action='#'>
-            <div className='select-users'>
+        <div className={style["input-container"]}>
+          <form action='#' className={style.form}>
+            <div className={style["select-user-container"]}>
               <label className={style["user-list-label"]} htmlFor='user-list'>
                 Select 1 or more users
               </label>
@@ -65,18 +65,20 @@ const RoleAssignment = () => {
                 required
                 autoFocus
               >
-                {users.map((user) => (
-                  <option className={style["users-items"]}>{user.name}</option>
+                {users.map((user, index) => (
+                  <option className={style["user-items"]} key={index}>
+                    {user.name}
+                  </option>
                 ))}
               </select>
             </div>
-            <div className='select-role'>Select role to assign here</div>
+            <div className={style["select-role-container"]}>
+              Select role to assign here
+            </div>
           </form>
         </div>
-        {/* <div className={style["select-role-container"]}> */}
-        {/* </div> */}
-        <div className={style["Peronnel-list-container"]}>
-          list of personnels here
+        <div className={style["output-container"]}>
+          <div className='table'>list of personnels here</div>
         </div>
       </div>
     </div>
