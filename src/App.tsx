@@ -9,7 +9,7 @@ import SignUp from "./components/auth/signup/Signup";
 import ResetPassword from "./components/auth/resetPass/ResetPassword";
 import ProtectedRoutes from "./ProtectedRoutes";
 import RoleAssignment from "./components/roleAssignment/RoleAssignment";
-import ManageProjectUsers from "./components/manageProjectUsers/ManageProjectUsers";
+import ProjectUsers from "./components/ProjectUsers/ProjectUsers";
 
 function App() {
   return (
@@ -21,7 +21,7 @@ function App() {
         <Route element={<ProtectedRoutes />}>
           <Route path='/' element={<Home />} />
           <Route path='role_assignment' element={<RoleAssignment />} />
-          <Route path='manage_project_users' element={<ManageProjectUsers />} />
+          <Route path='project_users' element={<ProjectUsers />} />
           <Route path='projects' element={<Projects />} />
           <Route path='tickets' element={<Tickets />} />
           <Route path='profile' element={<Profile />} />

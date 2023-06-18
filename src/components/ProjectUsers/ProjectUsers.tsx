@@ -1,7 +1,7 @@
 import React from "react";
 
-const ManageProjectUsers = () => {
+const ProjectUsers = () => {
   return <div>ManageProjectUsers</div>;
 };
 
-export default ManageProjectUsers;
+export default ProjectUsers;
