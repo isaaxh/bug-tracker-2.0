@@ -28,17 +28,6 @@
   /* background-color: coral; */
 }
 
-.select-user-container,
-.select-role-container {
-  /* min-width: 300px; */
-  /* background-color: burlywood; */
-}
-
-.select-role-container {
-  /* max-width: 400px; */
-  /* background-color: burlywood; */
-}
-
 .user-list-label {
   /* background-color: coral; */
   font-size: var(--font-size-20);
@@ -62,20 +51,11 @@
   margin: 3rem 0;
 }
 
-/* .role-list { */
-/* margin: 1rem 0; */
-/* } */
-
 .select-items {
   font-size: var(--font-size-10);
   color: var(--text-color-1);
   padding: 0.5rem;
 }
-
-/* .user-items:focus {
-    background-color: var(--color-info);
-    color: var(--text-color-2);
-} */
 
 .select-items:checked {
   background-color: var(--color-info);
