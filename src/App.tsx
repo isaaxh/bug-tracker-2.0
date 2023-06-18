@@ -8,6 +8,8 @@ import SignIn from "./components/auth/signin/SignIn";
 import SignUp from "./components/auth/signup/Signup";
 import ResetPassword from "./components/auth/resetPass/ResetPassword";
 import ProtectedRoutes from "./ProtectedRoutes";
+import RoleAssignment from "./components/roleAssignment/RoleAssignment";
+import ManageProjectUsers from "./components/manageProjectUsers/ManageProjectUsers";
 
 function App() {
   return (
@@ -18,6 +20,8 @@ function App() {
         <Route path='resetpass' element={<ResetPassword />} />
         <Route element={<ProtectedRoutes />}>
           <Route path='/' element={<Home />} />
+          <Route path='role_assignment' element={<RoleAssignment />} />
+          <Route path='manage_project_users' element={<ManageProjectUsers />} />
           <Route path='projects' element={<Projects />} />
           <Route path='tickets' element={<Tickets />} />
           <Route path='profile' element={<Profile />} />
