@@ -7,36 +7,23 @@ const RoleAssignment = () => {
   const [users, setUsers] = useState([
     {
       name: "tom hidleston",
-    },
-    {
-      name: "John smith",
-    },
-    {
-      name: "Carol smith",
+      email: "tomh@gmail.com",
+      role: "admin",
     },
     {
       name: "Carol smith",
+      email: "carolsmith@gmail.com",
+      role: "manager",
     },
     {
       name: "Carol smith",
+      email: "tomh@gmail.com",
+      role: "project lead",
     },
     {
       name: "Carol smith",
-    },
-    {
-      name: "Carol smith",
-    },
-    {
-      name: "Carol smith",
-    },
-    {
-      name: "Carol smith",
-    },
-    {
-      name: "Carol smith",
-    },
-    {
-      name: "Carol smith",
+      email: "tomh@gmail.com",
+      role: "developer",
     },
   ]);
   const [roles, setRoles] = useState([
@@ -109,12 +96,30 @@ const RoleAssignment = () => {
               </select>
             </div>
             <button className={style["btn-submit"]}>Submit</button>
-            {/* <div className={style["btn-container"]}> */}
-            {/* </div> */}
           </form>
         </div>
         <div className={style["output-container"]}>
-          <div className='table'>list of personnels here</div>
+          <table>
+            <caption>Your Personnel</caption>
+
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Role</th>
+              </tr>
+            </thead>
+
+            <tbody>
+              {users.map((user, index) => (
+                <tr key={index}>
+                  <td data-cell='name'>{user.name}</td>
+                  <td data-cell='email'>{user.email}</td>
+                  <td data-cell='role'>{user.role}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
