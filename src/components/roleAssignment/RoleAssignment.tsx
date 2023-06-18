@@ -72,8 +72,24 @@ const RoleAssignment = () => {
                 ))}
               </select>
             </div>
+            <hr />
             <div className={style["select-role-container"]}>
-              Select role to assign here
+              <label className={style["user-list-label"]} htmlFor='role-list'>
+                Select the Role to assign
+              </label>
+              <select
+                className={style["role-list"]}
+                name='role-list'
+                id='role-list'
+                required
+                autoFocus
+              >
+                {users.map((user, index) => (
+                  <option className={style["user-items"]} key={index}>
+                    {user.name}
+                  </option>
+                ))}
+              </select>
             </div>
           </form>
         </div>
