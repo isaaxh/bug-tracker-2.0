@@ -46,3 +46,28 @@
 .icons {
   transform: scale(1.3);
 }
+
+.overlay {
+  /* display: none; */
+  position: absolute;
+  background-color: rgba(var(--color-grey-65), 0.96);
+  color: green;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  height: 100vh;
+  width: 100vw;
+  padding: 3rem 2rem;
+}
+
+.open {
+  display: none;
+}
+
+.cross-container {
+  text-align: right;
+}
+
+.overlay .cross {
+  transform: scale(1.3);
+}

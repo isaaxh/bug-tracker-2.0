@@ -1,9 +1,10 @@
 import style from "./sidebar.module.css";
-import { NavLink } from "react-router-dom";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlined";
 import ConfirmationNumberOutlinedIcon from "@mui/icons-material/ConfirmationNumberOutlined";
-// import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
+import ClearIcon from "@mui/icons-material/Clear";
+import { NavLink } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 const sidebarLinks = [
   {
@@ -52,21 +53,50 @@ const sidebarLinks = [
   // },
 ];
 
-const Sidebar = () => {
+interface sidebarClosedProps {
+  sidebarClosed: boolean;
+  setSetSidebarClosed: (currentState: any) => void;
+}
+
+const SidebarMobile = ({
+  sidebarClosed,
+  setSetSidebarClosed,
+}: sidebarClosedProps) => {
+  //   const [sidebarClosed, setSetSidebarClosed] = useState(true);
+
+  useEffect(() => {
+    console.log(sidebarClosed);
+  }, [sidebarClosed]);
+
   return (
-    <nav className={style.container}>
+    <div
+      className={
+        sidebarClosed ? `${style.open} ${style.overlay}` : `${style.overlay}`
+      }
+    >
+      <div className={style["cross-container"]}>
+        <ClearIcon
+          className={style.cross}
+          sx={{ stroke: "black" }}
+          fontSize='large'
+          onClick={() => setSetSidebarClosed((prev: boolean) => !prev)}
+        />
+      </div>
       <ul className={style["tab-list"]}>
         {sidebarLinks.map((link, index) => (
           <li className={`${style.links}`} key={index}>
-            <NavLink to={link.path}>
+            <NavLink
+              to={link.path}
+              onClick={() => setSetSidebarClosed((prev: boolean) => !prev)}
+            >
               <div className={style["icon-container"]}>{link.icon}</div>
               {link.title}
             </NavLink>
           </li>
         ))}
       </ul>
-    </nav>
+    </div>
   );
 };
 
-export default Sidebar;
+export default SidebarMobile;

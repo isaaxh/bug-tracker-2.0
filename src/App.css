@@ -211,3 +211,16 @@ button {
   display: flex;
   padding: 0 4.8rem;
 }
+
+.mobile-content-container {
+  /* display: block; */
+  padding: 0 4.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.tab-dropdown-container {
+  display: flex;
+  align-items: center;
+}

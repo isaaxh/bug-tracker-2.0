@@ -3,9 +3,11 @@ import style from "./home.module.css";
 import { useEffect, useState } from "react";
 import useFirestore from "../../hooks/useFirestore";
 import { DocumentData } from "firebase/firestore";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 const Home = () => {
   const [userData, setUserData] = useState<DocumentData>();
+  const { width } = useWindowDimensions();
   const { currentUser } = useAuth();
 
   const { readData } = useFirestore();
@@ -27,7 +29,7 @@ const Home = () => {
   return (
     <div className={style.container}>
       <div className={style["page-title-container"]}>
-        <h1 className={style.title}>Dashboard</h1>
+        {width > 1200 ? <h1 className={style.title}>Dashboard</h1> : null}
       </div>
       <div className={style["content-container"]}>
         <div>name: {currentUser?.displayName}</div>

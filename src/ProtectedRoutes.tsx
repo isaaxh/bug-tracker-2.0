@@ -4,6 +4,10 @@ import useAuth from "./hooks/useAuth";
 import { useEffect, useState } from "react";
 import Sidebar from "./components/common/sidebar/Sidebar";
 import Header from "./components/common/header/Header";
+import useWindowDimensions from "./hooks/useWindowDimensions";
+import SidebarMobile from "./components/common/sidebar/SidebarMobile";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import { Scale } from "@mui/icons-material";
 
 const getAuthStatus = () => {
   const [authLoaded, setAuthLoaded] = useState<boolean>(false);
@@ -21,15 +25,37 @@ const getAuthStatus = () => {
 };
 
 const ProtectedRoutes = () => {
+  const [sidebarClosed, setSetSidebarClosed] = useState(true);
   const isAuth = getAuthStatus();
+  const { width } = useWindowDimensions();
 
   return isAuth ? (
     <div className='main-container'>
       <div className='header-container'>
         <Header />
       </div>
-      <div className='content-container'>
-        <Sidebar />
+      <div
+        className={
+          width > 1200 ? "content-container" : "mobile-content-container"
+        }
+      >
+        {width && width > 1200 ? (
+          <Sidebar />
+        ) : (
+          <>
+            <div className='tab-dropdown-container'>
+              <h2 onClick={() => setSetSidebarClosed((prev) => !prev)}>Tab</h2>
+              <KeyboardArrowDownIcon
+                className='tab-dropdown-icon'
+                fontSize='large'
+              />
+            </div>
+            <SidebarMobile
+              sidebarClosed={sidebarClosed}
+              setSetSidebarClosed={setSetSidebarClosed}
+            />
+          </>
+        )}
         <Outlet />
       </div>
     </div>
