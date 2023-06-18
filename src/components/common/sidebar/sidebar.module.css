@@ -33,11 +33,11 @@
   transition: all 0.5s;
 }
 
-.links:hover {
-  /* background-color: rgb(var(--color-grey-65)); */
-  /* font-weight: var(--font-weight-30); */
-  /* transform: scale(1.1); */
-}
+/* .links:hover { */
+/* background-color: rgb(var(--color-grey-65)); */
+/* font-weight: var(--font-weight-30); */
+/* transform: scale(1.1); */
+/* } */
 
 :global a.active > div {
   background-color: rgb(var(--color-grey-65));

@@ -62,17 +62,6 @@ const sidebarLinks = [
       />
     ),
   },
-  // {
-  //   title: "Profile Settings",
-  //   path: "/profile",
-  //   icon: (
-  //     <PersonOutlinedIcon
-  //       className={style.icons}
-  //       sx={{ stroke: "#ffffff", strokeWidth: 1 }}
-  //       fontSize='large'
-  //     />
-  //   ),
-  // },
 ];
 
 const Sidebar = () => {
