@@ -72,7 +72,7 @@ const RoleAssignment = () => {
                 ))}
               </select>
             </div>
-            <hr />
+            <hr className={style["hr"]} />
             <div className={style["select-role-container"]}>
               <label className={style["user-list-label"]} htmlFor='role-list'>
                 Select the Role to assign
@@ -91,7 +91,7 @@ const RoleAssignment = () => {
                 ))}
               </select>
             </div>
-            <button>Submit</button>
+            <button className={style["btn-submit"]}>Submit</button>
             {/* <div className={style["btn-container"]}> */}
             {/* </div> */}
           </form>
