@@ -59,14 +59,14 @@
 }
 
 .hr {
-  margin: 4rem 0;
+  margin: 3rem 0;
 }
 
 /* .role-list { */
 /* margin: 1rem 0; */
 /* } */
 
-.user-items {
+.select-items {
   font-size: var(--font-size-10);
   color: var(--text-color-1);
   padding: 0.5rem;
@@ -77,8 +77,7 @@
     color: var(--text-color-2);
 } */
 
-.user-items:checked,
-.role-items:checked {
+.select-items:checked {
   background-color: var(--color-info);
   color: var(--text-color-2);
 }

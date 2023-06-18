@@ -39,6 +39,12 @@ const RoleAssignment = () => {
       name: "Carol smith",
     },
   ]);
+  const [roles, setRoles] = useState([
+    "admin",
+    "manager",
+    "project lead",
+    "developer",
+  ]);
 
   // const handleSelectChange = (e) => {
   //   let options = e.target.options;
@@ -66,7 +72,11 @@ const RoleAssignment = () => {
                 autoFocus
               >
                 {users.map((user, index) => (
-                  <option className={style["user-items"]} key={index}>
+                  <option
+                    className={style["select-items"]}
+                    key={index}
+                    value={user.name}
+                  >
                     {user.name}
                   </option>
                 ))}
@@ -84,9 +94,16 @@ const RoleAssignment = () => {
                 required
                 autoFocus
               >
-                {users.map((user, index) => (
-                  <option className={style["user-items"]} key={index}>
-                    {user.name}
+                <option disabled value=''>
+                  --Choose one please--
+                </option>
+                {roles.map((role, index) => (
+                  <option
+                    className={style["select-items"]}
+                    key={index}
+                    value={role}
+                  >
+                    {role}
                   </option>
                 ))}
               </select>
