@@ -91,6 +91,9 @@ const RoleAssignment = () => {
                 ))}
               </select>
             </div>
+            <button>Submit</button>
+            {/* <div className={style["btn-container"]}> */}
+            {/* </div> */}
           </form>
         </div>
         <div className={style["output-container"]}>
