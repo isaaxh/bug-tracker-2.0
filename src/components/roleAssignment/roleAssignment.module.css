@@ -1,0 +1,13 @@
+.user-list {
+  background-image: none;
+  margin-top: 1rem;
+}
+
+.users-list-label {
+  margin-bottom: 1rem;
+  background-color: coral;
+}
+
+.users-items {
+  padding: 1rem;
+}
