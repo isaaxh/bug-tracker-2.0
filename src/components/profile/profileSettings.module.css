@@ -11,11 +11,14 @@
   gap: 3rem;
 }
 
-.grid-item {
+.grid-items {
   background-color: beige;
   padding: 2rem;
 }
 
 .item-title {
   margin-top: 1rem;
+}
+
+.btn {
 }
