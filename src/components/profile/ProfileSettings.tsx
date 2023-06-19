@@ -4,22 +4,22 @@ const settings = [
   {
     title: "Full Name",
     content: "Isaac Hussain",
-    buttonTitle: "Edit",
+    btnTitle: "Edit",
   },
   {
     title: "Email",
     content: "isaac@email.com",
-    buttonTitle: "Edit",
+    btnTitle: "Edit",
   },
   {
     title: "Password Settings",
     content: "000000000",
-    buttonTitle: "Reset",
+    btnTitle: "Reset",
   },
   {
     title: "Profile Image",
     content: "",
-    buttonTitle: "Edit",
+    btnTitle: "Edit",
   },
   {
     title: "Notification Settings",
@@ -31,6 +31,7 @@ const settings = [
 const ProfileSettings = () => {
   return (
     <div className={style.container}>
+      {/* <h1>Profile Settings</h1> */}
       <div className={style["grid-wrapper"]}>
         {settings.map((setting, index) => (
           <div className={style["grid-items"]} key={index}>
@@ -38,7 +39,9 @@ const ProfileSettings = () => {
               <h3 className={style["item-titles"]}>{setting.title}</h3>
               <p>{setting.content}</p>
             </div>
-            <button className={style.btn}>{setting.btnTitle}</button>
+            <div className={style["btn-container"]}>
+              <button className={style.btn}>{setting.btnTitle}</button>
+            </div>
           </div>
         ))}
       </div>
