@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router";
 import style from "./profileSettings.module.css";
 
 const settings = [
@@ -9,12 +10,10 @@ const settings = [
   {
     title: "Email",
     content: "isaac@email.com",
-    // btnTitle: "Edit",
   },
   {
     title: "Password Settings",
     content: "000000000",
-    btnTitle: "Reset",
   },
   {
     title: "Profile Image",
@@ -29,6 +28,13 @@ const settings = [
 ];
 
 const ProfileSettings = () => {
+  const navigate = useNavigate();
+
+  const handleBtnResetClick = () => {
+    console.log("funtion");
+
+    navigate("/resetpass");
+  };
   return (
     <div className={style.container}>
       {/* <h1>Profile Settings</h1> */}
@@ -42,6 +48,10 @@ const ProfileSettings = () => {
             <div className={style["btn-container"]}>
               {setting.btnTitle ? (
                 <button className={style.btn}>{setting.btnTitle}</button>
+              ) : setting.title === "Password Settings" ? (
+                <button className={style.btn} onClick={handleBtnResetClick}>
+                  Reset
+                </button>
               ) : null}
             </div>
           </div>
