@@ -9,7 +9,7 @@ const settings = [
   {
     title: "Email",
     content: "isaac@email.com",
-    btnTitle: "Edit",
+    // btnTitle: "Edit",
   },
   {
     title: "Password Settings",
@@ -40,7 +40,9 @@ const ProfileSettings = () => {
               <p>{setting.content}</p>
             </div>
             <div className={style["btn-container"]}>
-              <button className={style.btn}>{setting.btnTitle}</button>
+              {setting.btnTitle ? (
+                <button className={style.btn}>{setting.btnTitle}</button>
+              ) : null}
             </div>
           </div>
         ))}

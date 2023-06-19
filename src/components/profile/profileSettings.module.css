@@ -9,7 +9,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 3rem;
-  /* padding: 3rem; */
+  padding: 3rem;
   overflow: hidden;
 }
 
@@ -22,7 +22,7 @@
   padding: 2rem;
   display: flex;
   flex-direction: column;
-  gap: 1.5rem;
+  gap: 2rem;
   overflow: hidden;
 }
 
@@ -39,10 +39,18 @@
   gap: 1rem;
 }
 
-.item-title {
+.item-titles {
   margin-top: 1rem;
+  /* color: var(--color-grey-70); */
+  font-weight: var(--font-weight-20);
 }
 
 .btn {
+  background-color: rgb(var(--color-grey-65));
   /* color: var(--text-color-1); */
+  appearance: none;
+}
+
+.btn:hover {
+  background-color: rgb(var(--color-grey-50));
 }
