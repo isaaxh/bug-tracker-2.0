@@ -1,18 +1,38 @@
-import React from "react";
+import { useState } from "react";
+import ClearIcon from "@mui/icons-material/Clear";
 
 const modal = () => {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+
   return (
     <div className='overlay'>
       <div className='modal'>
-        <form action='#'>
-          <div className='header'>
-            <h2 className='title'>Edit Full Name</h2>
+        <div className='modal-header'>
+          <h2 className='modal-title'>Edit Full Name</h2>
+          <span>
+            <ClearIcon
+              //   className={style.cross}
+              sx={{ stroke: "#ffffff", strokeWidth: 1 }}
+              fontSize='large'
+            />
+          </span>
+        </div>
+        {/* <div > */}
+        <form className='modal-content' action='#'>
+          <div className='modal-input-container'>
+            <label htmlFor='fname'>First Name</label>
+            <input className='modal-input-field' type='text' id='fname' />
           </div>
-          <div className='content'></div>
-          <div className='btn-container'>
-            <button>Update</button>
+          <div className='modal-input-container'>
+            <label htmlFor='lname'>Last Name</label>
+            <input className='modal-input-field' type='text' id='lname' />
+          </div>
+          <div className='modal-btn-container'>
+            <button className='modal-btn'>Update</button>
           </div>
         </form>
+        {/* </div> */}
       </div>
     </div>
   );

@@ -89,7 +89,7 @@
   /* --color-black: #000; */
   --color-black: 0, 0, 0;
 
-  --color-primary: ;
+  --color-primary: #ffff;
   --color-accent: ;
   --color-success: rgb(var(--color-green));
   --color-error: rgb(var(--color-red-20));
@@ -218,6 +218,7 @@ select {
   flex: 1;
   display: flex;
   flex-direction: column;
+  position: relative;
 }
 
 /* .header-container {
@@ -241,4 +242,71 @@ select {
 .tab-dropdown-container {
   display: flex;
   align-items: center;
+}
+
+/* Modal styling */
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.modal {
+  background-color: var(--color-primary);
+  /* max-width: 70rem; */
+  max-width: 40rem;
+  border-radius: 14px;
+}
+
+.modal-header {
+  padding: 1.6rem 1.6rem 1.6rem 4.8rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-content {
+  padding: 0 4.8rem 4.8rem;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+}
+
+.modal-input-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1rem;
+}
+
+.modal-input-field {
+  margin-top: 0.5rem;
+  height: 3.5rem;
+  background-color: rgb(var(--color-grey-70));
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: var(--border-radius);
+  width: 100%;
+  outline: none;
+}
+
+.modal-btn-container {
+  margin: 1.8rem 0;
+  display: flex;
+  justify-content: center;
+}
+
+.modal-btn {
+  color: var(--text-color-2);
+  background-color: rgb(var(--color-blue-30));
+  margin-top: 0.5rem;
+}
+
+.modal-btn:hover {
+  background-color: rgb(var(--color-blue-20));
 }

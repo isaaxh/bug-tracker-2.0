@@ -140,6 +140,7 @@ const useAuth = () => {
         }
     }
 
+
     useEffect(() => {
         const listen = onAuthStateChanged(auth, (user) => {
             if (user) {
