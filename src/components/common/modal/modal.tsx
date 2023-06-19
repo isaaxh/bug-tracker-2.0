@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useState, MouseEvent } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 
 const modal = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const handleOverlayClick = (e: MouseEvent<HTMLDivElement>) => {};
 
   return (
     <div className='overlay'>
