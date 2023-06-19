@@ -2,7 +2,7 @@ import { Route, Routes } from "react-router";
 import "./App.css";
 import Home from "./components/home/Home";
 import Tickets from "./components/tickets/Tickets";
-import Profile from "./components/profile/Profile";
+import Profile from "./components/profile/ProfileSettings";
 import Projects from "./components/projects/Projects";
 import SignIn from "./components/auth/signin/SignIn";
 import SignUp from "./components/auth/signup/Signup";

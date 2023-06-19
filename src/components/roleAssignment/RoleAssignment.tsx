@@ -3,39 +3,121 @@ import style from "./roleAssignment.module.css";
 
 // interface usersData {}
 
-const RoleAssignment = () => {
-  const [users, setUsers] = useState([
-    {
-      name: "tom hidleston",
-      email: "tomh@gmail.com",
-      role: "admin",
-    },
-    {
-      name: "Carol smith",
-      email: "carolsmith@gmail.com",
-      role: "manager",
-    },
-    {
-      name: "Carol smith",
-      email: "tomh@gmail.com",
-      role: "project lead",
-    },
-    {
-      name: "Carol smith",
-      email: "tomh@gmail.com",
-      role: "developer",
-    },
-  ]);
-  const [roles, setRoles] = useState([
-    "admin",
-    "manager",
-    "project lead",
-    "developer",
-  ]);
+const users = [
+  {
+    name: "tom hidleston",
+    email: "tomh@gmail.com",
+    role: "admin",
+  },
+  {
+    name: "Carol smith",
+    email: "carolsmith@gmail.com",
+    role: "manager",
+  },
+  {
+    name: "Carol smith",
+    email: "tomh@gmail.com",
+    role: "project lead",
+  },
+  {
+    name: "Carol smith",
+    email: "tomh@gmail.com",
+    role: "developer",
+  },
+  {
+    name: "Carol smith",
+    email: "tomh@gmail.com",
+    role: "developer",
+  },
+  {
+    name: "Carol smith",
+    email: "tomh@gmail.com",
+    role: "developer",
+  },
+  {
+    name: "Carol smith",
+    email: "tomh@gmail.com",
+    role: "developer",
+  },
+  {
+    name: "Carol smith",
+    email: "tomh@gmail.com",
+    role: "developer",
+  },
+  {
+    name: "Carol smith",
+    email: "tomh@gmail.com",
+    role: "developer",
+  },
+  {
+    name: "Carol smith",
+    email: "tomh@gmail.com",
+    role: "developer",
+  },
+  {
+    name: "Carol smith",
+    email: "tomh@gmail.com",
+    role: "developer",
+  },
+  {
+    name: "Carol smith",
+    email: "tomh@gmail.com",
+    role: "developer",
+  },
+  {
+    name: "Carol smith",
+    email: "tomh@gmail.com",
+    role: "developer",
+  },
+  {
+    name: "Carol smith",
+    email: "tomh@gmail.com",
+    role: "developer",
+  },
+  {
+    name: "Carol smith",
+    email: "tomh@gmail.com",
+    role: "developer",
+  },
+  {
+    name: "Carol smith",
+    email: "tomh@gmail.com",
+    role: "developer",
+  },
+  {
+    name: "Carol smith",
+    email: "tomh@gmail.com",
+    role: "developer",
+  },
+  {
+    name: "Carol smith",
+    email: "tomh@gmail.com",
+    role: "developer",
+  },
+  {
+    name: "Carol smith",
+    email: "tomh@gmail.com",
+    role: "developer",
+  },
+];
 
-  // const handleSelectChange = (e) => {
-  //   let options = e.target.options;
-  // };
+const roles = ["admin", "manager", "project lead", "developer"];
+
+const RoleAssignment = () => {
+  const [selectedUsers, setSelectedUsers] = useState({});
+
+  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValues = Array.from(
+      e.target.selectedOptions,
+      (option) => option.value
+    );
+
+    console.log(selectedValues);
+  };
+
+  const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
 
   return (
     <div className={style.container}>
@@ -57,6 +139,7 @@ const RoleAssignment = () => {
                 size={3}
                 required
                 autoFocus
+                onChange={handleSelectChange}
               >
                 {users.map((user, index) => (
                   <option
@@ -80,6 +163,7 @@ const RoleAssignment = () => {
                 id='role-list'
                 required
                 autoFocus
+                // onChange={handleSelectChange}
               >
                 <option disabled value=''>
                   --Choose one please--
@@ -99,27 +183,35 @@ const RoleAssignment = () => {
           </form>
         </div>
         <div className={style["output-container"]}>
-          <table>
-            <caption>Your Personnel</caption>
-
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Role</th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {users.map((user, index) => (
-                <tr key={index}>
-                  <td data-cell='name'>{user.name}</td>
-                  <td data-cell='email'>{user.email}</td>
-                  <td data-cell='role'>{user.role}</td>
+          <div className={style["table-wrapper"]}>
+            {/* <div className='label-container'>
+              <h2>Your Personnel</h2>
+              <p>All users in your database</p>
+            </div> */}
+            <table>
+              <caption>
+                Your Personnel
+                {/* <p>All users in your database</p> */}
+              </caption>
+              <thead>
+                <tr>
+                  <th>Name</th>
+                  <th>Email</th>
+                  <th>Role</th>
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+
+              <tbody>
+                {users.map((user, index) => (
+                  <tr key={index}>
+                    <td data-cell='name'>{user.name}</td>
+                    <td data-cell='email'>{user.email}</td>
+                    <td data-cell='role'>{user.role}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>

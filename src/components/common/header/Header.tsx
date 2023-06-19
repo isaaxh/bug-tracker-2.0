@@ -3,32 +3,19 @@ import img1 from "../../../assets/man-smiling.jpg";
 import style from "./header.module.css";
 import { Logout } from "@mui/icons-material";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+// import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
-import { Link, useNavigate } from "react-router-dom";
-import { useEffect, useState } from "react";
-import { auth } from "../../../firebase";
+import { Link } from "react-router-dom";
+import { useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 
 const subMenuLinks = [
   {
-    title: "Edit Profile",
+    title: "Profile settings",
     className: "user-info-links",
     path: "/profile",
     icon: (
       <PersonOutlinedIcon
-        className={style.icons}
-        sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
-        fontSize='large'
-      />
-    ),
-  },
-  {
-    title: "Settings",
-    className: "user-info-links",
-    path: "/",
-    icon: (
-      <SettingsOutlinedIcon
         className={style.icons}
         sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
         fontSize='large'
@@ -40,7 +27,6 @@ const subMenuLinks = [
 const Header = () => {
   const [userActionIsActive, setUserActionIsActive] = useState<boolean>(false);
 
-  const navigate = useNavigate();
   const { signOut } = useAuth();
 
   const toggleUserActionMenu = () => {
@@ -50,6 +36,10 @@ const Header = () => {
   const handleProfileClick = () => {
     toggleUserActionMenu();
   };
+
+  // const handleSubMenuClick = (e: React.MouseEvent<HTMLDivElement>) => {
+  //   // e.target.value
+  // };
 
   return (
     <div className={style.container}>
