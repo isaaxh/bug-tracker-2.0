@@ -1,0 +1,21 @@
+.container {
+  background-color: coral;
+  flex: 1;
+  display: flex;
+}
+
+.grid-wrapper {
+  flex: 1;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 3rem;
+}
+
+.grid-item {
+  background-color: beige;
+  padding: 2rem;
+}
+
+.item-title {
+  margin-top: 1rem;
+}
