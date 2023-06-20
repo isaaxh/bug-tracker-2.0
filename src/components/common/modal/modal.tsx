@@ -1,15 +1,23 @@
-import { useState, MouseEvent } from "react";
+import { useState, MouseEvent, useContext } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
+import {
+  GlobalContext,
+  GlobalContextType,
+} from "../../../contexts/GlobalContext";
 
 const modal = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [modalOpen, setModalOpen] = useState(false);
 
-  const handleOverlayClick = (e: MouseEvent<HTMLDivElement>) => {};
+  const { modalOpen, toggleModalOpen } = useContext(
+    GlobalContext
+  ) as GlobalContextType;
 
   return (
-    <div className='overlay'>
+    <div
+      className={modalOpen ? "modal-overlay" : "modal-closed"}
+      onClick={toggleModalOpen}
+    >
       <div className='modal'>
         <div className='modal-header'>
           <h2 className='modal-title'>Edit Full Name</h2>
@@ -18,6 +26,7 @@ const modal = () => {
               //   className={style.cross}
               sx={{ stroke: "#ffffff", strokeWidth: 1 }}
               fontSize='large'
+              onClick={() => toggleModalOpen}
             />
           </span>
         </div>
