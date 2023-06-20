@@ -37,6 +37,11 @@ const Header = () => {
     toggleSubMenuOpen();
   };
 
+  const handleLogoutLinkClick = () => {
+    signOut();
+    toggleSubMenuOpen();
+  };
+
   return (
     <div className={style.container}>
       <nav className={style.header}>
@@ -73,7 +78,7 @@ const Header = () => {
               </div>
               <hr />
               {subMenuLinks.map((link, index) => (
-                <Link to={link.path} key={index}>
+                <Link to={link.path} key={index} onClick={toggleSubMenuOpen}>
                   <div className={style["user-info-links"]}>
                     <div className={style["icon-container"]}>{link.icon}</div>
                     <p>{link.title}</p>
@@ -87,7 +92,10 @@ const Header = () => {
                   </div>
                 </Link>
               ))}
-              <div className={style["user-info-links"]} onClick={signOut}>
+              <div
+                className={style["user-info-links"]}
+                onClick={handleLogoutLinkClick}
+              >
                 <div className={style["icon-container"]}>
                   <Logout
                     className={style.icons}

@@ -18,19 +18,17 @@ const modal = () => {
       className={modalOpen ? "modal-overlay" : "modal-closed"}
       onClick={toggleModalOpen}
     >
-      <div className='modal'>
+      <div className='modal' onClick={(e) => e.stopPropagation()}>
         <div className='modal-header'>
           <h2 className='modal-title'>Edit Full Name</h2>
-          <span>
+          <span onClick={toggleModalOpen}>
             <ClearIcon
               //   className={style.cross}
               sx={{ stroke: "#ffffff", strokeWidth: 1 }}
               fontSize='large'
-              onClick={() => toggleModalOpen}
             />
           </span>
         </div>
-        {/* <div > */}
         <form className='modal-content' action='#'>
           <div className='modal-input-container'>
             <label htmlFor='fname'>First Name</label>
@@ -44,7 +42,6 @@ const modal = () => {
             <button className='modal-btn'>Update</button>
           </div>
         </form>
-        {/* </div> */}
       </div>
     </div>
   );
