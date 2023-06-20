@@ -3,11 +3,14 @@ import img1 from "../../../assets/man-smiling.jpg";
 import style from "./header.module.css";
 import { Logout } from "@mui/icons-material";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-// import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import { Link } from "react-router-dom";
-import { useState } from "react";
+import { useContext } from "react";
 import useAuth from "../../../hooks/useAuth";
+import {
+  GlobalContext,
+  GlobalContextType,
+} from "../../../contexts/GlobalContext";
 
 const subMenuLinks = [
   {
@@ -25,21 +28,14 @@ const subMenuLinks = [
 ];
 
 const Header = () => {
-  const [userActionIsActive, setUserActionIsActive] = useState<boolean>(false);
-
   const { signOut } = useAuth();
-
-  const toggleUserActionMenu = () => {
-    setUserActionIsActive((current) => !current);
-  };
+  const { subMenuOpen, toggleSubMenuOpen } = useContext(
+    GlobalContext
+  ) as GlobalContextType;
 
   const handleProfileClick = () => {
-    toggleUserActionMenu();
+    toggleSubMenuOpen();
   };
-
-  // const handleSubMenuClick = (e: React.MouseEvent<HTMLDivElement>) => {
-  //   // e.target.value
-  // };
 
   return (
     <div className={style.container}>
@@ -60,7 +56,7 @@ const Header = () => {
           </div>
           <div
             className={
-              userActionIsActive
+              subMenuOpen
                 ? `${style["open-menu"]} ${style["sub-menu-wrap"]}`
                 : style["sub-menu-wrap"]
             }
