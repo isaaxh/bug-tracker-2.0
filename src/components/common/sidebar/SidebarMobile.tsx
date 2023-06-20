@@ -6,6 +6,11 @@ import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import ClearIcon from "@mui/icons-material/Clear";
 import { NavLink } from "react-router-dom";
+import { useContext } from "react";
+import {
+  GlobalContext,
+  GlobalContextType,
+} from "../../../contexts/GlobalContext";
 
 const sidebarLinks = [
   {
@@ -66,19 +71,15 @@ const sidebarLinks = [
   },
 ];
 
-interface sidebarClosedProps {
-  sidebarClosed: boolean;
-  setSetSidebarClosed: (currentState: any) => void;
-}
+const SidebarMobile = () => {
+  const { tabMenuOpen, toggleTabMenuOpen } = useContext(
+    GlobalContext
+  ) as GlobalContextType;
 
-const SidebarMobile = ({
-  sidebarClosed,
-  setSetSidebarClosed,
-}: sidebarClosedProps) => {
   return (
     <div
       className={
-        sidebarClosed ? `${style.open} ${style.overlay}` : `${style.overlay}`
+        tabMenuOpen ? `${style.open} ${style.overlay}` : `${style.overlay}`
       }
     >
       <div className={style["cross-container"]}>
@@ -86,16 +87,13 @@ const SidebarMobile = ({
           className={style.cross}
           sx={{ stroke: "black" }}
           fontSize='large'
-          onClick={() => setSetSidebarClosed((prev: boolean) => !prev)}
+          onClick={() => toggleTabMenuOpen()}
         />
       </div>
       <ul className={style["tab-list"]}>
         {sidebarLinks.map((link, index) => (
           <li className={`${style.links}`} key={index}>
-            <NavLink
-              to={link.path}
-              onClick={() => setSetSidebarClosed((prev: boolean) => !prev)}
-            >
+            <NavLink to={link.path} onClick={() => toggleTabMenuOpen()}>
               <div className={style["icon-container"]}>{link.icon}</div>
               {link.title}
             </NavLink>

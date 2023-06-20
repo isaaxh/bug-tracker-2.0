@@ -8,6 +8,10 @@ interface GlobalProvideProps {
 export interface GlobalContextType {
   modalOpen: boolean;
   toggleModalOpen: () => void;
+  subMenuOpen: boolean;
+  toggleSubMenuOpen: () => void;
+  tabMenuOpen: boolean;
+  toggleTabMenuOpen: () => void;
 }
 
 export const GlobalContext = createContext<GlobalContextType | null>(null);
