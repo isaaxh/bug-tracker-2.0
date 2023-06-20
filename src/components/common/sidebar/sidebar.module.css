@@ -20,6 +20,11 @@
   align-items: center;
   margin: 2rem 0.8rem;
   padding: 0.5rem 0;
+  transition: all 0.5s;
+}
+
+.tab-list a:hover {
+  transform: scale(1.04);
 }
 
 .icon-container {
