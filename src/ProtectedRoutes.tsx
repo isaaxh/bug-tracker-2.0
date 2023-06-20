@@ -1,13 +1,14 @@
 import { Outlet } from "react-router";
 import SignIn from "./components/auth/signin/SignIn";
 import useAuth from "./hooks/useAuth";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Sidebar from "./components/common/sidebar/Sidebar";
 import Header from "./components/common/header/Header";
 import useWindowDimensions from "./hooks/useWindowDimensions";
 import SidebarMobile from "./components/common/sidebar/SidebarMobile";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
 import Modal from "./components/common/modal/modal";
+import { GlobalContext, GlobalContextType } from "./contexts/GlobalContext";
 
 const getAuthStatus = () => {
   const [authLoaded, setAuthLoaded] = useState<boolean>(false);
@@ -25,7 +26,7 @@ const getAuthStatus = () => {
 };
 
 const ProtectedRoutes = () => {
-  const [sidebarClosed, setSetSidebarClosed] = useState(true);
+  const { toggleTabMenuOpen } = useContext(GlobalContext) as GlobalContextType;
   const isAuth = getAuthStatus();
   const { width } = useWindowDimensions();
 
@@ -44,16 +45,13 @@ const ProtectedRoutes = () => {
         ) : (
           <>
             <div className='tab-dropdown-container'>
-              <h2 onClick={() => setSetSidebarClosed((prev) => !prev)}>Tab</h2>
+              <h2 onClick={() => toggleTabMenuOpen()}>Tab</h2>
               <KeyboardArrowDownIcon
                 className='tab-dropdown-icon'
                 fontSize='large'
               />
             </div>
-            <SidebarMobile
-              sidebarClosed={sidebarClosed}
-              setSetSidebarClosed={setSetSidebarClosed}
-            />
+            <SidebarMobile />
           </>
         )}
         <Outlet />
