@@ -1,17 +1,9 @@
-import {
-  useState,
-  MouseEvent,
-  useContext,
-  FormEvent,
-  useEffect,
-  ChangeEvent,
-} from "react";
+import { useState, useContext, FormEvent, useEffect, ChangeEvent } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import {
   GlobalContext,
   GlobalContextType,
 } from "../../../contexts/GlobalContext";
-import useAuth from "../../../hooks/useAuth";
 import useFirestore from "../../../hooks/useFirestore";
 import InfoIcon from "@mui/icons-material/Info";
 import { AuthContext, AuthContextType } from "../../../contexts/AuthContext";
@@ -22,7 +14,6 @@ const modal = () => {
   const [fullName, setFullName] = useState("");
   const [btnDisabled, setBtnDisabled] = useState(true);
   const [firstChange, setFirstChange] = useState(false);
-  // const [error, setError] = useState("");
 
   const { modalOpen, toggleModalOpen } = useContext(
     GlobalContext
@@ -30,7 +21,7 @@ const modal = () => {
 
   const { currentUser } = useContext(AuthContext) as AuthContextType;
 
-  const { updateData, error, setError, loading, setLoading } = useFirestore();
+  const { updateData, error, setError } = useFirestore();
 
   const joinName = () => {
     if (firstName === "" || lastName === "") {

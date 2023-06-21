@@ -23,10 +23,6 @@
 }
 
 @media (min-width: 640px) {
-  .card {
-    /* max-width: 53rem; */
-    /* padding: 0 12rem; */
-  }
 }
 
 .error-card {
