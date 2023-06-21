@@ -1,6 +1,5 @@
-import { collection, addDoc, setDoc, doc, getDoc, updateDoc, DocumentData } from "firebase/firestore";
+import { setDoc, doc, getDoc, updateDoc, DocumentData } from "firebase/firestore";
 import { db } from "../firebase";
-import useAuth from "./useAuth";
 import { User, updateProfile } from "firebase/auth";
 import { useState } from "react";
 
