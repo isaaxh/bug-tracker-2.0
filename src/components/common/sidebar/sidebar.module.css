@@ -53,10 +53,9 @@
 }
 
 .overlay {
-  /* display: none; */
+  display: none;
   position: absolute;
   background-color: rgba(var(--color-grey-65), 0.96);
-  color: green;
   top: 0;
   left: 0;
   z-index: 1;
@@ -66,7 +65,7 @@
 }
 
 .open {
-  display: none;
+  display: block;
 }
 
 .cross-container {

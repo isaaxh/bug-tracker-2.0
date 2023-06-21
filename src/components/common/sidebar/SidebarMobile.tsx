@@ -6,7 +6,7 @@ import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import ClearIcon from "@mui/icons-material/Clear";
 import { NavLink } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import {
   GlobalContext,
   GlobalContextType,
@@ -79,15 +79,17 @@ const SidebarMobile = () => {
   return (
     <div
       className={
-        tabMenuOpen ? `${style.open} ${style.overlay}` : `${style.overlay}`
+        tabMenuOpen ? `${style.overlay} ${style.open}` : `${style.overlay}`
       }
     >
-      <div className={style["cross-container"]}>
+      <div
+        className={style["cross-container"]}
+        onClick={() => toggleTabMenuOpen()}
+      >
         <ClearIcon
           className={style.cross}
           sx={{ stroke: "black" }}
           fontSize='large'
-          onClick={() => toggleTabMenuOpen()}
         />
       </div>
       <ul className={style["tab-list"]}>

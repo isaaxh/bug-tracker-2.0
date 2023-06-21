@@ -45,7 +45,7 @@ const ProtectedRoutes = () => {
         ) : (
           <>
             <div className='tab-dropdown-container'>
-              <h2 onClick={() => toggleTabMenuOpen()}>Tab</h2>
+              <h2 onClick={toggleTabMenuOpen}>Tab</h2>
               <KeyboardArrowDownIcon
                 className='tab-dropdown-icon'
                 fontSize='large'

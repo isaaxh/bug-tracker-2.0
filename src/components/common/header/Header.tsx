@@ -7,6 +7,7 @@ import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRig
 import { Link } from "react-router-dom";
 import { useContext } from "react";
 import useAuth from "../../../hooks/useAuth";
+import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import {
   GlobalContext,
   GlobalContextType,
@@ -53,6 +54,7 @@ const Header = () => {
             className={style["avatar-container"]}
             onClick={handleProfileClick}
           >
+            {/* <KeyboardArrowDownOutlinedIcon fontSize='large' /> */}
             <Avatar
               alt='man smiling'
               src={img1}

@@ -1,36 +1,55 @@
-import { collection, addDoc, setDoc, doc, getDoc, DocumentData } from "firebase/firestore";
-import { useEffect, useState } from "react";
+import { collection, addDoc, setDoc, doc, getDoc, updateDoc, DocumentData } from "firebase/firestore";
 import { db } from "../firebase";
-import useId from "@mui/material/utils/useId";
+import useAuth from "./useAuth";
+import { User, updateProfile } from "firebase/auth";
+import { useState } from "react";
 
-interface writeDataProps {
+export interface writeDataProps {
     collectionName: string,
     uid: string,
     data: object
 }
 
-interface readDataProps {
+export interface readDataProps {
     collectionName: string,
     uid: string,
 }
 
+export interface updateDataPropsType {
+    currentUser: User,
+    collectionName: string,
+    data: { [x: string]: any; },
+    docId: string,
+}
+
+// interface data {
+// displayName: string
+// }
+
 
 const useFirestore = () => {
-
+    const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
     const writeData = async (collectionName: string, uid: string, data: object) => {
+        setLoading(true)
+        setError("")
+
         try {
             const docRef = setDoc(doc(db, collectionName, uid), data)
 
             console.log('Document written with ID: ', docRef);
+            setLoading(false)
 
         } catch (error) {
             console.log('Error adding document: ', error);
-
+            setError("Failed to save data...")
         }
     }
 
     const readData = async ({ collectionName, uid }: readDataProps): Promise<DocumentData | undefined> => {
+        setLoading(true)
+        setError("")
 
         const docRef = doc(db, collectionName, uid);
         const docSnap = await getDoc(docRef);
@@ -38,15 +57,42 @@ const useFirestore = () => {
 
         if (docSnap.exists()) {
             const documentData = docSnap.data()
-
             return documentData;
+            setLoading(false)
         } else {
             console.log('No such documents!');
+            setError("Failed to load data")
+        }
+    }
+
+    const updateData = async ({ currentUser, collectionName, data, docId }: updateDataPropsType) => {
+        setLoading(true)
+        setError("")
+
+        if (!currentUser) {
+            setError("Document ID invalid")
+            return;
+        }
+        if (data.displayName === "") {
+            setError("Invalid name");
+            return;
+        }
+
+        try {
+            await updateProfile(currentUser, {
+                displayName: data.displayName,
+            });
+            await updateDoc(doc(db, collectionName, docId), data)
+
+            setLoading(true)
+        } catch (error) {
+            console.log(error);
+            setError('Failed to update information')
         }
     }
 
 
-    return { writeData, readData };
+    return { writeData, readData, updateData, error, loading, setError, setLoading };
 }
 
 export default useFirestore;

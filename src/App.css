@@ -284,9 +284,24 @@ select {
 
 .modal-header {
   padding: 2.6rem 1.6rem 1.6rem 4.8rem;
-  /* padding: 2.6rem; */
   display: flex;
   justify-content: space-between;
+}
+
+.modal-cross {
+  cursor: pointer;
+}
+
+.error-box {
+  background-color: rgb(var(--color-grey-70));
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 2rem 4.8rem;
+  padding: 0.6em 1.2em;
+  color: var(--color-error);
+  overflow: hidden;
+  border-radius: var(--border-radius);
 }
 
 .modal-content {
@@ -320,6 +335,11 @@ select {
   background-color: rgb(var(--color-blue-30));
   margin-top: 0.5rem;
   width: 100%;
+}
+
+.modal-btn:disabled {
+  /* background-color: rgba(var(--color-blue-30), 2); */
+  background-color: rgba(var(--color-blue-20), 0.6);
 }
 
 .modal-btn:hover {
