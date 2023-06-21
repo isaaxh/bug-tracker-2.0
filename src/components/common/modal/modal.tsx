@@ -30,34 +30,34 @@ const modal = () => {
   const { updateData, error, setError, loading, setLoading } = useFirestore();
 
   const joinName = () => {
-    if (firstName.length === 0 || lastName.length === 0) {
+    if (firstName === "" || lastName === "") {
       setError("All fields required");
       return;
     }
     setFullName(firstName + " " + lastName);
   };
 
-  const handleFirstNameInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
+  const validateInputValues = () => {
+    if (firstName.length !== 0 && lastName.length !== 0) {
+      console.log("validation");
 
-    setFirstName(value);
-    // setBtnDisabled(value !== "" && lastName !== "");
-    value.length === 0 && lastName.length === 0
-      ? setBtnDisabled(true)
-      : setBtnDisabled(false);
+      setBtnDisabled(false);
+    } else {
+      setBtnDisabled(true);
+    }
   };
 
-  const handleLastNameInput = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-
-    setLastName(value);
-
-    // setBtnDisabled(firstName.length !== "" && value !== "");
-
-    firstName.length === 0 && value.length === 0
-      ? setBtnDisabled(true)
-      : setBtnDisabled(false);
+  const handleFirstNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFirstName(e.target.value);
   };
+
+  const handleLastNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setLastName(e.target.value);
+  };
+
+  useEffect(() => {
+    validateInputValues();
+  }, [firstName, lastName]);
 
   const data = {
     displayName: fullName,
@@ -70,11 +70,13 @@ const modal = () => {
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
+    validateInputValues();
+
     joinName();
 
     setError("");
-    const collectionName = "users";
-    const docId = currentUser?.uid;
+    // const collectionName = "users";
+    // const docId = currentUser?.uid;
 
     // console.log(error);
 
@@ -119,23 +121,25 @@ const modal = () => {
         ) : null}
         <form className='modal-content' onSubmit={handleFormSubmit}>
           <div className='modal-input-container'>
-            <label htmlFor='fname'>First Name</label>
+            <label htmlFor='first_name'>First Name</label>
             <input
               className='modal-input-field'
               type='text'
-              id='fname'
+              id='first_name'
+              autoComplete='off'
               value={firstName}
-              onChange={(e) => handleFirstNameInput(e)}
+              onChange={(e) => handleFirstNameChange(e)}
             />
           </div>
           <div className='modal-input-container'>
-            <label htmlFor='lname'>Last Name</label>
+            <label htmlFor='last_name'>Last Name</label>
             <input
               className='modal-input-field'
               type='text'
-              id='lname'
+              id='last_name'
+              autoComplete='off'
               value={lastName}
-              onChange={(e) => handleLastNameInput(e)}
+              onChange={(e) => handleLastNameChange(e)}
             />
           </div>
           <div className='modal-btn-container'>

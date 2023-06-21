@@ -6,7 +6,7 @@ import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import ClearIcon from "@mui/icons-material/Clear";
 import { NavLink } from "react-router-dom";
-import { useContext, useEffect } from "react";
+import { useContext } from "react";
 import {
   GlobalContext,
   GlobalContextType,
