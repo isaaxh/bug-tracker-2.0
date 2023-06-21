@@ -14,19 +14,22 @@ import {
 import useAuth from "../../../hooks/useAuth";
 import useFirestore from "../../../hooks/useFirestore";
 import InfoIcon from "@mui/icons-material/Info";
+import { AuthContext, AuthContextType } from "../../../contexts/AuthContext";
 
 const modal = () => {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [fullName, setFullName] = useState("");
   const [btnDisabled, setBtnDisabled] = useState(true);
+  const [firstChange, setFirstChange] = useState(false);
   // const [error, setError] = useState("");
 
   const { modalOpen, toggleModalOpen } = useContext(
     GlobalContext
   ) as GlobalContextType;
 
-  const { currentUser } = useAuth();
+  const { currentUser } = useContext(AuthContext) as AuthContextType;
+
   const { updateData, error, setError, loading, setLoading } = useFirestore();
 
   const joinName = () => {
@@ -34,13 +37,16 @@ const modal = () => {
       setError("All fields required");
       return;
     }
+
     setFullName(firstName + " " + lastName);
   };
 
   const validateInputValues = () => {
-    if (firstName.length !== 0 && lastName.length !== 0) {
-      console.log("validation");
-
+    if (
+      firstName.length !== 0 &&
+      lastName.length !== 0 &&
+      firstChange === true
+    ) {
       setBtnDisabled(false);
     } else {
       setBtnDisabled(true);
@@ -48,15 +54,19 @@ const modal = () => {
   };
 
   const handleFirstNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFirstChange(true);
     setFirstName(e.target.value);
   };
 
   const handleLastNameChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setFirstChange(true);
     setLastName(e.target.value);
   };
 
   useEffect(() => {
     validateInputValues();
+    if (firstName === "" || lastName === "") return;
+    joinName();
   }, [firstName, lastName]);
 
   const data = {
@@ -64,8 +74,17 @@ const modal = () => {
   };
 
   useEffect(() => {
-    loading ? console.log("loading...") : console.log("loading done");
-  }, [loading]);
+    const retrieveUserName = () => {
+      if (currentUser === null || currentUser.displayName == null) return;
+
+      const arrName = currentUser.displayName.split(" ");
+
+      setFirstName(arrName[0]);
+      setLastName(arrName[1]);
+    };
+
+    retrieveUserName();
+  }, [currentUser]);
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -75,19 +94,15 @@ const modal = () => {
     joinName();
 
     setError("");
-    // const collectionName = "users";
-    // const docId = currentUser?.uid;
 
-    // console.log(error);
+    if (currentUser === null) return;
 
-    // console.log(docId);
-    // console.log(collectionName);
-    console.log(fullName);
-    // console.log(currentUser);
+    const collectionName = "users";
+    const docId = currentUser.uid;
 
-    // updateData({ currentUser, collectionName, data, docId });
+    updateData({ currentUser, collectionName, data, docId });
 
-    // toggleModalOpen();
+    toggleModalOpen();
   };
 
   useEffect(() => {

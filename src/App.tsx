@@ -11,24 +11,27 @@ import ProtectedRoutes from "./ProtectedRoutes";
 import RoleAssignment from "./components/roleAssignment/RoleAssignment";
 import ProjectUsers from "./components/ProjectUsers/ProjectUsers";
 import GlobalProvider from "./contexts/GlobalContext";
+import AuthProvider from "./contexts/AuthContext";
 
 function App() {
   return (
     <div className='App'>
       <GlobalProvider>
-        <Routes>
-          <Route path='singin' element={<SignIn />} />
-          <Route path='signup' element={<SignUp />} />
-          <Route path='resetpass' element={<ResetPassword />} />
-          <Route element={<ProtectedRoutes />}>
-            <Route path='/' element={<Home />} />
-            <Route path='role_assignment' element={<RoleAssignment />} />
-            <Route path='project_users' element={<ProjectUsers />} />
-            <Route path='projects' element={<Projects />} />
-            <Route path='tickets' element={<Tickets />} />
-            <Route path='profile' element={<Profile />} />
-          </Route>
-        </Routes>
+        <AuthProvider>
+          <Routes>
+            <Route path='singin' element={<SignIn />} />
+            <Route path='signup' element={<SignUp />} />
+            <Route path='resetpass' element={<ResetPassword />} />
+            <Route element={<ProtectedRoutes />}>
+              <Route path='/' element={<Home />} />
+              <Route path='role_assignment' element={<RoleAssignment />} />
+              <Route path='project_users' element={<ProjectUsers />} />
+              <Route path='projects' element={<Projects />} />
+              <Route path='tickets' element={<Tickets />} />
+              <Route path='profile' element={<Profile />} />
+            </Route>
+          </Routes>
+        </AuthProvider>
       </GlobalProvider>
     </div>
   );

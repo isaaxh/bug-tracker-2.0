@@ -1,46 +1,65 @@
 import { useNavigate } from "react-router";
 import style from "./profileSettings.module.css";
 import { GlobalContext, GlobalContextType } from "../../contexts/GlobalContext";
-import { useContext } from "react";
-
-const settings = [
-  {
-    title: "Full Name",
-    content: "Isaac Hussain",
-    btnTitle: "Edit",
-  },
-  {
-    title: "Email",
-    content: "isaac@email.com",
-  },
-  {
-    title: "Password Settings",
-    content: "000000000",
-  },
-  {
-    title: "Profile Image",
-    content: "",
-    btnTitle: "Edit",
-  },
-  {
-    title: "Notification Settings",
-    content: "",
-    btnTitle: "Enable",
-  },
-];
+import { useContext, useEffect, useState } from "react";
+import { AuthContext, AuthContextType } from "../../contexts/AuthContext";
 
 const ProfileSettings = () => {
-  const navigate = useNavigate();
+  const [fullName, setFullName] = useState("");
+  const [email, setEmail] = useState("");
 
+  const navigate = useNavigate();
+  const { currentUser } = useContext(AuthContext) as AuthContextType;
   const { toggleModalOpen } = useContext(GlobalContext) as GlobalContextType;
+
+  const retrieveUserDetails = () => {
+    if (
+      currentUser === null ||
+      currentUser.displayName === null ||
+      currentUser.email === null
+    )
+      return;
+    setFullName(currentUser.displayName);
+    setEmail(currentUser.email);
+  };
 
   const handleBtnResetClick = () => {
     navigate("/resetpass");
   };
 
-  const handleBtnFullNameClick = () => {
+  const handleEditFullNameClick = () => {
     toggleModalOpen();
   };
+
+  useEffect(() => {
+    retrieveUserDetails();
+  }, [currentUser]);
+
+  let settings = [
+    {
+      title: "Full Name",
+      content: fullName,
+      btnTitle: "Edit",
+    },
+    {
+      title: "Email",
+      content: email,
+    },
+    {
+      title: "Password Settings",
+      content: "********",
+    },
+    {
+      title: "Profile Image",
+      content: "",
+      btnTitle: "Edit",
+    },
+    {
+      title: "Notification Settings",
+      content: "",
+      btnTitle: "Enable",
+    },
+  ];
 
   return (
     <div className={style.container}>
@@ -58,7 +77,7 @@ const ProfileSettings = () => {
                   Reset
                 </button>
               ) : setting.title === "Full Name" ? (
-                <button className={style.btn} onClick={handleBtnFullNameClick}>
+                <button className={style.btn} onClick={handleEditFullNameClick}>
                   Edit
                 </button>
               ) : setting.btnTitle ? (

@@ -339,7 +339,7 @@ select {
 
 .modal-btn:disabled {
   /* background-color: rgba(var(--color-blue-30), 2); */
-  background-color: rgba(var(--color-blue-20), 0.6);
+  background-color: rgba(var(--color-blue-20), 0.5);
 }
 
 .modal-btn:hover {
