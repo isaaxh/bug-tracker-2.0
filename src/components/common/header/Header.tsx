@@ -12,6 +12,7 @@ import {
   GlobalContext,
   GlobalContextType,
 } from "../../../contexts/GlobalContext";
+import { AuthContext, AuthContextType } from "../../../contexts/AuthContext";
 
 const subMenuLinks = [
   {
@@ -33,6 +34,8 @@ const Header = () => {
   const { subMenuOpen, toggleSubMenuOpen } = useContext(
     GlobalContext
   ) as GlobalContextType;
+
+  const { currentUser } = useContext(AuthContext) as AuthContextType;
 
   const handleProfileClick = () => {
     toggleSubMenuOpen();
@@ -76,7 +79,7 @@ const Header = () => {
                   src={img1}
                   sx={{ width: 40, height: 40 }}
                 />
-                <h2>Isaac Hussain</h2>
+                <h2>{currentUser?.displayName}</h2>
               </div>
               <hr />
               {subMenuLinks.map((link, index) => (

@@ -1,27 +1,13 @@
 import { useNavigate } from "react-router";
 import style from "./profileSettings.module.css";
 import { GlobalContext, GlobalContextType } from "../../contexts/GlobalContext";
-import { useContext, useEffect, useState } from "react";
+import { useContext } from "react";
 import { AuthContext, AuthContextType } from "../../contexts/AuthContext";
 
 const ProfileSettings = () => {
-  const [fullName, setFullName] = useState("");
-  const [email, setEmail] = useState("");
-
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext) as AuthContextType;
   const { toggleModalOpen } = useContext(GlobalContext) as GlobalContextType;
-
-  const retrieveUserDetails = () => {
-    if (
-      currentUser === null ||
-      currentUser.displayName === null ||
-      currentUser.email === null
-    )
-      return;
-    setFullName(currentUser.displayName);
-    setEmail(currentUser.email);
-  };
 
   const handleBtnResetClick = () => {
     navigate("/resetpass");
@@ -31,19 +17,15 @@ const ProfileSettings = () => {
     toggleModalOpen();
   };
 
-  useEffect(() => {
-    retrieveUserDetails();
-  }, [currentUser]);
-
   let settings = [
     {
       title: "Full Name",
-      content: fullName,
+      content: currentUser?.displayName,
       btnTitle: "Edit",
     },
     {
       title: "Email",
-      content: email,
+      content: currentUser?.email,
     },
     {
       title: "Password Settings",

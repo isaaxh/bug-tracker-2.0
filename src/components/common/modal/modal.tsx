@@ -96,10 +96,6 @@ const modal = () => {
     toggleModalOpen();
   };
 
-  useEffect(() => {
-    console.log(error);
-  }, [error]);
-
   return (
     <div
       className={modalOpen ? "modal-overlay" : "modal-closed"}
