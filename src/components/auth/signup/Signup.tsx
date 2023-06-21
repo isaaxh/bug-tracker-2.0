@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import style from "../authPage.module.css";
 import LanguageIcon from "@mui/icons-material/Language";
 import InfoIcon from "@mui/icons-material/Info";
@@ -21,17 +21,33 @@ interface roleProps {
 }
 
 const SignUp = () => {
-  const [email, setEmail] = useState<string>("");
-  const [displayName, setDisplayName] = useState<string>("");
+  const [email, setEmail] = useState("");
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [displayName, setDisplayName] = useState("");
   const [role, SetRole] = useState<roleProps>({
     admin: false,
     manager: false,
     developer: false,
   });
-  const [password, setPassword] = useState<string>("");
-  const [confirmPassword, setConfirmPassword] = useState<string>("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [btnDisabled, setBtnDisabled] = useState(false);
 
   const { signUp, loading, error, setError } = useAuth();
+
+  const validateInputValues = () => {
+    if (
+      firstName.length !== 0 &&
+      lastName.length !== 0 &&
+      password.length !== 0 &&
+      confirmPassword.length !== 0
+    ) {
+      setBtnDisabled(false);
+    } else {
+      setBtnDisabled(true);
+    }
+  };
 
   const userData: userDataProps = {
     email,
@@ -40,6 +56,15 @@ const SignUp = () => {
     confirmPassword,
     displayName,
   };
+
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    signUp({ userData });
+  };
+
+  useEffect(() => {
+    validateInputValues();
+  }, [firstName, lastName, email, password, confirmPassword]);
 
   return (
     <div className={style.container}>
@@ -71,21 +96,33 @@ const SignUp = () => {
             </div>
           ) : null}
 
-          <form
-            className={style.form}
-            onSubmit={(e) => signUp({ e, userData })}
-          >
+          <form className={style.form} onSubmit={handleFormSubmit}>
             <div className={style["input-container"]}>
-              <label htmlFor='name'>Name</label>
+              <label htmlFor='first-name'>First Name</label>
               <input
                 className={style["input-field"]}
                 type='text'
-                id='name'
-                value={displayName}
+                id='first-name'
+                value={firstName}
                 onChange={(e) => {
                   setError("");
-                  setDisplayName(e.target.value);
+                  setFirstName(e.target.value);
                 }}
+                autoComplete='off'
+              />
+            </div>
+            <div className={style["input-container"]}>
+              <label htmlFor='last-name'>Last Name</label>
+              <input
+                className={style["input-field"]}
+                type='text'
+                id='last-name'
+                value={lastName}
+                onChange={(e) => {
+                  setError("");
+                  setLastName(e.target.value);
+                }}
+                autoComplete='off'
               />
             </div>
             <div className={style["input-container"]}>
@@ -99,6 +136,7 @@ const SignUp = () => {
                   setError("");
                   setEmail(e.target.value);
                 }}
+                autoComplete='off'
               />
             </div>
             <div className={style["input-container"]}>
@@ -152,6 +190,7 @@ const SignUp = () => {
                   setError("");
                   setPassword(e.target.value);
                 }}
+                autoComplete='off'
               />
             </div>
             <div className={style["input-container"]}>
@@ -165,12 +204,14 @@ const SignUp = () => {
                   setError("");
                   setConfirmPassword(e.target.value);
                 }}
+                autoComplete='off'
               />
             </div>
             <div className={style["btn-container"]}>
               <button
                 className={`${style.btn} ${style["btn-auth"]}`}
                 type='submit'
+                disabled={btnDisabled}
               >
                 Sign Up
               </button>

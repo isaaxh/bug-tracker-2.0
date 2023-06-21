@@ -80,6 +80,9 @@
   background-color: rgb(var(--color-blue-30));
   margin-top: 0.5rem;
 }
+.btn-auth:disabled {
+  background-color: rgba(var(--color-blue-20), 0.5);
+}
 
 .btn-auth:hover {
   background-color: rgb(var(--color-blue-20));

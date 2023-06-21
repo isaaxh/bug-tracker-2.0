@@ -17,7 +17,6 @@ interface signInProps {
 }
 
 interface signUpProps {
-    e: FormEvent<HTMLFormElement>,
     userData: userData,
 
 }
@@ -96,8 +95,7 @@ const useAuth = () => {
 
     };
 
-    const signUp = async ({ e, userData }: signUpProps) => {
-        e.preventDefault();
+    const signUp = async ({ userData }: signUpProps) => {
         setLoading(true);
 
         if (userData.email === "" || userData.password === "" || userData.confirmPassword === "") {
