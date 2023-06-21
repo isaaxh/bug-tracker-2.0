@@ -24,7 +24,6 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [displayName, setDisplayName] = useState("");
   const [role, SetRole] = useState<roleProps>({
     admin: false,
     manager: false,
@@ -54,7 +53,7 @@ const SignUp = () => {
     role: role,
     password,
     confirmPassword,
-    displayName,
+    displayName: firstName + " " + lastName,
   };
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
