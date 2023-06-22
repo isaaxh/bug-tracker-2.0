@@ -1,4 +1,4 @@
-import { useState, useContext, FormEvent, useEffect, ChangeEvent } from "react";
+import { useContext } from "react";
 import ClearIcon from "@mui/icons-material/Clear";
 import {
   GlobalContext,
@@ -8,7 +8,7 @@ import useFirestore from "../../../hooks/useFirestore";
 import InfoIcon from "@mui/icons-material/Info";
 // import { AuthContext, AuthContextType } from "../../../contexts/AuthContext";
 import ModalFullName from "./ModalFullName";
-import ModalProfilePic from "./ModalProfilePic";
+import ModalProfilePic from "./ModalProfileImg";
 
 const Modal = () => {
   const { modalOpen, toggleModalOpen, clickedBtn } = useContext(
