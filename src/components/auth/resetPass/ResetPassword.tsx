@@ -1,4 +1,4 @@
-import { useState, FormEvent } from "react";
+import { useState, FormEvent, useEffect } from "react";
 import style from "../authPage.module.css";
 import LanguageIcon from "@mui/icons-material/Language";
 import InfoIcon from "@mui/icons-material/Info";
@@ -7,10 +7,18 @@ import { sendPasswordResetEmail } from "firebase/auth";
 import { auth } from "../../../firebase";
 
 const ResetPassword = () => {
-  const [error, setError] = useState<string>("");
-  const [success, setSuccess] = useState<string>("");
-  const [email, setEmail] = useState<string>("");
-  // const [btnStatus, setBtnStatus] = useState<boolean>(true);
+  const [error, setError] = useState("");
+  const [success, setSuccess] = useState("");
+  const [email, setEmail] = useState("");
+  const [btnDisabled, setBtnDisabled] = useState(true);
+
+  const validateInputValues = () => {
+    if (email.length !== 0) {
+      setBtnDisabled(false);
+    } else {
+      setBtnDisabled(true);
+    }
+  };
 
   const sendResetEmail = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -29,6 +37,10 @@ const ResetPassword = () => {
       setError("Something went wrong");
     }
   };
+
+  useEffect(() => {
+    validateInputValues();
+  }, [email]);
 
   return (
     <div className={style.container}>
@@ -80,6 +92,7 @@ const ResetPassword = () => {
               <button
                 className={`${style.btn} ${style["btn-auth"]}`}
                 type='submit'
+                disabled={btnDisabled}
               >
                 Send Reset Email
               </button>
