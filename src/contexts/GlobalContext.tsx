@@ -8,8 +8,8 @@ interface GlobalProvideProps {
 export interface GlobalContextType {
   modalOpen: boolean;
   toggleModalOpen: () => void;
-  subMenuOpen: boolean;
-  toggleSubMenuOpen: () => void;
+  userActionsOpen: boolean;
+  toggleUserActionsOpen: () => void;
   tabMenuOpen: boolean;
   toggleTabMenuOpen: () => void;
 }
@@ -18,14 +18,15 @@ export const GlobalContext = createContext<GlobalContextType | null>(null);
 
 const GlobalProvider = ({ children }: GlobalProvideProps) => {
   const { status: modalOpen, toggleStatus: toggleModalOpen } = useToggle();
-  const { status: subMenuOpen, toggleStatus: toggleSubMenuOpen } = useToggle();
+  const { status: userActionsOpen, toggleStatus: toggleUserActionsOpen } =
+    useToggle();
   const { status: tabMenuOpen, toggleStatus: toggleTabMenuOpen } = useToggle();
 
   const globalValues = {
     modalOpen,
     toggleModalOpen,
-    subMenuOpen,
-    toggleSubMenuOpen,
+    userActionsOpen,
+    toggleUserActionsOpen,
     tabMenuOpen,
     toggleTabMenuOpen,
   };

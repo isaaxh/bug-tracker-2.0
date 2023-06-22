@@ -30,7 +30,7 @@ const userActionsLinks = [
 
 const UserActions = () => {
   const { signOut } = useAuth();
-  const { subMenuOpen, toggleSubMenuOpen } = useContext(
+  const { userActionsOpen, toggleUserActionsOpen } = useContext(
     GlobalContext
   ) as GlobalContextType;
 
@@ -38,17 +38,17 @@ const UserActions = () => {
 
   const handleLogoutLinkClick = () => {
     signOut();
-    toggleSubMenuOpen();
+    toggleUserActionsOpen();
   };
   return (
     <div
       className={
-        subMenuOpen
-          ? `${style["open-menu"]} ${style["sub-menu-wrap"]}`
-          : style["sub-menu-wrap"]
+        userActionsOpen
+          ? `${style["open-menu"]} ${style["user-actions-wrap"]}`
+          : style["user-actions-wrap"]
       }
     >
-      <div className={style["sub-menu"]}>
+      <div className={style["user-actions"]}>
         <div className={style["user-info"]}>
           <Avatar
             className={style["user-info-avatar"]}
@@ -60,7 +60,7 @@ const UserActions = () => {
         </div>
         <hr />
         {userActionsLinks.map((link, index) => (
-          <Link to={link.path} key={index} onClick={toggleSubMenuOpen}>
+          <Link to={link.path} key={index} onClick={toggleUserActionsOpen}>
             <div className={style["user-info-links"]}>
               <div className={style["icon-container"]}>{link.icon}</div>
               <p>{link.title}</p>

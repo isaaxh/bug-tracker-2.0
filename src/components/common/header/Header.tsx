@@ -12,12 +12,14 @@ import { AuthContext, AuthContextType } from "../../../contexts/AuthContext";
 import UserActions from "./UserActions";
 
 const Header = () => {
-  const { toggleSubMenuOpen } = useContext(GlobalContext) as GlobalContextType;
+  const { toggleUserActionsOpen } = useContext(
+    GlobalContext
+  ) as GlobalContextType;
 
   const { currentUser } = useContext(AuthContext) as AuthContextType;
 
   const handleProfileClick = () => {
-    toggleSubMenuOpen();
+    toggleUserActionsOpen();
   };
 
   return (
