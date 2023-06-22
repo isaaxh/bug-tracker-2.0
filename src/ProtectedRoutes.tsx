@@ -7,7 +7,7 @@ import Header from "./components/common/header/Header";
 import useWindowDimensions from "./hooks/useWindowDimensions";
 import SidebarMobile from "./components/common/sidebar/SidebarMobile";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
-import Modal from "./components/common/modal/modal";
+import Modal from "./components/common/modal/Modal";
 import { GlobalContext, GlobalContextType } from "./contexts/GlobalContext";
 
 const getAuthStatus = () => {

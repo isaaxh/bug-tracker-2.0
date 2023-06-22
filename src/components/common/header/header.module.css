@@ -1,6 +1,6 @@
-.container {
-  /* background-color: rgb(var(--color-grey-70)); */
-}
+/* .container { */
+/* background-color: rgb(var(--color-grey-70)); */
+/* } */
 .header {
   display: flex;
   justify-content: space-between;
@@ -8,10 +8,10 @@
   padding: 2rem 2.5rem;
 }
 
-.menu-wrapper {
-  /* background-color: green; */
-  /* position: absolute; */
-}
+/* .menu-wrapper { */
+/* background-color: green; */
+/* position: absolute; */
+/* } */
 
 .avatar-container {
   background-color: rgba(var(--color-grey-65), 0);

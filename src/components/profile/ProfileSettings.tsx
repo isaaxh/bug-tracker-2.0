@@ -7,13 +7,16 @@ import { AuthContext, AuthContextType } from "../../contexts/AuthContext";
 const ProfileSettings = () => {
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext) as AuthContextType;
-  const { toggleModalOpen } = useContext(GlobalContext) as GlobalContextType;
+  const { toggleModalOpen, setClickedBtn } = useContext(
+    GlobalContext
+  ) as GlobalContextType;
 
   const handleBtnResetClick = () => {
     navigate("/resetpass");
   };
 
-  const handleEditFullNameClick = () => {
+  const handleEditClick = (btnName: string) => {
+    setClickedBtn(btnName);
     toggleModalOpen();
   };
 
@@ -22,6 +25,7 @@ const ProfileSettings = () => {
       title: "Full Name",
       content: currentUser?.displayName,
       btnTitle: "Edit",
+      onClickFunction: () => handleEditClick("Edit Full Name"),
     },
     {
       title: "Email",
@@ -30,11 +34,14 @@ const ProfileSettings = () => {
     {
       title: "Password Settings",
       content: "********",
+      btnTitle: "Reset",
+      onClickFunction: handleBtnResetClick,
     },
     {
       title: "Profile Image",
       content: "",
       btnTitle: "Edit",
+      onClickFunction: () => handleEditClick("Edit Profile Photo"),
     },
     {
       title: "Notification Settings",
@@ -54,16 +61,10 @@ const ProfileSettings = () => {
               <p>{setting.content}</p>
             </div>
             <div className={style["btn-container"]}>
-              {setting.title === "Password Settings" ? (
-                <button className={style.btn} onClick={handleBtnResetClick}>
-                  Reset
+              {setting.btnTitle ? (
+                <button className={style.btn} onClick={setting.onClickFunction}>
+                  {setting.btnTitle}
                 </button>
-              ) : setting.title === "Full Name" ? (
-                <button className={style.btn} onClick={handleEditFullNameClick}>
-                  Edit
-                </button>
-              ) : setting.btnTitle ? (
-                <button className={style.btn}>{setting.btnTitle}</button>
               ) : null}
             </div>
           </div>

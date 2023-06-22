@@ -59,6 +59,18 @@
   outline: none;
 }
 
+.image-upload {
+  /* outline: 1px solid rgb(var(--color-grey-50)); */
+  background-color: rgb(var(--color-grey-70));
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
 .btn-container {
   margin: 1.8rem 0;
   display: flex;

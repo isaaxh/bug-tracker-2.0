@@ -151,6 +151,10 @@ table:focus {
   outline: 1px solid rgb(var(--color-grey-50));
 }
 
+input[type="file"] {
+  display: none;
+}
+
 button {
   border-radius: var(--border-radius);
   border: 1px solid transparent;

@@ -1,4 +1,4 @@
-import { ReactNode, createContext } from "react";
+import { ReactNode, createContext, useState } from "react";
 import { useToggle } from "../hooks/userToggle";
 
 interface GlobalProvideProps {
@@ -8,10 +8,12 @@ interface GlobalProvideProps {
 export interface GlobalContextType {
   modalOpen: boolean;
   toggleModalOpen: () => void;
-  userActionsOpen: boolean;
-  toggleUserActionsOpen: () => void;
   tabMenuOpen: boolean;
   toggleTabMenuOpen: () => void;
+  userActionsOpen: boolean;
+  toggleUserActionsOpen: () => void;
+  clickedBtn: string;
+  setClickedBtn: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const GlobalContext = createContext<GlobalContextType | null>(null);
@@ -21,6 +23,7 @@ const GlobalProvider = ({ children }: GlobalProvideProps) => {
   const { status: userActionsOpen, toggleStatus: toggleUserActionsOpen } =
     useToggle();
   const { status: tabMenuOpen, toggleStatus: toggleTabMenuOpen } = useToggle();
+  const [clickedBtn, setClickedBtn] = useState("");
 
   const globalValues = {
     modalOpen,
@@ -29,6 +32,8 @@ const GlobalProvider = ({ children }: GlobalProvideProps) => {
     toggleUserActionsOpen,
     tabMenuOpen,
     toggleTabMenuOpen,
+    clickedBtn,
+    setClickedBtn,
   };
 
   return (
