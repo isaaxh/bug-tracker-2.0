@@ -1,14 +1,31 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
+import useStorage from "../../../hooks/useStorage";
+import useAuth from "../../../hooks/useAuth";
 
 const ModalProfileImg = () => {
-  const [imageUpload, setImageUpload] = useState<File | null>(null);
-  const [btnDisabled, setBtnDisabled] = useState(true);
+  const [imgUpload, setImgUpload] = useState<File | null>(null);
+  // const [btnDisabled, setBtnDisabled] = useState(true);
 
-  const handleFormSubmit = () => {};
+  const { uploadImg, loading } = useStorage();
+  const { currentUser } = useAuth();
+
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!currentUser || !imgUpload) {
+      console.log("Eithe user or img not available");
+      return;
+    }
+
+    uploadImg({ currentUser, imgUpload });
+  };
 
   useEffect(() => {
-    console.log(imageUpload);
-  }, [imageUpload]);
+    if (imgUpload !== null) {
+      // setBtnDisabled(false);
+    }
+    console.log(imgUpload);
+  }, [imgUpload]);
 
   return (
     <form className='modal-content' onSubmit={handleFormSubmit}>
@@ -21,12 +38,12 @@ const ModalProfileImg = () => {
           onChange={(e) => {
             const file = e.target.files?.[0];
             if (!file) return;
-            setImageUpload(file);
+            setImgUpload(file);
           }}
         />
       </div>
       <div className='modal-btn-container'>
-        <button className='modal-btn' disabled={!btnDisabled}>
+        <button className='modal-btn' disabled={loading}>
           Update
         </button>
       </div>

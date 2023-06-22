@@ -34,6 +34,8 @@
     "react-hook-form": "^7.45.0",
     "react-router": "^6.12.1",
     "react-router-dom": "^6.12.1",
-    "react-spinners": "^0.13.8"
+    "react-spinners": "^0.13.8",
+    "react-uuid": "^2.0.0",
+    "uuid": "^9.0.0"
   }
 }
