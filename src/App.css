@@ -349,3 +349,35 @@ select {
 .modal-btn:hover {
   background-color: rgb(var(--color-blue-20));
 }
+
+.modal-message-card {
+  background-color: rgb(var(--color-grey-70));
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+  gap: 0.5rem;
+  padding: 0.6em 1.2em;
+  margin-bottom: 3rem;
+  overflow: hidden;
+}
+
+/* edit profile photo */
+
+.upload-img {
+  background-color: rgb(var(--color-grey-70));
+  display: flex;
+  padding: 0.6em 1.2em;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+}
+
+.upload-icon {
+  transform: scale(1.1);
+}
+
+.modal-message-card .upload-cross-container {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+}

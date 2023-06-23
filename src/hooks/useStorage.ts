@@ -13,18 +13,19 @@ interface uploadImgPropsType {
 
 const useStorage = () => {
     const [error, setError] = useState('')
+    const [success, setSuccess] = useState('')
     const [loading, setLoading] = useState(false)
 
-    // const { currentUser } = useAuth()
 
     const uploadImg = ({ currentUser, imgUpload }: uploadImgPropsType) => {
         setLoading(true)
         setError('')
+        setSuccess('')
 
         const imgRef = ref(storage, `${currentUser.uid}/${imgUpload.name} + ${uuid()}`)
 
         uploadBytes(imgRef, imgUpload).then(() => {
-            alert("image uploaded")
+            setSuccess('Successful')
         }).catch((err) => {
             console.log(err);
             setError(err.message)
@@ -33,7 +34,7 @@ const useStorage = () => {
         })
     }
 
-    return { uploadImg, error, loading };
+    return { uploadImg, error, setError, success, loading };
 }
 
 export default useStorage;
