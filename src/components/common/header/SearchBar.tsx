@@ -1,4 +1,4 @@
-import React, { ChangeEvent, useState } from "react";
+import { ChangeEvent, useState } from "react";
 import style from "./header.module.css";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 
