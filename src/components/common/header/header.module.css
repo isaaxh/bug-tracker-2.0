@@ -8,15 +8,38 @@
   padding: 2rem 2.5rem;
 }
 
-/* .menu-wrapper { */
-/* background-color: green; */
-/* position: absolute; */
-/* } */
+.menu-wrapper {
+  /* background-color: green; */
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  /* position: absolute; */
+}
+
+/* searchbar stylings */
+
+.search-container {
+  /* background-color: coral; */
+  /* width: 50rem; */
+}
+
+.search-bar {
+  /* width: 20%; */
+}
+
+.search-icon {
+}
+
+/* notification styling */
+.notification-icon {
+}
+
+/* avatar styling */
 
 .avatar-container {
-  background-color: rgba(var(--color-grey-65), 0);
+  /* background-color: rgba(var(--color-grey-65), 0);
   height: 9rem;
-  width: 9rem;
+  width: 9rem; */
   display: flex;
   justify-content: center;
   gap: 1.5rem;
@@ -27,7 +50,7 @@
 }
 
 .avatar-container:hover {
-  background-color: rgba(var(--color-grey-65), 1);
+  /* background-color: rgba(var(--color-grey-65), 1); */
 }
 
 .user-actions-wrap {

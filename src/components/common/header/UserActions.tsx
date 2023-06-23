@@ -4,15 +4,29 @@ import { Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
-import { Logout } from "@mui/icons-material";
+import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
+import { Logout, NotificationsNoneOutlined } from "@mui/icons-material";
 import useAuth from "../../../hooks/useAuth";
 import {
   GlobalContext,
   GlobalContextType,
 } from "../../../contexts/GlobalContext";
 import { AuthContext, AuthContextType } from "../../../contexts/AuthContext";
+import useWindowDimensions from "../../../hooks/useWindowDimensions";
 
 const userActionsLinks = [
+  // {
+  //   title: "Notifications",
+  //   className: "user-info-links",
+  //   path: "#",
+  //   icon: (
+  //     <NotificationsNoneOutlined
+  //       className={style.icons}
+  //       sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
+  //       fontSize='large'
+  //     />
+  //   ),
+  // },
   {
     title: "Profile settings",
     className: "user-info-links",
@@ -37,6 +51,8 @@ const UserActions = () => {
     AuthContext
   ) as AuthContextType;
 
+  const { width } = useWindowDimensions();
+
   const handleLogoutLinkClick = () => {
     signOut();
     toggleUserActionsOpen();
@@ -60,6 +76,50 @@ const UserActions = () => {
           <h2>{currentUser?.displayName}</h2>
         </div>
         <hr />
+        {width < 600 ? (
+          <>
+            <div
+              className={style["user-info-links"]}
+              // onClick={handleLogoutLinkClick}
+            >
+              <div className={style["icon-container"]}>
+                <SearchOutlinedIcon
+                  className={style.icons}
+                  sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
+                  fontSize='large'
+                />
+              </div>
+              <p>Search</p>
+              <span>
+                <KeyboardArrowRightOutlinedIcon
+                  className={style["right-arrows"]}
+                  sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
+                  fontSize='large'
+                />
+              </span>
+            </div>
+            <div
+              className={style["user-info-links"]}
+              // onClick={handleLogoutLinkClick}
+            >
+              <div className={style["icon-container"]}>
+                <NotificationsNoneOutlined
+                  className={style.icons}
+                  sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
+                  fontSize='large'
+                />
+              </div>
+              <p>Notifications</p>
+              <span>
+                <KeyboardArrowRightOutlinedIcon
+                  className={style["right-arrows"]}
+                  sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
+                  fontSize='large'
+                />
+              </span>
+            </div>
+          </>
+        ) : null}
         {userActionsLinks.map((link, index) => (
           <Link to={link.path} key={index} onClick={toggleUserActionsOpen}>
             <div className={style["user-info-links"]}>
