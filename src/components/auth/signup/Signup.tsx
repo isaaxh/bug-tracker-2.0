@@ -1,12 +1,10 @@
-import { ChangeEvent, FormEvent, useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import style from "../authPage.module.css";
 import LanguageIcon from "@mui/icons-material/Language";
 import InfoIcon from "@mui/icons-material/Info";
-import AddPhotoAlternateOutlinedIcon from "@mui/icons-material/AddPhotoAlternateOutlined";
 import { Link } from "react-router-dom";
 import BarLoader from "react-spinners/BarLoader";
 import useAuth from "../../../hooks/useAuth";
-import { useForm } from "react-hook-form";
 
 interface userDataProps {
   displayName: string;
@@ -26,7 +24,6 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [selectedImg, setSelectedImg] = useState<FileList | null>(null);
   const [role, SetRole] = useState<roleProps>({
     admin: false,
     manager: false,
@@ -215,25 +212,6 @@ const SignUp = () => {
                 autoComplete='off'
               />
             </div>
-            {/* <div className={`${style["input-container"]}`}>
-              <label
-                htmlFor='profile-image'
-                className={`${style["image-upload"]}`}
-              >
-                <AddPhotoAlternateOutlinedIcon
-                  className={style.icons}
-                  sx={{ stroke: "#ffffff", strokeWidth: 1 }}
-                  fontSize='large'
-                />
-                Choose Profile Image
-              </label>
-              <input
-                type='file'
-                name='profile-image'
-                id='profile-image'
-                onChange={onFileChange}
-              />
-            </div> */}
             <div className={style["btn-container"]}>
               <button
                 className={`${style.btn} ${style["btn-auth"]}`}
