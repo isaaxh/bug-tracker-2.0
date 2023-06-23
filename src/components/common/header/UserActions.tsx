@@ -2,7 +2,6 @@ import style from "./header.module.css";
 import { useContext } from "react";
 import { Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
-import img1 from "../../../assets/man-smiling.jpg";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import { Logout } from "@mui/icons-material";

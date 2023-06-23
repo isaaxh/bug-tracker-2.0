@@ -25,7 +25,7 @@ const useStorage = () => {
 
 
         try {
-            const snapshot = await uploadBytes(imgRef, imgUpload)
+            await uploadBytes(imgRef, imgUpload)
             const photoURL = await getDownloadURL(imgRef)
             updateProfile(currentUser, { photoURL })
             setSuccess('Successful')

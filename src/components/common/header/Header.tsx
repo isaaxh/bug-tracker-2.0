@@ -1,8 +1,6 @@
 import style from "./header.module.css";
 import { Avatar } from "@mui/material";
-import img1 from "../../../assets/man-smiling.jpg";
-import { useContext, useState } from "react";
-import useAuth from "../../../hooks/useAuth";
+import { useContext } from "react";
 // import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import {
   GlobalContext,
