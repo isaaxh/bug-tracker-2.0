@@ -18,20 +18,38 @@
 
 /* searchbar stylings */
 
-.search-container {
+.search-bar {
   /* background-color: coral; */
   /* width: 50rem; */
+  margin-left: 0.5rem;
+  background-color: inherit;
+  border: none;
 }
 
-.search-bar {
-  /* width: 20%; */
+.search-bar:focus {
+  outline: none;
+}
+
+.search-container {
+  height: 3.5rem;
+  background-color: rgb(var(--color-grey-70));
+  padding: 0.6rem 1.2rem;
+  border: none;
+  border-radius: var(--border-radius);
+  width: 100%;
+  outline: none;
+  display: flex;
+  align-items: center;
 }
 
 .search-icon {
+  /* margin-right: 1rem; */
+  cursor: pointer;
 }
 
 /* notification styling */
 .notification-icon {
+  cursor: pointer;
 }
 
 /* avatar styling */

@@ -32,7 +32,7 @@ const Header = () => {
           <h1 className='app-title'>Bug Tracker 2.0</h1>
         </div>
         <div className={style["menu-wrapper"]}>
-          <div className={style["search-container"]}>
+          <div>
             {width > 1200 ? (
               <SearchBar />
             ) : width > 600 ? (
@@ -41,7 +41,6 @@ const Header = () => {
                 sx={{
                   stroke: "#ffffff",
                   strokeWidth: 1,
-                  transform: "scale(1.1)",
                 }}
                 fontSize='large'
               />
