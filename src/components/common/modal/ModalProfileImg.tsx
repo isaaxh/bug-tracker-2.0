@@ -3,16 +3,13 @@ import InfoIcon from "@mui/icons-material/Info";
 import UploadOutlinedIcon from "@mui/icons-material/UploadOutlined";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutlineOutlined";
-// import BarLoader from "react-spinners/BarLoader";
 import useStorage from "../../../hooks/useStorage";
 import useAuth from "../../../hooks/useAuth";
 import MoonLoader from "react-spinners/MoonLoader";
 
 const ModalProfileImg = () => {
   const [imgUpload, setImgUpload] = useState<File | null>(null);
-  // const [error, setError] = useState("");
   const [message, setMessage] = useState("");
-  // const [btnDisabled, setBtnDisabled] = useState(true);
 
   const { uploadImg, loading, success, error, setError } = useStorage();
   const { currentUser } = useAuth();
