@@ -11,7 +11,8 @@ const ModalProfileImg = () => {
   const [imgUpload, setImgUpload] = useState<File | null>(null);
   const [message, setMessage] = useState("");
 
-  const { uploadImg, loading, success, error, setError } = useStorage();
+  const { uploadImg, loading, success, setSuccess, error, setError } =
+    useStorage();
   const { currentUser } = useAuth();
 
   const handleUploadCross = () => {
@@ -39,6 +40,7 @@ const ModalProfileImg = () => {
       return;
     }
     setMessage("");
+    setSuccess("");
   }, [imgUpload]);
 
   return (

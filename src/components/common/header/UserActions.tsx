@@ -34,7 +34,9 @@ const UserActions = () => {
     GlobalContext
   ) as GlobalContextType;
 
-  const { currentUser } = useContext(AuthContext) as AuthContextType;
+  const { currentUser, profileImg } = useContext(
+    AuthContext
+  ) as AuthContextType;
 
   const handleLogoutLinkClick = () => {
     signOut();
@@ -53,7 +55,7 @@ const UserActions = () => {
           <Avatar
             className={style["user-info-avatar"]}
             alt='man smiling'
-            src={img1}
+            src={profileImg}
             sx={{ width: 40, height: 40 }}
           />
           <h2>{currentUser?.displayName}</h2>

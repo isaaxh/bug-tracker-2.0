@@ -1,7 +1,7 @@
 import style from "./header.module.css";
 import { Avatar } from "@mui/material";
 import img1 from "../../../assets/man-smiling.jpg";
-import { useContext } from "react";
+import { useContext, useState } from "react";
 import useAuth from "../../../hooks/useAuth";
 // import KeyboardArrowDownOutlinedIcon from "@mui/icons-material/KeyboardArrowDownOutlined";
 import {
@@ -12,11 +12,12 @@ import { AuthContext, AuthContextType } from "../../../contexts/AuthContext";
 import UserActions from "./UserActions";
 
 const Header = () => {
+  // const { currentUser } = useAuth();
   const { toggleUserActionsOpen } = useContext(
     GlobalContext
   ) as GlobalContextType;
 
-  const { currentUser } = useContext(AuthContext) as AuthContextType;
+  const { profileImg } = useContext(AuthContext) as AuthContextType;
 
   const handleProfileClick = () => {
     toggleUserActionsOpen();
@@ -35,8 +36,8 @@ const Header = () => {
           >
             {/* <KeyboardArrowDownOutlinedIcon fontSize='large' /> */}
             <Avatar
-              alt='man smiling'
-              src={img1}
+              alt='profile img'
+              src={profileImg}
               sx={{ width: 60, height: 60 }}
             />
           </div>

@@ -1,13 +1,17 @@
 import { storage } from "../firebase";
-import { ref, uploadBytes } from 'firebase/storage';
+import { getDownloadURL, ref, uploadBytes } from 'firebase/storage';
 // import useAuth from "./useAuth";
 import uuid from "react-uuid";
-import { User } from "firebase/auth";
+import { User, updateProfile } from "firebase/auth";
 import { useState } from "react";
 
 interface uploadImgPropsType {
     currentUser: User;
     imgUpload: File;
+}
+
+interface getProfileImgPropsType {
+    currentUser: User;
 }
 
 
@@ -25,16 +29,25 @@ const useStorage = () => {
         const imgRef = ref(storage, `${currentUser.uid}/${imgUpload.name} + ${uuid()}`)
 
         uploadBytes(imgRef, imgUpload).then(() => {
+            getDownloadURL(imgRef).then((photoURL) => {
+                updateProfile(currentUser, { photoURL }).then(() => {
+                    console.log(currentUser.photoURL)
+                })
+            }).catch((error) => {
+                setError(error.message)
+            });
             setSuccess('Successful')
-        }).catch((err) => {
-            console.log(err);
-            setError(err.message)
+        }).catch((error) => {
+            setError(error.message)
         }).finally(() => {
             setLoading(false)
         })
+
+
     }
 
-    return { uploadImg, error, setError, success, loading };
+
+    return { uploadImg, error, setError, success, setSuccess, loading };
 }
 
 export default useStorage;
