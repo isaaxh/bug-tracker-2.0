@@ -10,38 +10,48 @@ interface uploadImgPropsType {
     imgUpload: File;
 }
 
-interface getProfileImgPropsType {
-    currentUser: User;
-}
-
-
 const useStorage = () => {
-    const [error, setError] = useState('')
+    const [error, setError] = useState<unknown | string>('')
     const [success, setSuccess] = useState('')
     const [loading, setLoading] = useState(false)
 
 
-    const uploadImg = ({ currentUser, imgUpload }: uploadImgPropsType) => {
+    const uploadImg = async ({ currentUser, imgUpload }: uploadImgPropsType) => {
         setLoading(true)
         setError('')
         setSuccess('')
 
         const imgRef = ref(storage, `${currentUser.uid}/${imgUpload.name} + ${uuid()}`)
 
-        uploadBytes(imgRef, imgUpload).then(() => {
-            getDownloadURL(imgRef).then((photoURL) => {
-                updateProfile(currentUser, { photoURL }).then(() => {
-                    console.log(currentUser.photoURL)
-                })
-            }).catch((error) => {
-                setError(error.message)
-            });
+
+        try {
+            const snapshot = await uploadBytes(imgRef, imgUpload)
+            const photoURL = await getDownloadURL(imgRef)
+            updateProfile(currentUser, { photoURL })
             setSuccess('Successful')
-        }).catch((error) => {
-            setError(error.message)
-        }).finally(() => {
+        } catch (error) {
+            setError(error)
+        } finally {
             setLoading(false)
-        })
+        }
+
+
+
+
+        // uploadBytes(imgRef, imgUpload).then(() => {
+        //     getDownloadURL(imgRef).then((photoURL) => {
+        //         updateProfile(currentUser, { photoURL }).then(() => {
+        //             console.log(currentUser.photoURL)
+        //         })
+        //     }).catch((error) => {
+        //         setError(error.message)
+        //     });
+        //     setSuccess('Successful')
+        // }).catch((error) => {
+        //     setError(error.message)
+        // }).finally(() => {
+        //     setLoading(false)
+        // })
 
 
     }
