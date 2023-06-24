@@ -10,7 +10,7 @@ const Home = () => {
   const { width } = useWindowDimensions();
   const { currentUser } = useAuth();
 
-  const { readData } = useFirestore();
+  const { readData, error } = useFirestore();
 
   useEffect(() => {
     if (currentUser?.uid === undefined) return;
@@ -19,11 +19,13 @@ const Home = () => {
       collectionName: "users",
       uid: currentUser.uid,
     };
-    readData(queryRequestData)
-      .then((response) => setUserData(response))
-      .catch((error) => {
-        console.log(error);
-      });
+
+    const fetchData = async () => {
+      const userData = await readData(queryRequestData);
+      setUserData(userData);
+    };
+
+    fetchData();
   }, [currentUser]);
 
   return (
@@ -43,6 +45,7 @@ const Home = () => {
             ? "Developer"
             : "no role found"}
         </div>
+        <div>{error}</div>
       </div>
     </div>
   );

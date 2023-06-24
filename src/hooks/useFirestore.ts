@@ -21,11 +21,6 @@ export interface updateDataPropsType {
     docId: string,
 }
 
-// interface data {
-// displayName: string
-// }
-
-
 const useFirestore = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
@@ -55,11 +50,13 @@ const useFirestore = () => {
 
 
         if (docSnap.exists()) {
-            const documentData = docSnap.data()
-            return documentData;
+            const documentData = await docSnap.data()
+            // console.log(documentData);
+
             setLoading(false)
+            return documentData;
         } else {
-            console.log('No such documents!');
+            // console.log('No such documents!');
             setError("Failed to load data")
         }
     }
@@ -85,7 +82,7 @@ const useFirestore = () => {
 
             setLoading(true)
         } catch (error) {
-            console.log(error);
+            // console.log(error);
             setError('Failed to update information')
         }
     }

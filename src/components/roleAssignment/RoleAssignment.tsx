@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import style from "./roleAssignment.module.css";
+import useFirestore from "../../hooks/useFirestore";
 
 // interface usersData {}
 
@@ -106,6 +107,8 @@ const roles = ["admin", "manager", "project lead", "developer"];
 const RoleAssignment = () => {
   const [selectedUsers, setSelectedUsers] = useState({});
 
+  const { readData } = useFirestore();
+
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValues = Array.from(
       e.target.selectedOptions,
@@ -114,6 +117,10 @@ const RoleAssignment = () => {
 
     console.log(selectedValues);
   };
+
+  useEffect(() => {
+    // readData('users', )
+  }, []);
 
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
