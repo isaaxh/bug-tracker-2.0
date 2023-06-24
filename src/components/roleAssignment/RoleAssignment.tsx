@@ -1,113 +1,21 @@
 import { useEffect, useState } from "react";
 import style from "./roleAssignment.module.css";
 import useFirestore from "../../hooks/useFirestore";
+import { readAllDocsPropType, docType } from "../../hooks/useFirestore";
+import { DocumentData } from "firebase/firestore";
 
-// interface usersData {}
+const roles = ["admin", "manager", "developer"];
 
-const users = [
-  {
-    name: "tom hidleston",
-    email: "tomh@gmail.com",
-    role: "admin",
-  },
-  {
-    name: "Carol smith",
-    email: "carolsmith@gmail.com",
-    role: "manager",
-  },
-  {
-    name: "Carol smith",
-    email: "tomh@gmail.com",
-    role: "project lead",
-  },
-  {
-    name: "Carol smith",
-    email: "tomh@gmail.com",
-    role: "developer",
-  },
-  {
-    name: "Carol smith",
-    email: "tomh@gmail.com",
-    role: "developer",
-  },
-  {
-    name: "Carol smith",
-    email: "tomh@gmail.com",
-    role: "developer",
-  },
-  {
-    name: "Carol smith",
-    email: "tomh@gmail.com",
-    role: "developer",
-  },
-  {
-    name: "Carol smith",
-    email: "tomh@gmail.com",
-    role: "developer",
-  },
-  {
-    name: "Carol smith",
-    email: "tomh@gmail.com",
-    role: "developer",
-  },
-  {
-    name: "Carol smith",
-    email: "tomh@gmail.com",
-    role: "developer",
-  },
-  {
-    name: "Carol smith",
-    email: "tomh@gmail.com",
-    role: "developer",
-  },
-  {
-    name: "Carol smith",
-    email: "tomh@gmail.com",
-    role: "developer",
-  },
-  {
-    name: "Carol smith",
-    email: "tomh@gmail.com",
-    role: "developer",
-  },
-  {
-    name: "Carol smith",
-    email: "tomh@gmail.com",
-    role: "developer",
-  },
-  {
-    name: "Carol smith",
-    email: "tomh@gmail.com",
-    role: "developer",
-  },
-  {
-    name: "Carol smith",
-    email: "tomh@gmail.com",
-    role: "developer",
-  },
-  {
-    name: "Carol smith",
-    email: "tomh@gmail.com",
-    role: "developer",
-  },
-  {
-    name: "Carol smith",
-    email: "tomh@gmail.com",
-    role: "developer",
-  },
-  {
-    name: "Carol smith",
-    email: "tomh@gmail.com",
-    role: "developer",
-  },
-];
-
-const roles = ["admin", "manager", "project lead", "developer"];
+interface userDocType {
+  user: DocumentData;
+  index: number;
+}
 
 const RoleAssignment = () => {
   const [selectedUsers, setSelectedUsers] = useState({});
+  const [allUserDocs, setAllUserDocs] = useState<DocumentData>([]);
 
-  const { readData } = useFirestore();
+  const { readAllDocs } = useFirestore();
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValues = Array.from(
@@ -119,8 +27,21 @@ const RoleAssignment = () => {
   };
 
   useEffect(() => {
-    // readData('users', )
+    const requestedData: readAllDocsPropType = {
+      collectionName: "users",
+    };
+    const fetchAllData = async () => {
+      const allUserDocs = await readAllDocs(requestedData);
+      // console.log(allUserDocs);
+      setAllUserDocs(allUserDocs);
+    };
+
+    fetchAllData();
   }, []);
+
+  useEffect(() => {
+    console.log(allUserDocs);
+  }, [allUserDocs]);
 
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -148,13 +69,15 @@ const RoleAssignment = () => {
                 autoFocus
                 onChange={handleSelectChange}
               >
-                {users.map((user, index) => (
+                {allUserDocs.map((user: docType, index: number) => (
+                  // {console.log(typeof user)}
+
                   <option
                     className={style["select-items"]}
                     key={index}
-                    value={user.name}
+                    value={user.displayName}
                   >
-                    {user.name}
+                    {user.displayName}
                   </option>
                 ))}
               </select>
@@ -209,11 +132,19 @@ const RoleAssignment = () => {
               </thead>
 
               <tbody>
-                {users.map((user, index) => (
+                {allUserDocs.map((user: docType, index: number) => (
                   <tr key={index}>
-                    <td data-cell='name'>{user.name}</td>
+                    <td data-cell='name'>{user.displayName}</td>
                     <td data-cell='email'>{user.email}</td>
-                    <td data-cell='role'>{user.role}</td>
+                    <td data-cell='role'>
+                      {user.role.admin
+                        ? "admin"
+                        : user.role.manager
+                        ? "manager"
+                        : user.role.developer
+                        ? "developer"
+                        : "no role"}
+                    </td>
                   </tr>
                 ))}
               </tbody>

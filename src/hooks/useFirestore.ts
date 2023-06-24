@@ -1,17 +1,41 @@
-import { setDoc, doc, getDoc, updateDoc, DocumentData } from "firebase/firestore";
+import { setDoc, doc, getDoc, updateDoc, DocumentData, collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../firebase";
 import { User, updateProfile } from "firebase/auth";
 import { useState } from "react";
 
-export interface writeDataProps {
+export interface writeDataPropsType {
     collectionName: string,
     uid: string,
     data: object
 }
 
-export interface readDataProps {
+export interface readDocPropsType {
     collectionName: string,
     uid: string,
+}
+
+export interface readAllDocsPropType {
+    collectionName: string;
+}
+
+export interface docType {
+    displayName: string;
+    email: string;
+    role: roleType;
+    uid: string;
+}
+
+export interface roleType {
+    manager: boolean;
+    developer: boolean;
+    admin: boolean;
+}
+
+interface conditionPropType {
+    property: string;
+    // condition: WhereFilterOp;
+    value: boolean;
+
 }
 
 export interface updateDataPropsType {
@@ -41,7 +65,7 @@ const useFirestore = () => {
         }
     }
 
-    const readData = async ({ collectionName, uid }: readDataProps): Promise<DocumentData | undefined> => {
+    const readDoc = async ({ collectionName, uid }: readDocPropsType): Promise<DocumentData | undefined> => {
         setLoading(true)
         setError("")
 
@@ -51,15 +75,36 @@ const useFirestore = () => {
 
         if (docSnap.exists()) {
             const documentData = await docSnap.data()
-            // console.log(documentData);
-
             setLoading(false)
             return documentData;
         } else {
-            // console.log('No such documents!');
             setError("Failed to load data")
+            setLoading(false)
         }
     }
+
+    const condtion = {
+        property: 'developers',
+        condition: '==',
+        value: true
+    }
+
+    const readAllDocs = async ({ collectionName }: readAllDocsPropType) => {
+
+        // const q = query(collection(db, collectionName), where(condition.property, condition.condition, condition.value))
+
+        let docArray: Array<DocumentData> = []
+        const querySnapshot = await getDocs(collection(db, collectionName));
+        await querySnapshot.forEach((doc) => {
+            console.log(typeof doc.data());
+
+            docArray.push(doc.data())
+        })
+
+        return docArray
+
+    }
+
 
     const updateData = async ({ currentUser, collectionName, data, docId }: updateDataPropsType) => {
         setLoading(true)
@@ -82,13 +127,13 @@ const useFirestore = () => {
 
             setLoading(true)
         } catch (error) {
-            // console.log(error);
             setError('Failed to update information')
         }
+
     }
 
 
-    return { writeData, readData, updateData, error, loading, setError, setLoading };
+    return { writeData, readDoc, readAllDocs, updateData, error, loading, setError, setLoading };
 }
 
 export default useFirestore;

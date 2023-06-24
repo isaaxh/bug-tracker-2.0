@@ -10,7 +10,7 @@ const Home = () => {
   const { width } = useWindowDimensions();
   const { currentUser } = useAuth();
 
-  const { readData, error } = useFirestore();
+  const { readDoc, error } = useFirestore();
 
   useEffect(() => {
     if (currentUser?.uid === undefined) return;
@@ -21,7 +21,7 @@ const Home = () => {
     };
 
     const fetchData = async () => {
-      const userData = await readData(queryRequestData);
+      const userData = await readDoc(queryRequestData);
       setUserData(userData);
     };
 
