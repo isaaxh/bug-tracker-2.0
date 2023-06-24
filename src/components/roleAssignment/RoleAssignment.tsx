@@ -1,7 +1,11 @@
 import { useEffect, useState } from "react";
 import style from "./roleAssignment.module.css";
 import useFirestore from "../../hooks/useFirestore";
-import { readAllDocsPropType, docType } from "../../hooks/useFirestore";
+import {
+  readAllDocsPropType,
+  readMultipleDocsPropsType,
+  docType,
+} from "../../hooks/useFirestore";
 import { DocumentData } from "firebase/firestore";
 
 const roles = ["admin", "manager", "developer"];
@@ -9,8 +13,9 @@ const roles = ["admin", "manager", "developer"];
 const RoleAssignment = () => {
   const [selectedUsers, setSelectedUsers] = useState({});
   const [allUserDocs, setAllUserDocs] = useState<DocumentData>([]);
+  const [unAssignedUsers, setUnAssignedUsers] = useState<DocumentData>([]);
 
-  const { readAllDocs } = useFirestore();
+  const { readAllDocs, readMultipleDocs } = useFirestore();
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValues = Array.from(
@@ -22,20 +27,35 @@ const RoleAssignment = () => {
   };
 
   useEffect(() => {
-    const requestedData: readAllDocsPropType = {
+    const requestAllDocs: readAllDocsPropType = {
       collectionName: "users",
     };
+
+    const requestMultipleDocs: readMultipleDocsPropsType = {
+      collectionName: "users",
+      queryObject: {
+        field: "roleAssigned",
+        operator: "==",
+        value: false,
+      },
+    };
+
     const fetchAllData = async () => {
-      const allUserDocs = await readAllDocs(requestedData);
+      const allUserDocs = await readAllDocs(requestAllDocs);
       setAllUserDocs(allUserDocs);
+
+      const unAssignedUsers = await readMultipleDocs(requestMultipleDocs);
+      console.log("after fetch call ");
+
+      setUnAssignedUsers(unAssignedUsers);
     };
 
     fetchAllData();
   }, []);
 
   useEffect(() => {
-    // console.log(allUserDocs);
-  }, [allUserDocs]);
+    // console.log(unAssignedUsers);
+  }, [unAssignedUsers]);
 
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -63,9 +83,7 @@ const RoleAssignment = () => {
                 autoFocus
                 onChange={handleSelectChange}
               >
-                {allUserDocs.map((user: docType, index: number) => (
-                  // {console.log(typeof user)}
-
+                {unAssignedUsers.map((user: docType, index: number) => (
                   <option
                     className={style["select-items"]}
                     key={index}

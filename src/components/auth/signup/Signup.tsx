@@ -10,6 +10,7 @@ interface userDataProps {
   displayName: string;
   email: string;
   role: roleProps;
+  roleAssigned: boolean;
   password: string;
   confirmPassword: string;
 }
@@ -55,10 +56,15 @@ const SignUp = () => {
   // };
 
   const userData: userDataProps = {
-    email,
-    role: role,
-    password,
-    confirmPassword,
+    email: email,
+    role: {
+      admin: false,
+      manager: false,
+      developer: false,
+    },
+    roleAssigned: false,
+    password: password,
+    confirmPassword: confirmPassword,
     displayName: firstName + " " + lastName,
   };
 
@@ -144,7 +150,7 @@ const SignUp = () => {
                 autoComplete='off'
               />
             </div>
-            <div className={style["input-container"]}>
+            {/* <div className={style["input-container"]}>
               <label htmlFor='role'>Role</label>
               <select
                 className={style["input-field"]}
@@ -183,7 +189,7 @@ const SignUp = () => {
                 <option value='manager'>Project Manager</option>
                 <option value='developer'>Developer</option>
               </select>
-            </div>
+            </div> */}
             <div className={style["input-container"]}>
               <label htmlFor='password'>Password</label>
               <input

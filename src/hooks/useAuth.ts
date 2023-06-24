@@ -23,6 +23,7 @@ interface signUpProps {
 
 interface userData {
     email: string,
+    roleAssigned: boolean,
     role: roleProps,
     password: string,
     confirmPassword: string,
@@ -126,6 +127,7 @@ const useAuth = () => {
                 uid: userCredential.user.uid,
                 displayName: userData.displayName,
                 email: userData.email,
+                roleAssigned: userData.roleAssigned,
                 role: userData.role,
             }
 

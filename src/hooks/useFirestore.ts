@@ -1,4 +1,4 @@
-import { setDoc, doc, getDoc, updateDoc, DocumentData, collection, query, where, getDocs } from "firebase/firestore";
+import { setDoc, doc, getDoc, updateDoc, DocumentData, collection, query, where, getDocs, WhereFilterOp } from "firebase/firestore";
 import { db } from "../firebase";
 import { User, updateProfile } from "firebase/auth";
 import { useState } from "react";
@@ -21,6 +21,7 @@ export interface readAllDocsPropType {
 export interface docType {
     displayName: string;
     email: string;
+    roleAssigned: boolean;
     role: roleType;
     uid: string;
 }
@@ -37,6 +38,17 @@ export interface roleType {
 //     value: boolean;
 
 // }
+
+export interface readMultipleDocsPropsType {
+    collectionName: string,
+    queryObject: queryObjectType,
+}
+
+interface queryObjectType {
+    field: string,
+    operator: WhereFilterOp,
+    value: boolean,
+};
 
 export interface updateDataPropsType {
     currentUser: User,
@@ -83,18 +95,26 @@ const useFirestore = () => {
         }
     }
 
-    const condtion = {
-        property: 'developers',
-        condition: '==',
-        value: true
-    }
-
     const readAllDocs = async ({ collectionName }: readAllDocsPropType) => {
 
         // const q = query(collection(db, collectionName), where(condition.property, condition.condition, condition.value))
 
         let docArray: Array<DocumentData> = []
         const querySnapshot = await getDocs(collection(db, collectionName));
+        await querySnapshot.forEach((doc) => {
+            docArray.push(doc.data())
+        })
+
+        return docArray
+    }
+
+    const readMultipleDocs = async ({ collectionName, queryObject }: readMultipleDocsPropsType) => {
+
+        let docArray: Array<DocumentData> = []
+
+        const q = query(collection(db, collectionName), where(queryObject.field, queryObject.operator, queryObject.value))
+
+        const querySnapshot = await getDocs(q);
         await querySnapshot.forEach((doc) => {
             docArray.push(doc.data())
         })
@@ -130,7 +150,7 @@ const useFirestore = () => {
     }
 
 
-    return { writeData, readDoc, readAllDocs, updateData, error, loading, setError, setLoading };
+    return { writeData, readDoc, readAllDocs, readMultipleDocs, updateData, error, loading, setError, setLoading };
 }
 
 export default useFirestore;
