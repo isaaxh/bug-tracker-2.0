@@ -112,7 +112,7 @@ const RoleAssignment = () => {
                 id='role-list'
                 required
                 autoFocus
-                // onChange={handleSelectChange}
+                onChange={handleSelectChange}
               >
                 <option disabled value=''>
                   --Choose one please--
@@ -137,37 +137,48 @@ const RoleAssignment = () => {
               <h2>Your Personnel</h2>
               <p>All users in your database</p>
             </div> */}
-            <table>
-              <caption>
-                Your Personnel
-                {/* <p>All users in your database</p> */}
-              </caption>
-              <thead>
-                <tr>
-                  <th>Name</th>
-                  <th>Email</th>
-                  <th>Role</th>
-                </tr>
-              </thead>
 
-              <tbody>
-                {allUserDocs.map((user: docType, index: number) => (
-                  <tr key={index}>
-                    <td data-cell='name'>{user.displayName}</td>
-                    <td data-cell='email'>{user.email}</td>
-                    <td data-cell='role'>
-                      {user.role.admin
-                        ? "admin"
-                        : user.role.manager
-                        ? "manager"
-                        : user.role.developer
-                        ? "developer"
-                        : "unassigned"}
-                    </td>
+            {loading && loading ? (
+              <MoonLoader
+                className={style.spinner}
+                loading={loading}
+                aria-label='Loading Spinner'
+                data-testid='loader'
+                size={30}
+              />
+            ) : (
+              <table>
+                <caption>
+                  Your Personnel
+                  {/* <p>All users in your database</p> */}
+                </caption>
+                <thead>
+                  <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+
+                <tbody>
+                  {allUserDocs.map((user: docType, index: number) => (
+                    <tr key={index}>
+                      <td data-cell='name'>{user.displayName}</td>
+                      <td data-cell='email'>{user.email}</td>
+                      <td data-cell='role'>
+                        {user.role.admin
+                          ? "admin"
+                          : user.role.manager
+                          ? "manager"
+                          : user.role.developer
+                          ? "developer"
+                          : "unassigned"}
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            )}
           </div>
         </div>
       </div>
