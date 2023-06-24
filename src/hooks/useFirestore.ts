@@ -59,7 +59,7 @@ export interface updateDataPropsType {
 
 const useFirestore = () => {
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState('');
+    const [error, setError] = useState<unknown | string>('');
 
     const writeData = async (collectionName: string, uid: string, data: object) => {
         setLoading(true)
@@ -97,27 +97,45 @@ const useFirestore = () => {
 
     const readAllDocs = async ({ collectionName }: readAllDocsPropType) => {
 
-        // const q = query(collection(db, collectionName), where(condition.property, condition.condition, condition.value))
+        setLoading(true)
+        setError('')
 
         let docArray: Array<DocumentData> = []
-        const querySnapshot = await getDocs(collection(db, collectionName));
-        await querySnapshot.forEach((doc) => {
-            docArray.push(doc.data())
-        })
+        try {
+            const querySnapshot = await getDocs(collection(db, collectionName));
+            await querySnapshot.forEach((doc) => {
+                docArray.push(doc.data())
+            })
+
+            setLoading(false)
+        } catch (error) {
+            setError(error)
+            setLoading(false)
+        }
 
         return docArray
     }
 
     const readMultipleDocs = async ({ collectionName, queryObject }: readMultipleDocsPropsType) => {
 
+        setLoading(true)
+        setError('')
+
         let docArray: Array<DocumentData> = []
 
         const q = query(collection(db, collectionName), where(queryObject.field, queryObject.operator, queryObject.value))
+        try {
+            const querySnapshot = await getDocs(q);
+            await querySnapshot.forEach((doc) => {
+                docArray.push(doc.data())
+            })
 
-        const querySnapshot = await getDocs(q);
-        await querySnapshot.forEach((doc) => {
-            docArray.push(doc.data())
-        })
+            setLoading(false)
+        } catch (error) {
+            setError('')
+            setLoading(false)
+        }
+
 
         return docArray
     }

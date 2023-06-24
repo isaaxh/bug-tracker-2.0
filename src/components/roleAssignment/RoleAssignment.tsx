@@ -7,6 +7,7 @@ import {
   docType,
 } from "../../hooks/useFirestore";
 import { DocumentData } from "firebase/firestore";
+import MoonLoader from "react-spinners/MoonLoader";
 
 const roles = ["admin", "manager", "developer"];
 
@@ -15,7 +16,7 @@ const RoleAssignment = () => {
   const [allUserDocs, setAllUserDocs] = useState<DocumentData>([]);
   const [unAssignedUsers, setUnAssignedUsers] = useState<DocumentData>([]);
 
-  const { readAllDocs, readMultipleDocs } = useFirestore();
+  const { readAllDocs, readMultipleDocs, error, loading } = useFirestore();
 
   const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const selectedValues = Array.from(
@@ -45,17 +46,13 @@ const RoleAssignment = () => {
       setAllUserDocs(allUserDocs);
 
       const unAssignedUsers = await readMultipleDocs(requestMultipleDocs);
-      console.log("after fetch call ");
-
       setUnAssignedUsers(unAssignedUsers);
     };
 
     fetchAllData();
   }, []);
 
-  useEffect(() => {
-    // console.log(unAssignedUsers);
-  }, [unAssignedUsers]);
+  useEffect(() => {}, [unAssignedUsers]);
 
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -73,26 +70,36 @@ const RoleAssignment = () => {
               <label className={style["user-list-label"]} htmlFor='user-list'>
                 Select 1 or more users
               </label>
-              <select
-                className={style["user-list"]}
-                name='user-list'
-                id='user-list'
-                multiple
-                size={3}
-                required
-                autoFocus
-                onChange={handleSelectChange}
-              >
-                {unAssignedUsers.map((user: docType, index: number) => (
-                  <option
-                    className={style["select-items"]}
-                    key={index}
-                    value={user.displayName}
-                  >
-                    {user.displayName}
-                  </option>
-                ))}
-              </select>
+              {loading && loading ? (
+                <MoonLoader
+                  className={style.spinner}
+                  loading={loading}
+                  aria-label='Loading Spinner'
+                  data-testid='loader'
+                  size={20}
+                />
+              ) : (
+                <select
+                  className={style["user-list"]}
+                  name='user-list'
+                  id='user-list'
+                  multiple
+                  size={3}
+                  required
+                  autoFocus
+                  onChange={handleSelectChange}
+                >
+                  {unAssignedUsers.map((user: docType, index: number) => (
+                    <option
+                      className={style["select-items"]}
+                      key={index}
+                      value={user.displayName}
+                    >
+                      {user.displayName}
+                    </option>
+                  ))}
+                </select>
+              )}
             </div>
             <hr className={style["hr"]} />
             <div className={style["select-role-container"]}>

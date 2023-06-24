@@ -28,6 +28,13 @@
   /* background-color: coral; */
 }
 
+.select-user-container {
+}
+
+.spinner {
+  margin-top: 3rem;
+  margin-inline: auto;
+}
 .user-list-label {
   /* background-color: coral; */
   font-size: var(--font-size-20);
