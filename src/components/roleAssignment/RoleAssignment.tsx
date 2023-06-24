@@ -6,11 +6,6 @@ import { DocumentData } from "firebase/firestore";
 
 const roles = ["admin", "manager", "developer"];
 
-interface userDocType {
-  user: DocumentData;
-  index: number;
-}
-
 const RoleAssignment = () => {
   const [selectedUsers, setSelectedUsers] = useState({});
   const [allUserDocs, setAllUserDocs] = useState<DocumentData>([]);
@@ -23,7 +18,7 @@ const RoleAssignment = () => {
       (option) => option.value
     );
 
-    console.log(selectedValues);
+    // console.log(selectedValues);
   };
 
   useEffect(() => {
@@ -32,7 +27,6 @@ const RoleAssignment = () => {
     };
     const fetchAllData = async () => {
       const allUserDocs = await readAllDocs(requestedData);
-      // console.log(allUserDocs);
       setAllUserDocs(allUserDocs);
     };
 
@@ -40,7 +34,7 @@ const RoleAssignment = () => {
   }, []);
 
   useEffect(() => {
-    console.log(allUserDocs);
+    // console.log(allUserDocs);
   }, [allUserDocs]);
 
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
@@ -143,7 +137,7 @@ const RoleAssignment = () => {
                         ? "manager"
                         : user.role.developer
                         ? "developer"
-                        : "no role"}
+                        : "unassigned"}
                     </td>
                   </tr>
                 ))}

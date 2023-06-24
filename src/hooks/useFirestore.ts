@@ -31,12 +31,12 @@ export interface roleType {
     admin: boolean;
 }
 
-interface conditionPropType {
-    property: string;
-    // condition: WhereFilterOp;
-    value: boolean;
+// interface conditionPropType {
+//     property: string;
+//     condition: WhereFilterOp;
+//     value: boolean;
 
-}
+// }
 
 export interface updateDataPropsType {
     currentUser: User,
@@ -96,13 +96,10 @@ const useFirestore = () => {
         let docArray: Array<DocumentData> = []
         const querySnapshot = await getDocs(collection(db, collectionName));
         await querySnapshot.forEach((doc) => {
-            console.log(typeof doc.data());
-
             docArray.push(doc.data())
         })
 
         return docArray
-
     }
 
 
