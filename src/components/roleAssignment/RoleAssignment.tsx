@@ -8,23 +8,24 @@ import {
 } from "../../hooks/useFirestore";
 import { DocumentData } from "firebase/firestore";
 import MoonLoader from "react-spinners/MoonLoader";
+import RoleTable from "./RoleTable";
 
 const roles = ["admin", "manager", "developer"];
 
 const RoleAssignment = () => {
   const [selectedUsers, setSelectedUsers] = useState<Array<string>>([]);
-  const [selectedRole, setSelectedRole] = useState<Array<string>>([]);
+  // const [selectedRole, setSelectedRole] = useState<Array<string>>([]);
   const [allUserDocs, setAllUserDocs] = useState<DocumentData>([]);
   const [unAssignedUsers, setUnAssignedUsers] = useState<DocumentData>([]);
 
   const { readAllDocs, readMultipleDocs, error, loading } = useFirestore();
 
   useEffect(() => {
-    const requestAllDocs: readAllDocsPropType = {
+    const allDocsQuery: readAllDocsPropType = {
       collectionName: "users",
     };
 
-    const requestMultipleDocs: readMultipleDocsPropsType = {
+    const multipleDocsQuery: readMultipleDocsPropsType = {
       collectionName: "users",
       queryObject: {
         field: "roleAssigned",
@@ -34,10 +35,10 @@ const RoleAssignment = () => {
     };
 
     const fetchAllData = async () => {
-      const allUserDocs = await readAllDocs(requestAllDocs);
+      const allUserDocs = await readAllDocs(allDocsQuery);
       setAllUserDocs(allUserDocs);
 
-      const unAssignedUsers = await readMultipleDocs(requestMultipleDocs);
+      const unAssignedUsers = await readMultipleDocs(multipleDocsQuery);
       setUnAssignedUsers(unAssignedUsers);
     };
 
@@ -65,7 +66,6 @@ const RoleAssignment = () => {
     // Array.from(  e.target.selectedOptions,(option) => option.value);
 
     console.log(e.target);
-    console.log("hello");
 
     // setSelectedRole(selectedValues);
   };
@@ -81,7 +81,7 @@ const RoleAssignment = () => {
       </div>
       <div className={style["content-container"]}>
         <div className={style["input-container"]}>
-          <form action='#' className={style.form}>
+          <form action='#' onSubmit={handleSubmitForm} className={style.form}>
             <div className={style["select-user-container"]}>
               <label className={style["user-list-label"]} htmlFor='user-list'>
                 Select 1 or more unassigned users
@@ -116,8 +116,9 @@ const RoleAssignment = () => {
                   ))}
                 </select>
               )}
+              <div>CTRL + Select multiple users</div>
             </div>
-            <hr className={style["hr"]} />
+            <hr className={style.hr} />
             <div className={style["select-role-container"]}>
               <label className={style["user-list-label"]} htmlFor='role-list'>
                 Select the Role to assign
@@ -148,54 +149,7 @@ const RoleAssignment = () => {
           </form>
         </div>
         <div className={style["output-container"]}>
-          <div className={style["table-wrapper"]}>
-            {/* <div className='label-container'>
-              <h2>Your Personnel</h2>
-              <p>All users in your database</p>
-            </div> */}
-
-            {loading && loading ? (
-              <MoonLoader
-                className={style.spinner}
-                loading={loading}
-                aria-label='Loading Spinner'
-                data-testid='loader'
-                size={30}
-              />
-            ) : (
-              <table>
-                <caption>
-                  Your Personnel
-                  {/* <p>All users in your database</p> */}
-                </caption>
-                <thead>
-                  <tr>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Role</th>
-                  </tr>
-                </thead>
-
-                <tbody>
-                  {allUserDocs.map((user: docType, index: number) => (
-                    <tr key={index}>
-                      <td data-cell='name'>{user.displayName}</td>
-                      <td data-cell='email'>{user.email}</td>
-                      <td data-cell='role'>
-                        {user.role.admin
-                          ? "admin"
-                          : user.role.manager
-                          ? "manager"
-                          : user.role.developer
-                          ? "developer"
-                          : "unassigned"}
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            )}
-          </div>
+          <RoleTable allUserDocs={allUserDocs} loading={loading} />
         </div>
       </div>
     </div>

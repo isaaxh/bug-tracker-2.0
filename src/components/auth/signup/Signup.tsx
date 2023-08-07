@@ -4,22 +4,7 @@ import LanguageIcon from "@mui/icons-material/Language";
 import InfoIcon from "@mui/icons-material/Info";
 import { Link } from "react-router-dom";
 import BarLoader from "react-spinners/BarLoader";
-import useAuth from "../../../hooks/useAuth";
-
-interface userDataProps {
-  displayName: string;
-  email: string;
-  role: roleProps;
-  roleAssigned: boolean;
-  password: string;
-  confirmPassword: string;
-}
-
-interface roleProps {
-  admin: boolean;
-  manager: boolean;
-  developer: boolean;
-}
+import useAuth, { userDataType } from "../../../hooks/useAuth";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -44,13 +29,9 @@ const SignUp = () => {
     }
   };
 
-  const userData: userDataProps = {
+  const userData: userDataType = {
     email: email,
-    role: {
-      admin: false,
-      manager: false,
-      developer: false,
-    },
+    role: [],
     roleAssigned: false,
     password: password,
     confirmPassword: confirmPassword,
