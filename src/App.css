@@ -381,3 +381,11 @@ select {
   display: flex;
   align-items: center;
 }
+
+.page-404 {
+  height: 100vh;
+  background-color: var(--color-grey-60);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

@@ -12,6 +12,7 @@ import RoleAssignment from "./components/roleAssignment/RoleAssignment";
 import ProjectUsers from "./components/ProjectUsers/ProjectUsers";
 import GlobalProvider from "./contexts/GlobalContext";
 import AuthProvider from "./contexts/AuthContext";
+import Page404 from "./Page404";
 
 function App() {
   return (
@@ -30,6 +31,7 @@ function App() {
               <Route path='tickets' element={<Tickets />} />
               <Route path='profile' element={<Profile />} />
             </Route>
+            <Route path='*' element={<Page404 />} />
           </Routes>
         </AuthProvider>
       </GlobalProvider>
