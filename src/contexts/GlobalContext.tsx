@@ -1,5 +1,5 @@
 import { ReactNode, createContext, useState } from "react";
-import { useToggle } from "../hooks/userToggle";
+import { useToggle } from "../hooks/useToggle";
 
 interface GlobalProvideProps {
   children: ReactNode;
