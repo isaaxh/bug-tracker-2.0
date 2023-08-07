@@ -5,8 +5,8 @@ const Page404 = () => {
   return (
     <div className='page-404'>
       <div>
-        <h1>Oops something went wrong...</h1>
-        <div>error 404</div>
+        <h1>404</h1>
+        <div>Page Not Found</div>
         <button type='button' onClick={handleBackButtonClick}>
           Go back
         </button>
