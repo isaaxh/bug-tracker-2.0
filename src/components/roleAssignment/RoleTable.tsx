@@ -44,13 +44,14 @@ const RoleTable = ({ allUserDocs, loading }: RoleTablePropsTypes) => {
                 <td data-cell='name'>{user.displayName}</td>
                 <td data-cell='email'>{user.email}</td>
                 <td data-cell='role'>
-                  {user.role.admin
+                  {/* {user.roles.has('admin')
                     ? "admin"
-                    : user.role.manager
+                    : user.roles.has('manager')
                     ? "manager"
-                    : user.role.developer
+                    : user.roles.has('developer')
                     ? "developer"
-                    : "unassigned"}
+                    : "unassigned"} */}
+                  unassigned
                 </td>
               </tr>
             ))}

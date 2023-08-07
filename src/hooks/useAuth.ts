@@ -23,7 +23,7 @@ interface signUpProps {
 export interface userDataType {
     email: string,
     roleAssigned: boolean,
-    role: string[],
+    roles: string[],
     password: string,
     confirmPassword: string,
     displayName: string,
@@ -127,7 +127,7 @@ const useAuth = () => {
                 displayName: userData.displayName,
                 email: userData.email,
                 roleAssigned: userData.roleAssigned,
-                role: userData.role,
+                role: userData.roles[0],
             }
 
             writeData("users", userCredential.user.uid, data);

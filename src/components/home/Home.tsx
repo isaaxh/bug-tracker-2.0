@@ -36,15 +36,7 @@ const Home = () => {
       <div className={style["content-container"]}>
         <div>name: {currentUser?.displayName}</div>
         <div>email: {currentUser?.email}</div>
-        <div>
-          {userData && userData.role.admin
-            ? "Admin"
-            : userData && userData.role.manager
-            ? "Manager"
-            : userData && userData.role.developer
-            ? "Developer"
-            : "no role found"}
-        </div>
+        <div>{userData && userData.roles}</div>
         <div>{error}</div>
       </div>
     </div>
