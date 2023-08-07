@@ -12,20 +12,12 @@ import MoonLoader from "react-spinners/MoonLoader";
 const roles = ["admin", "manager", "developer"];
 
 const RoleAssignment = () => {
-  const [selectedUsers, setSelectedUsers] = useState({});
+  const [selectedUsers, setSelectedUsers] = useState<Array<string>>([]);
+  const [selectedRole, setSelectedRole] = useState<Array<string>>([]);
   const [allUserDocs, setAllUserDocs] = useState<DocumentData>([]);
   const [unAssignedUsers, setUnAssignedUsers] = useState<DocumentData>([]);
 
   const { readAllDocs, readMultipleDocs, error, loading } = useFirestore();
-
-  const handleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    const selectedValues = Array.from(
-      e.target.selectedOptions,
-      (option) => option.value
-    );
-
-    // console.log(selectedValues);
-  };
 
   useEffect(() => {
     const requestAllDocs: readAllDocsPropType = {
@@ -52,7 +44,31 @@ const RoleAssignment = () => {
     fetchAllData();
   }, []);
 
-  useEffect(() => {}, [unAssignedUsers]);
+  useEffect(() => {
+    console.log(selectedUsers);
+  }, [selectedUsers]);
+
+  const handleUsersSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValues = Array.from(
+      e.target.selectedOptions,
+      (option) => option.value
+    );
+
+    console.log(selectedValues);
+
+    // console.log(selectedValues);
+    setSelectedUsers(selectedValues);
+  };
+
+  const handleRoleSelectChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const selectedValues = e.target.options;
+    // Array.from(  e.target.selectedOptions,(option) => option.value);
+
+    console.log(e.target);
+    console.log("hello");
+
+    // setSelectedRole(selectedValues);
+  };
 
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -68,7 +84,7 @@ const RoleAssignment = () => {
           <form action='#' className={style.form}>
             <div className={style["select-user-container"]}>
               <label className={style["user-list-label"]} htmlFor='user-list'>
-                Select 1 or more users
+                Select 1 or more unassigned users
               </label>
               {loading && loading ? (
                 <MoonLoader
@@ -87,7 +103,7 @@ const RoleAssignment = () => {
                   size={3}
                   required
                   autoFocus
-                  onChange={handleSelectChange}
+                  onChange={handleUsersSelectChange}
                 >
                   {unAssignedUsers.map((user: docType, index: number) => (
                     <option
@@ -112,7 +128,7 @@ const RoleAssignment = () => {
                 id='role-list'
                 required
                 autoFocus
-                onChange={handleSelectChange}
+                onChange={handleRoleSelectChange}
               >
                 <option disabled value=''>
                   --Choose one please--

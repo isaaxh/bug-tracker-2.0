@@ -25,17 +25,11 @@ const SignUp = () => {
   const [email, setEmail] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
-  const [role, SetRole] = useState<roleProps>({
-    admin: false,
-    manager: false,
-    developer: false,
-  });
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [btnDisabled, setBtnDisabled] = useState(false);
 
   const { signUp, loading, error, setError } = useAuth();
-  // const { register, handleFormSubmit } = useForm();
 
   const validateInputValues = () => {
     if (
@@ -49,11 +43,6 @@ const SignUp = () => {
       setBtnDisabled(true);
     }
   };
-
-  // const onFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   // if (e.target.files !== FileList) return;
-  //   setSelectedImg(e.target.files[0]);
-  // };
 
   const userData: userDataProps = {
     email: email,

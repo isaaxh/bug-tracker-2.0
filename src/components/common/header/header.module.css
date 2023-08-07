@@ -74,6 +74,7 @@
 .user-actions-wrap {
   background-color: rgb(var(--color-grey-70));
   position: absolute;
+  z-index: 1;
   top: 10%;
   right: 3%;
   min-width: 25rem;
