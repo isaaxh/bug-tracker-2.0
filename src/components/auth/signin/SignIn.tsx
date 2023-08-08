@@ -17,7 +17,7 @@ const SignIn = () => {
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [demoUser, setDemoUser] = useState<demoUserData>({
-    email: "isaac@gmail.com",
+    email: "johndoe@gmail.com",
     password: "Aa123456",
   });
 
