@@ -53,17 +53,7 @@ const RoleTable = ({ allUserDocs, loading }: RoleTablePropsTypes) => {
               <tr key={index}>
                 <td data-cell='name'>{user.displayName}</td>
                 <td data-cell='email'>{user.email}</td>
-                <td data-cell='role'>
-                  {/* {user.roles.includes("admin")
-                    ? "admin"
-                    : user.roles.includes("manager")
-                    ? "manager"
-                    : user.roles.includes("developer")
-                    ? "developer"
-                    : "unassigned"} */}
-                  {/* {user.roles[0]} */}
-                  {getRole(user.roles)}
-                </td>
+                <td data-cell='role'>{getRole(user.roles)}</td>
               </tr>
             ))}
           </tbody>

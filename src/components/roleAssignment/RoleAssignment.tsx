@@ -57,7 +57,6 @@ const RoleAssignment = () => {
 
     console.log(selectedValues);
 
-    // console.log(selectedValues);
     setSelectedUsers(selectedValues);
   };
 
@@ -68,6 +67,14 @@ const RoleAssignment = () => {
     console.log(e.target);
 
     // setSelectedRole(selectedValues);
+  };
+
+  const handleMultiUsersClick = (value: string) => {
+    if (selectedUsers.includes(value)) {
+      setSelectedUsers(selectedUsers.filter((user) => user != value));
+    } else {
+      setSelectedUsers([...selectedUsers, value]);
+    }
   };
 
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {

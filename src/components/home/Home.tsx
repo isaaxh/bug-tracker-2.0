@@ -36,8 +36,7 @@ const Home = () => {
       <div className={style["content-container"]}>
         <div>name: {currentUser?.displayName}</div>
         <div>email: {currentUser?.email}</div>
-        <div>{userData && userData.roles}</div>
-        <div>{error}</div>
+        <div>{userData && userData.roles[0]}</div>
       </div>
     </div>
   );

@@ -32,12 +32,6 @@ export interface roleType {
     admin: boolean;
 }
 
-// interface conditionPropType {
-//     property: string;
-//     condition: WhereFilterOp;
-//     value: boolean;
-
-// }
 
 export interface readMultipleDocsPropsType {
     collectionName: string,
