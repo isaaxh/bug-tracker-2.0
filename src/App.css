@@ -246,6 +246,7 @@ select {
 .tab-dropdown-container {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }
 
 /* Modal styling */
