@@ -22,7 +22,7 @@ export interface docType {
     displayName: string;
     email: string;
     roleAssigned: boolean;
-    role: roleType;
+    roles: string[];
     uid: string;
 }
 

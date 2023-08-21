@@ -2,6 +2,7 @@ import style from "./roleAssignment.module.css";
 import { docType } from "../../hooks/useFirestore";
 import { DocumentData } from "firebase/firestore";
 import MoonLoader from "react-spinners/MoonLoader";
+import { useEffect } from "react";
 
 interface RoleTablePropsTypes {
   allUserDocs: DocumentData;
@@ -9,6 +10,18 @@ interface RoleTablePropsTypes {
 }
 
 const RoleTable = ({ allUserDocs, loading }: RoleTablePropsTypes) => {
+  useEffect(() => {
+    allUserDocs && console.log(allUserDocs);
+  }, [allUserDocs]);
+
+  const getRole = (roles: string[]) => {
+    if (roles.includes("admin")) return "admin";
+    if (roles.includes("manager")) return "manager";
+    if (roles.includes("developer")) return "developer";
+
+    return "unassigned";
+  };
+
   return (
     <div className={style["table-wrapper"]}>
       {/* <div className='label-container'>
@@ -26,10 +39,7 @@ const RoleTable = ({ allUserDocs, loading }: RoleTablePropsTypes) => {
         />
       ) : (
         <table>
-          <caption>
-            Your Personnel
-            {/* <p>All users in your database</p> */}
-          </caption>
+          <caption>Your Personnel</caption>
           <thead>
             <tr>
               <th>Name</th>
@@ -44,14 +54,15 @@ const RoleTable = ({ allUserDocs, loading }: RoleTablePropsTypes) => {
                 <td data-cell='name'>{user.displayName}</td>
                 <td data-cell='email'>{user.email}</td>
                 <td data-cell='role'>
-                  {/* {user.roles.has('admin')
+                  {/* {user.roles.includes("admin")
                     ? "admin"
-                    : user.roles.has('manager')
+                    : user.roles.includes("manager")
                     ? "manager"
-                    : user.roles.has('developer')
+                    : user.roles.includes("developer")
                     ? "developer"
                     : "unassigned"} */}
-                  unassigned
+                  {/* {user.roles[0]} */}
+                  {getRole(user.roles)}
                 </td>
               </tr>
             ))}

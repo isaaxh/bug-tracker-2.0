@@ -122,46 +122,6 @@ const SignUp = () => {
                 autoComplete='off'
               />
             </div>
-            {/* <div className={style["input-container"]}>
-              <label htmlFor='role'>Role</label>
-              <select
-                className={style["input-field"]}
-                name='role'
-                id='role'
-                defaultValue={"default"}
-                onChange={(e) => {
-                  switch (e.target.value) {
-                    case "default":
-                      setError("Please choose a role");
-                      break;
-                    case "manager":
-                      setError("");
-                      SetRole({
-                        admin: false,
-                        manager: true,
-                        developer: false,
-                      });
-                      break;
-                    case "developer":
-                      setError("");
-                      SetRole({
-                        admin: false,
-                        manager: false,
-                        developer: true,
-                      });
-                      break;
-                    default:
-                      break;
-                  }
-                }}
-              >
-                <option value='default' disabled>
-                  Choose here
-                </option>
-                <option value='manager'>Project Manager</option>
-                <option value='developer'>Developer</option>
-              </select>
-            </div> */}
             <div className={style["input-container"]}>
               <label htmlFor='password'>Password</label>
               <input
