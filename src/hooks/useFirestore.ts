@@ -22,7 +22,7 @@ export interface docType {
     displayName: string;
     email: string;
     roleAssigned: boolean;
-    role: roleType;
+    roles: string[];
     uid: string;
 }
 
@@ -32,12 +32,6 @@ export interface roleType {
     admin: boolean;
 }
 
-// interface conditionPropType {
-//     property: string;
-//     condition: WhereFilterOp;
-//     value: boolean;
-
-// }
 
 export interface readMultipleDocsPropsType {
     collectionName: string,

@@ -57,7 +57,6 @@ const RoleAssignment = () => {
 
     console.log(selectedValues);
 
-    // console.log(selectedValues);
     setSelectedUsers(selectedValues);
   };
 
@@ -70,6 +69,14 @@ const RoleAssignment = () => {
     // setSelectedRole(selectedValues);
   };
 
+  const handleMultiUsersClick = (value: string) => {
+    if (selectedUsers.includes(value)) {
+      setSelectedUsers(selectedUsers.filter((user) => user != value));
+    } else {
+      setSelectedUsers([...selectedUsers, value]);
+    }
+  };
+
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
   };
@@ -77,7 +84,7 @@ const RoleAssignment = () => {
   return (
     <div className={style.container}>
       <div className={style["title-container"]}>
-        <h1 className={style.title}>Manage User Roles</h1>
+        <h1 className={style.title}>Manage User Roles 'testing fugitive again'</h1>
       </div>
       <div className={style["content-container"]}>
         <div className={style["input-container"]}>

@@ -127,7 +127,7 @@ const useAuth = () => {
                 displayName: userData.displayName,
                 email: userData.email,
                 roleAssigned: userData.roleAssigned,
-                role: userData.roles[0],
+                roles: userData.roles,
             }
 
             writeData("users", userCredential.user.uid, data);
