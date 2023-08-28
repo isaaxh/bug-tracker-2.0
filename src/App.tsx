@@ -20,6 +20,7 @@ function App() {
       <GlobalProvider>
         <AuthProvider>
           <Routes>
+            {/* public routes */}
             <Route path='singin' element={<SignIn />} />
             <Route path='signup' element={<SignUp />} />
             <Route path='resetpass' element={<ResetPassword />} />

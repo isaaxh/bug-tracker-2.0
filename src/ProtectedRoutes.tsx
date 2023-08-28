@@ -5,7 +5,7 @@ import Layout from "./components/common/Layout";
 import useFirestore from "./hooks/useFirestore";
 import { DocumentData } from "firebase/firestore";
 
-const getAuthStatus = () => {
+const GetAuthStatus = () => {
   const [authLoaded, setAuthLoaded] = useState<boolean>(false);
   const { readDoc } = useFirestore();
   const { currentUser } = useAuth();
@@ -41,7 +41,7 @@ const getAuthStatus = () => {
 };
 
 const ProtectedRoutes = () => {
-  const { authLoaded: isAuth, currentUserRole } = getAuthStatus();
+  const { authLoaded: isAuth, currentUserRole } = GetAuthStatus();
 
   // console.log(currentUserRole && currentUserRole.admin);
 
