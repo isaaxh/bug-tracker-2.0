@@ -4,11 +4,11 @@ import useFirestore from "../../hooks/useFirestore";
 import {
   readAllDocsPropType,
   readMultipleDocsPropsType,
-  docType,
 } from "../../hooks/useFirestore";
 import { DocumentData } from "firebase/firestore";
 import MoonLoader from "react-spinners/MoonLoader";
 import RoleTable from "./RoleTable";
+import { userDataType } from "../../hooks/useAuth";
 
 const roles = ["admin", "manager", "developer"];
 
@@ -84,7 +84,7 @@ const RoleAssignment = () => {
   return (
     <div className={style.container}>
       <div className={style["title-container"]}>
-        <h1 className={style.title}>Manage User Roles 'testing fugitive again'</h1>
+        <h1 className={style.title}>Manage User Roles</h1>
       </div>
       <div className={style["content-container"]}>
         <div className={style["input-container"]}>
@@ -112,13 +112,13 @@ const RoleAssignment = () => {
                   autoFocus
                   onChange={handleUsersSelectChange}
                 >
-                  {unAssignedUsers.map((user: docType, index: number) => (
+                  {unAssignedUsers.map((userData: userDataType, index: number) => (
                     <option
                       className={style["select-items"]}
                       key={index}
-                      value={user.displayName}
+                      value={userData.displayName}
                     >
-                      {user.displayName}
+                      {userData.displayName}
                     </option>
                   ))}
                 </select>

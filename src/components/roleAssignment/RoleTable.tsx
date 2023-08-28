@@ -1,8 +1,8 @@
 import style from "./roleAssignment.module.css";
-import { docType } from "../../hooks/useFirestore";
 import { DocumentData } from "firebase/firestore";
 import MoonLoader from "react-spinners/MoonLoader";
 import { useEffect } from "react";
+import { userDataType } from "../../hooks/useAuth";
 
 interface RoleTablePropsTypes {
   allUserDocs: DocumentData;
@@ -14,13 +14,18 @@ const RoleTable = ({ allUserDocs, loading }: RoleTablePropsTypes) => {
     allUserDocs && console.log(allUserDocs);
   }, [allUserDocs]);
 
-  const getRole = (roles: string[]) => {
-    if (roles.includes("admin")) return "admin";
-    if (roles.includes("manager")) return "manager";
-    if (roles.includes("developer")) return "developer";
+  const getRole = (userData: DocumentData) => {
+    if (userData.roles.admin) {
+      return "admin";
+    } else if (userData.roles.manager) {
+      return "manager";
+    } else if (userData.roles.developer) {
+      return "developer";
+    } else {
+        return 'unassigned';
+    }
+  }
 
-    return "unassigned";
-  };
 
   return (
     <div className={style["table-wrapper"]}>
@@ -49,11 +54,11 @@ const RoleTable = ({ allUserDocs, loading }: RoleTablePropsTypes) => {
           </thead>
 
           <tbody>
-            {allUserDocs.map((user: docType, index: number) => (
+            {allUserDocs.map((userData: userDataType, index: number) => (
               <tr key={index}>
-                <td data-cell='name'>{user.displayName}</td>
-                <td data-cell='email'>{user.email}</td>
-                <td data-cell='role'>{getRole(user.roles)}</td>
+                <td data-cell='name'>{userData.displayName}</td>
+                <td data-cell='email'>{userData.email}</td>
+                <td data-cell='role'>{getRole(userData)}</td>
               </tr>
             ))}
           </tbody>

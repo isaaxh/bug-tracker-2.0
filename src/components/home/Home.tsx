@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import useFirestore from "../../hooks/useFirestore";
 import { DocumentData } from "firebase/firestore";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
+import { userDataType } from "../../hooks/useAuth";
 
 const Home = () => {
   const [userData, setUserData] = useState<DocumentData>();
@@ -21,12 +22,30 @@ const Home = () => {
     };
 
     const fetchData = async () => {
-      const userData = await readDoc(queryRequestData);
-      setUserData(userData);
+        try {
+        const userData = await readDoc(queryRequestData);
+        setUserData(userData);
+        } catch (error) {
+            console.log('Error fetching user data:' + error)
+        }
     };
 
     fetchData();
+
   }, [currentUser]);
+
+
+  const getRole = (userData: DocumentData) => {
+    if (userData.roles.admin) {
+      return "admin";
+    } else if (userData.roles.manager) {
+      return "Manager";
+    } else if (userData.roles.developer) {
+      return "developer";
+    } else {
+        return 'unassigned';
+    }
+  }
 
   return (
     <div className={style.container}>
@@ -36,7 +55,7 @@ const Home = () => {
       <div className={style["content-container"]}>
         <div>name: {currentUser?.displayName}</div>
         <div>email: {currentUser?.email}</div>
-        <div>{userData && userData.roles[0]}</div>
+        <div>role: {userData && getRole(userData)}</div>
       </div>
     </div>
   );

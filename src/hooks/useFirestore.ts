@@ -18,21 +18,6 @@ export interface readAllDocsPropType {
     collectionName: string;
 }
 
-export interface docType {
-    displayName: string;
-    email: string;
-    roleAssigned: boolean;
-    roles: string[];
-    uid: string;
-}
-
-export interface roleType {
-    manager: boolean;
-    developer: boolean;
-    admin: boolean;
-}
-
-
 export interface readMultipleDocsPropsType {
     collectionName: string,
     queryObject: queryObjectType,
@@ -42,7 +27,7 @@ interface queryObjectType {
     field: string,
     operator: WhereFilterOp,
     value: boolean,
-};
+}
 
 export interface updateDataPropsType {
     currentUser: User,
@@ -77,15 +62,15 @@ const useFirestore = () => {
 
         const docRef = doc(db, collectionName, uid);
         const docSnap = await getDoc(docRef);
-
-
+        
         if (docSnap.exists()) {
-            const documentData = await docSnap.data()
+            const documentData = docSnap.data()
             setLoading(false)
             return documentData;
         } else {
             setError("Failed to load data")
             setLoading(false)
+            return undefined;
         }
     }
 
@@ -94,10 +79,10 @@ const useFirestore = () => {
         setLoading(true)
         setError('')
 
-        let docArray: Array<DocumentData> = []
+        const docArray: Array<DocumentData> = []
         try {
             const querySnapshot = await getDocs(collection(db, collectionName));
-            await querySnapshot.forEach((doc) => {
+            querySnapshot.forEach((doc) => {
                 docArray.push(doc.data())
             })
 
@@ -115,15 +100,14 @@ const useFirestore = () => {
         setLoading(true)
         setError('')
 
-        let docArray: Array<DocumentData> = []
+        const docArray: Array<DocumentData> = []
 
         const q = query(collection(db, collectionName), where(queryObject.field, queryObject.operator, queryObject.value))
         try {
             const querySnapshot = await getDocs(q);
-            await querySnapshot.forEach((doc) => {
+            querySnapshot.forEach((doc) => {
                 docArray.push(doc.data())
             })
-
             setLoading(false)
         } catch (error) {
             setError('')

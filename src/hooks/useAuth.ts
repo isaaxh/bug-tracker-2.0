@@ -23,17 +23,17 @@ interface signUpProps {
 export interface userDataType {
     email: string,
     roleAssigned: boolean,
-    roles: string[],
+    roles: Roles,
     password: string,
     confirmPassword: string,
     displayName: string,
 }
 
-// interface roleProps {
-//     admin: boolean;
-//     manager: boolean;
-//     developer: boolean;
-// }
+interface Roles {
+    admin?: boolean;
+    manager?: boolean;
+    developer?: boolean;
+}
 
 const useAuth = () => {
     const [currentUser, setCurrentUser] = useState<User | null>(null);

@@ -6,7 +6,6 @@ import { Link } from "react-router-dom";
 import BarLoader from "react-spinners/BarLoader";
 import useAuth, { userDataType } from "../../../hooks/useAuth";
 
-type SignUpPropsType = userDataType;
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -31,9 +30,11 @@ const SignUp = () => {
     }
   };
 
-  const userData: SignUpPropsType = {
+  const userData: userDataType = {
     email: email,
-    roles: ["unassigned"],
+    roles: {
+        developer: true,
+    },
     roleAssigned: false,
     password: password,
     confirmPassword: confirmPassword,
