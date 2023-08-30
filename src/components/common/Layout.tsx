@@ -12,7 +12,7 @@ const Layout = () => {
   const { toggleTabMenuOpen } = useContext(GlobalContext) as GlobalContextType;
   const { width } = useWindowDimensions();
   return (
-    <div className='main-container'>
+    <main className='main-container'>
       <div className='header-container'>
         <Header />
       </div>
@@ -38,7 +38,7 @@ const Layout = () => {
         <Outlet />
       </div>
       <Modal />
-    </div>
+    </main>
   );
 };
 

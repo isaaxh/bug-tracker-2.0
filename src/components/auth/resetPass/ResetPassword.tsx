@@ -99,7 +99,7 @@ const ResetPassword = () => {
             </div>
             <div className={style["alternate-option-container"]}>
               Already have an account?
-              <Link to={"/"} style={{ textDecoration: "underline" }}>
+              <Link to={"/signin"} style={{ textDecoration: "underline" }}>
                 Log in
               </Link>
             </div>

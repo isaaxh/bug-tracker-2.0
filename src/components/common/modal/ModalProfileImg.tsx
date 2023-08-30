@@ -6,6 +6,7 @@ import CheckCircleOutlineOutlinedIcon from "@mui/icons-material/CheckCircleOutli
 import useStorage from "../../../hooks/useStorage";
 import useAuth from "../../../hooks/useAuth";
 import MoonLoader from "react-spinners/MoonLoader";
+import { AuthContextType } from '../../../contexts/AuthContext';
 
 const ModalProfileImg = () => {
   const [imgUpload, setImgUpload] = useState<File | null>(null);
@@ -13,7 +14,7 @@ const ModalProfileImg = () => {
 
   const { uploadImg, loading, success, setSuccess, error, setError } =
     useStorage();
-  const { currentUser } = useAuth();
+  const { currentUser } = useAuth() as AuthContextType; 
 
   const handleUploadCross = () => {
     setImgUpload(null);

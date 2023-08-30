@@ -36,6 +36,10 @@ export interface updateDataPropsType {
     docId: string,
 }
 
+export interface getCurrentUserDataPropsType {
+    userId: string,
+}
+
 const useFirestore = () => {
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState<unknown | string>('');
@@ -145,8 +149,24 @@ const useFirestore = () => {
 
     }
 
-
     return { writeData, readDoc, readAllDocs, readMultipleDocs, updateData, error, loading, setError, setLoading };
 }
 
 export default useFirestore;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

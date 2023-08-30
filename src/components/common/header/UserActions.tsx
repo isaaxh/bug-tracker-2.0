@@ -42,7 +42,7 @@ const userActionsLinks = [
 ];
 
 const UserActions = () => {
-  const { signOut } = useAuth();
+  const { signOut } = useAuth() as AuthContextType;
   const { userActionsOpen, toggleUserActionsOpen } = useContext(
     GlobalContext
   ) as GlobalContextType;

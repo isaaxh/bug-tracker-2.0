@@ -1,15 +1,16 @@
-import SignIn from "./components/auth/signin/SignIn";
-import useAuth from "./hooks/useAuth";
+import SignIn from "./auth/signin/SignIn";
+import useAuth from "../hooks/useAuth";
 import { useEffect, useState } from "react";
-import Layout from "./components/common/Layout";
-import useFirestore from "./hooks/useFirestore";
+import Layout from "./common/Layout";
+import useFirestore from "../hooks/useFirestore";
 import { DocumentData } from "firebase/firestore";
+import { AuthContextType } from "../contexts/AuthContext";
 
 const GetAuthStatus = () => {
   const [authLoaded, setAuthLoaded] = useState<boolean>(false);
   const { readDoc } = useFirestore();
-  const { currentUser } = useAuth();
-  const [userData, setUserData] = useState<DocumentData>();
+  const { currentUser } = useAuth() as AuthContextType
+  const [ userData, setUserData] = useState<DocumentData>();
   const [currentUserRole, setCurrentUserRole] = useState();
 
   useEffect(() => {

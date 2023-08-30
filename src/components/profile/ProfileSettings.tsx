@@ -20,7 +20,7 @@ const ProfileSettings = () => {
     toggleModalOpen();
   };
 
-  let settings = [
+  const settings = [
     {
       title: "Full Name",
       content: currentUser?.displayName,

@@ -5,6 +5,9 @@ import BusinessCenterOutlinedIcon from "@mui/icons-material/BusinessCenterOutlin
 import ConfirmationNumberOutlinedIcon from "@mui/icons-material/ConfirmationNumberOutlined";
 import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
+import useAuth from "../../../hooks/useAuth";
+import { useEffect } from "react";
+import { AuthContextType } from "../../../contexts/AuthContext";
 
 const sidebarLinks = [
   {
@@ -65,6 +68,12 @@ const sidebarLinks = [
 ];
 
 const Sidebar = () => {
+    const { currentUserData } = useAuth() as AuthContextType;
+   
+   useEffect(() => {
+        console.log(currentUserData)
+    }, [])
+    
   return (
     <nav className={style.container}>
       <ul className={style["tab-list"]}>
