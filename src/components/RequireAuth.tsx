@@ -3,7 +3,6 @@ import useAuth from '../hooks/useAuth'
 import { AuthContextType } from "../contexts/AuthContext";
 import Layout from "./common/Layout";
 import { useEffect, useState } from "react";
-import useFirestore from "../hooks/useFirestore";
 import { Roles } from "../contexts/AuthContext";
 
 type RequireAuthPropsType = {
@@ -13,7 +12,6 @@ type RequireAuthPropsType = {
 const RequireAuth = ({allowedRole}: RequireAuthPropsType) => {
     const { currentUser, currentUserData } = useAuth() as AuthContextType;
     const location = useLocation();
-    const { readDoc } = useFirestore();
     const [isAuthorized, setIsAuthorized] = useState<boolean>(false)
     const [loading, setLoading] = useState<boolean>(true)
 
@@ -30,26 +28,17 @@ const RequireAuth = ({allowedRole}: RequireAuthPropsType) => {
 
     useEffect(() => {
 
-        if (!currentUser) {
-            setLoading(false)
+        if (!currentUserData) {
+            setLoading(true)
             return;
         }
 
-
-        const getUserData = async (userId: string) => {
-             try {
-                const userData = await readDoc({collectionName: 'users', uid: userId});
-                setIsAuthorized(haveMatchingRoles(allowedRole, userData?.roles))
-                setLoading(false)
-             } catch (error) {
-                 console.log(error);
-                 setLoading(false)
-             }
-         }
+         setIsAuthorized(haveMatchingRoles(allowedRole, currentUserData.roles))
+         
+         setLoading(false)
         
-         getUserData(currentUser?.uid as string)    
 
-    }, [currentUser, location])
+    }, [currentUserData, location])
 
     if (loading) {
         return <div>loading...</div>
