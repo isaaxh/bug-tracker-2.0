@@ -13,7 +13,6 @@ import ProjectUsers from "./components/ProjectUsers/ProjectUsers";
 import Page404 from "./components/Page404";
 import RequireAuth from "./components/RequireAuth";
 import Unauthorized from "./components/Unauthorized";
-import Layout from "./components/common/Layout";
 
 function App() {
     return (
