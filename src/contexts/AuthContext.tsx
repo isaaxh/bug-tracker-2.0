@@ -69,22 +69,20 @@ const AuthProvider = ({ children }: AuthProviderPropsType) => {
 
     useEffect(() => {
         if (!currentUser) {
-                console.log('no user')
+            setCurrentUserData(undefined)
+                setProfileImg(
+                        "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
+                        );
             return;
         }
 
      if (currentUser?.photoURL) {
         setProfileImg(currentUser.photoURL);
-        return;
         }
-            setProfileImg(
-            "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png"
-            );
 
         const getUserData = async (userId: string) => {
             try {
                 const userData = await readDoc({collectionName: 'users', uid: userId});
-                console.log(userData)
                 setCurrentUserData(userData)
             } catch (error) {
                 console.log(error);
