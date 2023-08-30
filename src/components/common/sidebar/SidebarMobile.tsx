@@ -6,11 +6,13 @@ import GroupAddOutlinedIcon from "@mui/icons-material/GroupAddOutlined";
 import PeopleOutlineOutlinedIcon from "@mui/icons-material/PeopleOutlineOutlined";
 import ClearIcon from "@mui/icons-material/Clear";
 import { NavLink } from "react-router-dom";
-import { useContext } from "react";
+import { useContext, useState, useEffect } from "react";
 import {
   GlobalContext,
   GlobalContextType,
 } from "../../../contexts/GlobalContext";
+import useAuth from "../../../hooks/useAuth";
+import { AuthContextType } from "../../../contexts/AuthContext";
 
 const sidebarLinks = [
   {
@@ -72,9 +74,28 @@ const sidebarLinks = [
 ];
 
 const SidebarMobile = () => {
-  const { tabMenuOpen, toggleTabMenuOpen } = useContext(
-    GlobalContext
-  ) as GlobalContextType;
+    const { currentUserData } = useAuth() as AuthContextType; 
+    const [allowedLinks, setAllowedLinks] = useState(sidebarLinks);
+    const { tabMenuOpen, toggleTabMenuOpen } = useContext(
+        GlobalContext
+    ) as GlobalContextType;
+
+
+    const filterAllowedRoles = () => {
+
+        const filteredLinks = sidebarLinks.filter((link) => {
+                if (currentUserData?.roles?.admin) return true;
+                if (currentUserData?.roles?.manager && link.path !== '/role_assignment') return true;
+                if (currentUserData?.roles?.developer && (link.path === '/' || link.path === '/tickets')) return true;
+            })
+
+        return filteredLinks
+    }
+
+    useEffect(() => {
+        setAllowedLinks(filterAllowedRoles())
+    }, [])
+
 
   return (
     <div
@@ -93,7 +114,7 @@ const SidebarMobile = () => {
         />
       </div>
       <ul className={style["tab-list"]}>
-        {sidebarLinks.map((link, index) => (
+        {allowedLinks.map((link, index) => (
           <li className={`${style.links}`} key={index}>
             <NavLink to={link.path} onClick={() => toggleTabMenuOpen()}>
               <div className={style["icon-container"]}>{link.icon}</div>
