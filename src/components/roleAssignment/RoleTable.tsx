@@ -2,7 +2,7 @@ import style from "./roleAssignment.module.css";
 import { DocumentData } from "firebase/firestore";
 import MoonLoader from "react-spinners/MoonLoader";
 import { useEffect } from "react";
-import { userDataType } from "../../hooks/useAuth";
+import { userDataType } from "../../contexts/AuthContext";
 
 interface RoleTablePropsTypes {
   allUserDocs: DocumentData;

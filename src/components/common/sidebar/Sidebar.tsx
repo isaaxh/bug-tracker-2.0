@@ -9,6 +9,8 @@ import useAuth from "../../../hooks/useAuth";
 import { AuthContextType } from "../../../contexts/AuthContext";
 import { useEffect, useState } from "react";
 import MoonLoader from "react-spinners/MoonLoader";
+import useGlobal from "../../../hooks/useGlobal";
+import { GlobalContextType } from "../../../contexts/GlobalContext";
 
 
 const sidebarLinks = [
@@ -72,6 +74,7 @@ const sidebarLinks = [
 
 const Sidebar = () => {
     const { currentUserData } = useAuth() as AuthContextType;
+    const { setCurrentTab } = useGlobal() as GlobalContextType; 
     const [allowedLinks, setAllowedLinks] = useState(sidebarLinks);
     const [loading, setLoading] = useState(true)
 
@@ -87,6 +90,7 @@ const Sidebar = () => {
         return filteredLinks
     }
 
+        
     useEffect(() => {
         setAllowedLinks(filterAllowedRoles())
     }, [])
@@ -107,8 +111,8 @@ const Sidebar = () => {
     <nav className={style.container}>
       <ul className={style["tab-list"]}>
         {allowedLinks.map((link) => (
-          <li className={`${style.links}`} key={link.path}>
-            <NavLink to={link.path}>
+          <li className={`${style.links}`} key={link.path} >
+            <NavLink to={link.path} onClick={() => setCurrentTab(link.title)}>
               <div className={style["icon-container"]}>{link.icon}</div>
               {link.title}
             </NavLink>

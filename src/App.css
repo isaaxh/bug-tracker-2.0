@@ -235,7 +235,6 @@ select {
 }
 
 .mobile-content-container {
-  /* display: block; */
   padding: 0 3rem;
   display: flex;
   flex-direction: column;
@@ -243,8 +242,9 @@ select {
   flex: 1;
 }
 
-.tab-dropdown-container {
-  display: flex;
+.tab-dropdown-btn {
+    all: unset; 
+    display: flex;
   align-items: center;
   cursor: pointer;
 }

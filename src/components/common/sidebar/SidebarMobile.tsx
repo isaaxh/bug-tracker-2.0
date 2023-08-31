@@ -11,8 +11,10 @@ import {
   GlobalContext,
   GlobalContextType,
 } from "../../../contexts/GlobalContext";
+import useGlobal from "../../../hooks/useGlobal";
 import useAuth from "../../../hooks/useAuth";
 import { AuthContextType } from "../../../contexts/AuthContext";
+import { useNavigate } from "react-router";
 
 const sidebarLinks = [
   {
@@ -76,10 +78,10 @@ const sidebarLinks = [
 const SidebarMobile = () => {
     const { currentUserData } = useAuth() as AuthContextType; 
     const [allowedLinks, setAllowedLinks] = useState(sidebarLinks);
+    const { setCurrentTab } = useGlobal() as GlobalContextType;
     const { tabMenuOpen, toggleTabMenuOpen } = useContext(
         GlobalContext
     ) as GlobalContextType;
-
 
     const filterAllowedRoles = () => {
 
@@ -91,9 +93,15 @@ const SidebarMobile = () => {
 
         return filteredLinks
     }
+    
+    const getCurrentTab = () => {
+        const currentTab = allowedLinks.filter((link) => link.path === window.location.pathname)
+        setCurrentTab(currentTab[0].title)
+    }
 
     useEffect(() => {
         setAllowedLinks(filterAllowedRoles())
+        getCurrentTab()
     }, [])
 
 
@@ -115,7 +123,7 @@ const SidebarMobile = () => {
       </div>
       <ul className={style["tab-list"]}>
         {allowedLinks.map((link, index) => (
-          <li className={`${style.links}`} key={index}>
+          <li className={`${style.links}`} key={index} onClick={() => setCurrentTab(link.title)}>
             <NavLink to={link.path} onClick={() => toggleTabMenuOpen()}>
               <div className={style["icon-container"]}>{link.icon}</div>
               {link.title}

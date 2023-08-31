@@ -7,9 +7,11 @@ import SidebarMobile from "./sidebar/SidebarMobile";
 import { GlobalContext, GlobalContextType } from "../../contexts/GlobalContext";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import useGlobal from "../../hooks/useGlobal";
 
 const Layout = () => {
   const { toggleTabMenuOpen } = useContext(GlobalContext) as GlobalContextType;
+  const { currentTab } = useGlobal() as GlobalContextType;
   const { width } = useWindowDimensions();
   return (
     <main className='main-container'>
@@ -19,19 +21,18 @@ const Layout = () => {
       <div
         className={
           width > 1200 ? "content-container" : "mobile-content-container"
-        }
-      >
+            }>
         {width && width > 1200 ? (
           <Sidebar />
         ) : (
           <>
-            <div className='tab-dropdown-container'>
-              <h2 onClick={toggleTabMenuOpen}>Tab</h2>
+            <button type="button" className='tab-dropdown-btn' onClick={() => {toggleTabMenuOpen()}}>
+              <h2>{currentTab}</h2>
               <KeyboardArrowDownIcon
                 className='tab-dropdown-icon'
                 fontSize='large'
               />
-            </div>
+            </button>
             <SidebarMobile />
           </>
         )}

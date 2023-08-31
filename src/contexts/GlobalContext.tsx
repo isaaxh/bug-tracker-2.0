@@ -12,18 +12,18 @@ export interface GlobalContextType {
   toggleTabMenuOpen: () => void;
   userActionsOpen: boolean;
   toggleUserActionsOpen: () => void;
-  clickedBtn: string;
-  setClickedBtn: React.Dispatch<React.SetStateAction<string>>;
+  currentTab: string;
+  setCurrentTab: React.Dispatch<React.SetStateAction<string>>;
 }
 
 export const GlobalContext = createContext<GlobalContextType | null>(null);
 
 const GlobalProvider = ({ children }: GlobalProvideProps) => {
   const { status: modalOpen, toggleStatus: toggleModalOpen } = useToggle();
-  const { status: userActionsOpen, toggleStatus: toggleUserActionsOpen } =
-    useToggle();
+  const { status: userActionsOpen, toggleStatus: toggleUserActionsOpen } = useToggle();
   const { status: tabMenuOpen, toggleStatus: toggleTabMenuOpen } = useToggle();
-  const [clickedBtn, setClickedBtn] = useState("");
+  const [ currentTab, setCurrentTab ] = useState("");
+
 
   const globalValues = {
     modalOpen,
@@ -32,8 +32,8 @@ const GlobalProvider = ({ children }: GlobalProvideProps) => {
     toggleUserActionsOpen,
     tabMenuOpen,
     toggleTabMenuOpen,
-    clickedBtn,
-    setClickedBtn,
+    currentTab,
+    setCurrentTab,
   };
 
   return (
