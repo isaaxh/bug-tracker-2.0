@@ -8,7 +8,8 @@ import {
 import { DocumentData } from "firebase/firestore";
 import MoonLoader from "react-spinners/MoonLoader";
 import RoleTable from "./RoleTable";
-import { userDataType } from "../../hooks/useAuth";
+import { userDataType } from "../../contexts/AuthContext";
+import useWindowDimensions from "../../hooks/useWindowDimensions";
 
 const roles = ["admin", "manager", "developer"];
 
@@ -17,6 +18,8 @@ const RoleAssignment = () => {
   // const [selectedRole, setSelectedRole] = useState<Array<string>>([]);
   const [allUserDocs, setAllUserDocs] = useState<DocumentData>([]);
   const [unAssignedUsers, setUnAssignedUsers] = useState<DocumentData>([]);
+  const { width } = useWindowDimensions();
+
 
   const { readAllDocs, readMultipleDocs, error, loading } = useFirestore();
 
@@ -84,7 +87,9 @@ const RoleAssignment = () => {
   return (
     <div className={style.container}>
       <div className={style["title-container"]}>
-        <h1 className={style.title}>Manage User Roles</h1>
+        {width > 1200 ? 
+            <h1 className={style.title}>Manage User Roles</h1>
+            : null}
       </div>
       <div className={style["content-container"]}>
         <div className={style["input-container"]}>
