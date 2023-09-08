@@ -10,7 +10,8 @@ type RequireAuthPropsType = {
 };
 
 const RequireAuth = ({ allowedRole }: RequireAuthPropsType) => {
-  const { currentUser, currentUserData } = useAuth() as AuthContextType;
+  const { currentUser, currentUserData, userDataPending } =
+    useAuth() as AuthContextType;
   const location = useLocation();
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -26,18 +27,23 @@ const RequireAuth = ({ allowedRole }: RequireAuthPropsType) => {
   };
 
   useEffect(() => {
+    //works when app is loaded for the first time
+    if (!currentUser && !currentUserData) {
+      setLoading(false);
+      return;
+    }
+
     if (!currentUser || !currentUserData) {
-      console.log("user or data loading");
       setLoading(true);
       return;
     }
 
-    setIsAuthorized(haveMatchingRoles(allowedRole, currentUserData?.roles));
+    setIsAuthorized(haveMatchingRoles(allowedRole, currentUserData.roles));
     setLoading(false);
   }, [currentUser, currentUserData, location]);
 
   if (loading) {
-    return <div>loading...</div>;
+    return <div style={{ backgroundColor: "transparent" }}></div>;
   }
 
   return isAuthorized ? (

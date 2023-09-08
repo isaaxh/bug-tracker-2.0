@@ -6,7 +6,6 @@ import {
   useState,
 } from "react";
 import { User } from "firebase/auth";
-import { Navigate } from "react-router-dom";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -17,6 +16,7 @@ import { auth } from "../firebase";
 import { useNavigate } from "react-router";
 import useFirestore from "../hooks/useFirestore";
 import { DocumentData } from "firebase/firestore";
+import Loader from "../components/common/Loader";
 
 interface AuthProviderPropsType {
   children: ReactNode;
@@ -32,6 +32,7 @@ export interface AuthContextType {
   setError: React.Dispatch<React.SetStateAction<string>>;
   profileImg: string;
   loading: boolean;
+  userDataPending: boolean;
 }
 
 type signInProps = {
@@ -71,7 +72,8 @@ const AuthProvider = ({ children }: AuthProviderPropsType) => {
   const [profileImg, setProfileImg] = useState(
     "http://s3.amazonaws.com/37assets/svn/765-default-avatar.png",
   );
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const [userDataPending, setUserDataPending] = useState(true);
   const [error, setError] = useState("");
 
   useEffect(() => {
@@ -95,7 +97,7 @@ const AuthProvider = ({ children }: AuthProviderPropsType) => {
         });
         setCurrentUserData(userData);
       } catch (error) {
-        console.log(error);
+        console.error(error);
       }
     };
 
@@ -104,12 +106,8 @@ const AuthProvider = ({ children }: AuthProviderPropsType) => {
 
   useEffect(() => {
     const listen = onAuthStateChanged(auth, (user) => {
-      if (user) {
-        setCurrentUser(user);
-      } else {
-        setCurrentUser(null);
-        setLoading(false);
-      }
+      setCurrentUser(user);
+      setLoading(false);
     });
 
     return () => {
@@ -117,18 +115,25 @@ const AuthProvider = ({ children }: AuthProviderPropsType) => {
     };
   }, []);
 
+  useEffect(() => {
+    if (currentUser && currentUserData) {
+      setUserDataPending(false);
+    }
+  }, [currentUser, currentUserData]);
+
   const signOut = () => {
-    setLoading(true);
     auth
       .signOut()
       .then(() => {
         setCurrentUserData(undefined);
         console.log("signOut");
         navigate("/signin");
+        setLoading(false);
       })
       .catch((error) => {
         console.log(error);
         setError(error.message);
+        setLoading(false);
       });
   };
 
@@ -147,6 +152,7 @@ const AuthProvider = ({ children }: AuthProviderPropsType) => {
       await signInWithEmailAndPassword(auth, email, password);
 
       navigate("/");
+      setLoading(false);
     } catch (error: any) {
       switch (error.code) {
         case "auth/user-not-found":
@@ -174,8 +180,6 @@ const AuthProvider = ({ children }: AuthProviderPropsType) => {
   };
 
   const signUp = async ({ userData }: signUpProps) => {
-    setLoading(true);
-
     if (
       userData.email === "" ||
       userData.password === "" ||
@@ -214,11 +218,16 @@ const AuthProvider = ({ children }: AuthProviderPropsType) => {
       writeData("users", userCredential.user.uid, data);
 
       navigate("/");
+      setLoading(false);
     } catch (error) {
       setError("Something went wrong");
       setLoading(false);
     }
   };
+
+  if (loading) {
+    return <Loader loading={loading} />;
+  }
 
   const AuthValues = {
     currentUser,
@@ -227,6 +236,7 @@ const AuthProvider = ({ children }: AuthProviderPropsType) => {
     signIn,
     signUp,
     loading,
+    userDataPending,
     error,
     setError,
     profileImg,
