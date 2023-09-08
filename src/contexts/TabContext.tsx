@@ -72,11 +72,13 @@ interface TabProvideProps {
 
 export interface TabContextType {
   authorizedTabs: tabLink[];
+  currentTab: string;
+  getCurrentTab: (tabLinks: tabLink[]) => void;
   loading: boolean;
 }
 
 type getCurrentTabPropsType = {
-  links: tabLink[];
+  allowedTabs: tabLink[];
 };
 
 type tabLink = {
@@ -90,7 +92,7 @@ export const TabContext = createContext<TabContextType | null>(null);
 const TabProvider = ({ children }: TabProvideProps) => {
   const [authorizedTabs, setAuthorizedTabs] = useState<tabLink[]>(sidebarLinks);
   const { currentUserData } = useAuth() as AuthContextType;
-
+  const [currentTab, setCurrentTab] = useState("");
   const [loading, setLoading] = useState(true);
 
   const filterAuthorizedTabs = () => {
@@ -114,6 +116,13 @@ const TabProvider = ({ children }: TabProvideProps) => {
     return filteredLinks;
   };
 
+  const getCurrentTab = (tabLinks: tabLink[]) => {
+    const tab = tabLinks.filter(
+      (link) => link.path === window.location.pathname,
+    );
+    setCurrentTab(tab[0]?.title);
+  };
+
   useEffect(() => {
     if (!currentUserData) {
       setLoading(true);
@@ -124,20 +133,16 @@ const TabProvider = ({ children }: TabProvideProps) => {
     setLoading(false);
   }, [currentUserData]);
 
-  /* const getCurrentTab = ({ links }: getCurrentTabPropsType) => { */
-  /*   const currentTab = links.filter( */
-  /*     (link) => link.path === window.location.pathname, */
-  /*   ); */
-  /*   setCurrentTab(currentTab[0]?.title); */
-  /* }; */
-
-  /* if (loading) { */
-  /*   return <div>loading...</div>; */
-  /* } */
+  /* useEffect(() => { */
+  /*   if (!authorizedTabs) return; */
+  /*   getCurrentTab(); */
+  /* }, [authorizedTabs]); */
 
   const tabValues = {
     authorizedTabs,
     loading,
+    currentTab,
+    getCurrentTab,
   };
 
   return (
