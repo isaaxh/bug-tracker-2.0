@@ -4,7 +4,6 @@ import { useEffect, useState } from "react";
 import useFirestore from "../../hooks/useFirestore";
 import { DocumentData } from "firebase/firestore";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
-import { userDataType } from "../../hooks/useAuth";
 import { AuthContextType } from "../../contexts/AuthContext";
 
 const Home = () => {

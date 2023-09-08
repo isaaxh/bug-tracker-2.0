@@ -7,7 +7,7 @@ import { AuthContext, AuthContextType } from "../../contexts/AuthContext";
 const ProfileSettings = () => {
   const navigate = useNavigate();
   const { currentUser } = useContext(AuthContext) as AuthContextType;
-  const { toggleModalOpen, setModalTitle, currentTab } = useContext(
+  const { toggleModalOpen, setModalTitle } = useContext(
     GlobalContext,
   ) as GlobalContextType;
 

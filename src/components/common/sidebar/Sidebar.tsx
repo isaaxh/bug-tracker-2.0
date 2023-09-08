@@ -12,7 +12,6 @@ import MoonLoader from "react-spinners/MoonLoader";
 import useGlobal from "../../../hooks/useGlobal";
 import { GlobalContextType } from "../../../contexts/GlobalContext";
 
-
 const sidebarLinks = [
   {
     title: "Dashboard",
@@ -21,7 +20,7 @@ const sidebarLinks = [
       <HomeOutlinedIcon
         className={style.icons}
         sx={{ stroke: "#ffffff", strokeWidth: 1 }}
-        fontSize='large'
+        fontSize="large"
       />
     ),
   },
@@ -32,7 +31,7 @@ const sidebarLinks = [
       <GroupAddOutlinedIcon
         className={style.icons}
         sx={{ stroke: "#ffffff", strokeWidth: 1 }}
-        fontSize='large'
+        fontSize="large"
       />
     ),
   },
@@ -43,7 +42,7 @@ const sidebarLinks = [
       <PeopleOutlineOutlinedIcon
         className={style.icons}
         sx={{ stroke: "#ffffff", strokeWidth: 1 }}
-        fontSize='large'
+        fontSize="large"
       />
     ),
   },
@@ -54,7 +53,7 @@ const sidebarLinks = [
       <BusinessCenterOutlinedIcon
         className={style.icons}
         sx={{ stroke: "#ffffff", strokeWidth: 1 }}
-        fontSize='large'
+        fontSize="large"
       />
     ),
   },
@@ -65,60 +64,62 @@ const sidebarLinks = [
       <ConfirmationNumberOutlinedIcon
         className={style.icons}
         sx={{ stroke: "#ffffff", strokeWidth: 1 }}
-        fontSize='large'
+        fontSize="large"
       />
     ),
   },
 ];
 
-
 const Sidebar = () => {
-    const { currentUserData } = useAuth() as AuthContextType;
-    const { setCurrentTab } = useGlobal() as GlobalContextType; 
-    const [allowedLinks, setAllowedLinks] = useState(sidebarLinks);
-    const [loading, setLoading] = useState(true)
+  const { currentUserData } = useAuth() as AuthContextType;
+  const { setCurrentTab } = useGlobal() as GlobalContextType;
+  const [allowedLinks, setAllowedLinks] = useState(sidebarLinks);
+  const [loading, setLoading] = useState(true);
 
-    const filterAllowedRoles = () => {
+  const filterAllowedRoles = () => {
+    const filteredLinks = sidebarLinks.filter((link) => {
+      if (currentUserData?.roles?.admin) return true;
+      if (currentUserData?.roles?.manager && link.path !== "/role_assignment")
+        return true;
+      if (
+        currentUserData?.roles?.developer &&
+        (link.path === "/" || link.path === "/tickets")
+      )
+        return true;
+    });
 
-        const filteredLinks = sidebarLinks.filter((link) => {
-                if (currentUserData?.roles?.admin) return true;
-                if (currentUserData?.roles?.manager && link.path !== '/role_assignment') return true;
-                if (currentUserData?.roles?.developer && (link.path === '/' || link.path === '/tickets')) return true;
-            })
+    setLoading(false);
+    return filteredLinks;
+  };
 
-        setLoading(false)
-        return filteredLinks
-    }
+  useEffect(() => {
+    setAllowedLinks(filterAllowedRoles());
+  }, []);
 
-        
-    useEffect(() => {
-        setAllowedLinks(filterAllowedRoles())
-    }, [])
-
-    
-   if (loading) return (
-        <div style={{display: 'grid', placeItems: 'start', padding: 100}}>
-            <MoonLoader
-                className={style.spinner}
-                loading={loading}
-                aria-label='Loading Spinner'
-                data-testid='loader'
-                size={30}
-            />
-        </div>
-        );
+  if (loading)
+    return (
+      <div style={{ display: "grid", placeItems: "start", padding: 100 }}>
+        <MoonLoader
+          className={style.spinner}
+          loading={loading}
+          aria-label="Loading Spinner"
+          data-testid="loader"
+          size={30}
+        />
+      </div>
+    );
   return (
     <nav className={style.container}>
       <ul className={style["tab-list"]}>
         {allowedLinks.map((link) => (
-          <li className={`${style.links}`} key={link.path} >
+          <li className={`${style.links}`} key={link.path}>
             <NavLink to={link.path} onClick={() => setCurrentTab(link.title)}>
               <div className={style["icon-container"]}>{link.icon}</div>
               {link.title}
             </NavLink>
           </li>
         ))}
-      </ul> 
+      </ul>
     </nav>
   );
 };
