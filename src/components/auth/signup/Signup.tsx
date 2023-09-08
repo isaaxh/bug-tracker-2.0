@@ -4,8 +4,8 @@ import LanguageIcon from "@mui/icons-material/Language";
 import InfoIcon from "@mui/icons-material/Info";
 import { Link } from "react-router-dom";
 import BarLoader from "react-spinners/BarLoader";
-import useAuth, { userDataType } from "../../../hooks/useAuth";
-
+import useAuth from "../../../hooks/useAuth";
+import { AuthContextType, userDataType } from "../../../contexts/AuthContext";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +15,7 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [btnDisabled, setBtnDisabled] = useState(false);
 
-  const { signUp, loading, error, setError } = useAuth();
+  const { signUp, loading, error, setError } = useAuth() as AuthContextType;
 
   const validateInputValues = () => {
     if (
@@ -33,7 +33,7 @@ const SignUp = () => {
   const userData: userDataType = {
     email: email,
     roles: {
-        developer: true,
+      developer: true,
     },
     roleAssigned: false,
     password: password,
@@ -53,18 +53,18 @@ const SignUp = () => {
   return (
     <div className={style.container}>
       <div className={style.header}>
-        <h1 className='app-title'>BugTracker 2.0</h1>
+        <h1 className="app-title">BugTracker 2.0</h1>
         <h1>
-          <LanguageIcon fontSize='large' />
+          <LanguageIcon fontSize="large" />
         </h1>
       </div>
       <div className={style.body}>
         {loading ? (
-          <div className='loader-container'>
+          <div className="loader-container">
             <BarLoader
               loading={loading}
-              aria-label='Loading Spinner'
-              data-testid='loader'
+              aria-label="Loading Spinner"
+              data-testid="loader"
             />
           </div>
         ) : null}
@@ -73,7 +73,7 @@ const SignUp = () => {
           {error && error ? (
             <div className={style["error-card"]}>
               <InfoIcon
-                fontSize='large'
+                fontSize="large"
                 style={{ color: "var(--color-error)" }}
               />
               {error}
@@ -82,79 +82,79 @@ const SignUp = () => {
 
           <form className={style.form} onSubmit={handleFormSubmit}>
             <div className={style["input-container"]}>
-              <label htmlFor='first-name'>First Name</label>
+              <label htmlFor="first-name">First Name</label>
               <input
                 className={style["input-field"]}
-                type='text'
-                id='first-name'
+                type="text"
+                id="first-name"
                 value={firstName}
                 onChange={(e) => {
                   setError("");
                   setFirstName(e.target.value);
                 }}
-                autoComplete='off'
+                autoComplete="off"
               />
             </div>
             <div className={style["input-container"]}>
-              <label htmlFor='last-name'>Last Name</label>
+              <label htmlFor="last-name">Last Name</label>
               <input
                 className={style["input-field"]}
-                type='text'
-                id='last-name'
+                type="text"
+                id="last-name"
                 value={lastName}
                 onChange={(e) => {
                   setError("");
                   setLastName(e.target.value);
                 }}
-                autoComplete='off'
+                autoComplete="off"
               />
             </div>
             <div className={style["input-container"]}>
-              <label htmlFor='email'>Email</label>
+              <label htmlFor="email">Email</label>
               <input
                 className={style["input-field"]}
-                type='email'
-                id='email'
+                type="email"
+                id="email"
                 value={email}
                 onChange={(e) => {
                   setError("");
                   setEmail(e.target.value);
                 }}
-                autoComplete='off'
+                autoComplete="off"
               />
             </div>
             <div className={style["input-container"]}>
-              <label htmlFor='password'>Password</label>
+              <label htmlFor="password">Password</label>
               <input
                 className={style["input-field"]}
-                type='password'
-                id='password'
+                type="password"
+                id="password"
                 value={password}
                 onChange={(e) => {
                   setError("");
                   setPassword(e.target.value);
                 }}
-                autoComplete='off'
+                autoComplete="off"
               />
             </div>
             <div className={style["input-container"]}>
-              <label htmlFor='confirm-password'>Confirm Password</label>
+              <label htmlFor="confirm-password">Confirm Password</label>
               <input
                 className={style["input-field"]}
-                type='password'
-                id='confirm-password'
+                type="password"
+                id="confirm-password"
                 value={confirmPassword}
                 onChange={(e) => {
                   setError("");
                   setConfirmPassword(e.target.value);
                 }}
-                autoComplete='off'
+                autoComplete="off"
               />
             </div>
             <div className={style["btn-container"]}>
               <button
                 className={`${style.btn} ${style["btn-auth"]}`}
-                type='submit'
+                type="submit"
                 disabled={btnDisabled}
               >
                 Sign Up
@@ -162,7 +162,7 @@ const SignUp = () => {
             </div>
             <div className={style["alternate-option-container"]}>
               Already have an account?
-              <Link to={"/"} style={{ textDecoration: "underline" }}>
+              <Link to={"/signin"} style={{ textDecoration: "underline" }}>
                 Log in
               </Link>
             </div>
