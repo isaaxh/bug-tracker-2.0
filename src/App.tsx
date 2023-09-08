@@ -38,7 +38,13 @@ function App() {
         >
           <Route path="project_users" element={<ProjectUsers />} />
         </Route>
-        <Route element={<RequireAuth allowedRole={{ developer: true }} />}>
+        <Route
+          element={
+            <RequireAuth
+              allowedRole={{ developer: true, manager: true, admin: true }}
+            />
+          }
+        >
           <Route path="projects" element={<Projects />} />
           <Route path="tickets" element={<Tickets />} />
         </Route>

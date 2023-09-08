@@ -16,18 +16,7 @@ export interface GlobalContextType {
   setCurrentTab: React.Dispatch<React.SetStateAction<string>>;
   modalTitle: string;
   setModalTitle: React.Dispatch<React.SetStateAction<string>>;
-  /* getCurrentTab: ({ links }: getCurrentTabPropsType) => void; */
 }
-
-export interface getCurrentTabPropsType {
-  links: tabLink[];
-}
-
-type tabLink = {
-  title: string;
-  path: string;
-  icon: JSX.Element;
-};
 
 export const GlobalContext = createContext<GlobalContextType | null>(null);
 
@@ -38,13 +27,6 @@ const GlobalProvider = ({ children }: GlobalProvideProps) => {
   const { status: tabMenuOpen, toggleStatus: toggleTabMenuOpen } = useToggle();
   const [currentTab, setCurrentTab] = useState("");
   const [modalTitle, setModalTitle] = useState("");
-
-  /* const getCurrentTab = ({ links }: getCurrentTabPropsType) => { */
-  /*   const currentTab = links.filter( */
-  /*     (link) => link.path === window.location.pathname, */
-  /*   ); */
-  /*   setCurrentTab(currentTab[0]?.title); */
-  /* }; */
 
   const globalValues = {
     modalOpen,
@@ -57,7 +39,6 @@ const GlobalProvider = ({ children }: GlobalProvideProps) => {
     setCurrentTab,
     modalTitle,
     setModalTitle,
-    /* getCurrentTab, */
   };
 
   return (

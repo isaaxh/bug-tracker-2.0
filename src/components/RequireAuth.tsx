@@ -11,8 +11,7 @@ type RequireAuthPropsType = {
 };
 
 const RequireAuth = ({ allowedRole }: RequireAuthPropsType) => {
-  const { currentUser, currentUserData, userDataPending } =
-    useAuth() as AuthContextType;
+  const { currentUser, currentUserData } = useAuth() as AuthContextType;
   const location = useLocation();
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
