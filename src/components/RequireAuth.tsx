@@ -4,6 +4,7 @@ import { AuthContextType } from "../contexts/AuthContext";
 import Layout from "./common/Layout";
 import { useEffect, useState } from "react";
 import { Roles } from "../contexts/AuthContext";
+import Loader from "./common/Loader";
 
 type RequireAuthPropsType = {
   allowedRole: Roles;
@@ -43,7 +44,7 @@ const RequireAuth = ({ allowedRole }: RequireAuthPropsType) => {
   }, [currentUser, currentUserData, location]);
 
   if (loading) {
-    return <div style={{ backgroundColor: "transparent" }}></div>;
+    return <Loader loading={loading} />;
   }
 
   return isAuthorized ? (
