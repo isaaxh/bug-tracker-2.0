@@ -1,5 +1,5 @@
 import style from "./header.module.css";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
@@ -15,27 +15,27 @@ import { AuthContext, AuthContextType } from "../../../contexts/AuthContext";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
 
 const userActionsLinks = [
-  // {
-  //   title: "Notifications",
-  //   className: "user-info-links",
-  //   path: "#",
-  //   icon: (
-  //     <NotificationsNoneOutlined
-  //       className={style.icons}
-  //       sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
-  //       fontSize='large'
-  //     />
-  //   ),
-  // },
   {
-    title: "Profile settings",
+    title: "Notifications",
+    className: "user-info-links",
+    path: "#",
+    icon: (
+      <NotificationsNoneOutlined
+        className={style.icons}
+        sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
+        fontSize="large"
+      />
+    ),
+  },
+  {
+    title: "Profile Settings",
     className: "user-info-links",
     path: "/profile",
     icon: (
       <PersonOutlinedIcon
         className={style.icons}
         sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
-        fontSize='large'
+        fontSize="large"
       />
     ),
   },
@@ -43,20 +43,37 @@ const userActionsLinks = [
 
 const UserActions = () => {
   const { signOut } = useAuth() as AuthContextType;
-  const { userActionsOpen, toggleUserActionsOpen } = useContext(
-    GlobalContext
+  const { userActionsOpen, toggleUserActionsOpen, setCurrentTab } = useContext(
+    GlobalContext,
   ) as GlobalContextType;
 
   const { currentUser, profileImg } = useContext(
-    AuthContext
+    AuthContext,
   ) as AuthContextType;
 
   const { width } = useWindowDimensions();
+
+  const getCurrentTab = () => {
+    const currentTab = userActionsLinks.filter(
+      (link) => link.path === window.location.pathname,
+    );
+    setCurrentTab(currentTab[0]?.title);
+  };
+
+  useEffect(() => {
+    getCurrentTab();
+  }, []);
 
   const handleLogoutLinkClick = () => {
     signOut();
     toggleUserActionsOpen();
   };
+
+  const profileSettingsOnClick = () => {
+    toggleUserActionsOpen();
+    setCurrentTab("Profile Settings");
+  };
+
   return (
     <div
       className={
@@ -69,24 +86,26 @@ const UserActions = () => {
         <div className={style["user-info"]}>
           <Avatar
             className={style["user-info-avatar"]}
-            alt='man smiling'
+            alt="man smiling"
             src={profileImg}
             sx={{ width: 40, height: 40 }}
           />
           <h2>{currentUser?.displayName}</h2>
         </div>
         <hr />
+
+        {/* Search bar */}
         {width < 600 ? (
           <>
             <div
               className={style["user-info-links"]}
-              // onClick={handleLogoutLinkClick}
+              onClick={handleLogoutLinkClick}
             >
               <div className={style["icon-container"]}>
                 <SearchOutlinedIcon
                   className={style.icons}
                   sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
-                  fontSize='large'
+                  fontSize="large"
                 />
               </div>
               <p>Search</p>
@@ -94,19 +113,19 @@ const UserActions = () => {
                 <KeyboardArrowRightOutlinedIcon
                   className={style["right-arrows"]}
                   sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
-                  fontSize='large'
+                  fontSize="large"
                 />
               </span>
             </div>
             <div
               className={style["user-info-links"]}
-              // onClick={handleLogoutLinkClick}
+              onClick={handleLogoutLinkClick}
             >
               <div className={style["icon-container"]}>
                 <NotificationsNoneOutlined
                   className={style.icons}
                   sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
-                  fontSize='large'
+                  fontSize="large"
                 />
               </div>
               <p>Notifications</p>
@@ -114,14 +133,24 @@ const UserActions = () => {
                 <KeyboardArrowRightOutlinedIcon
                   className={style["right-arrows"]}
                   sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
-                  fontSize='large'
+                  fontSize="large"
                 />
               </span>
             </div>
           </>
         ) : null}
+
+        {/* USERACTIONS LINKS */}
         {userActionsLinks.map((link, index) => (
-          <Link to={link.path} key={index} onClick={toggleUserActionsOpen}>
+          <Link
+            to={link.path}
+            key={index}
+            onClick={
+              link.title === "Profile Settings"
+                ? profileSettingsOnClick
+                : toggleUserActionsOpen
+            }
+          >
             <div className={style["user-info-links"]}>
               <div className={style["icon-container"]}>{link.icon}</div>
               <p>{link.title}</p>
@@ -129,12 +158,14 @@ const UserActions = () => {
                 <KeyboardArrowRightOutlinedIcon
                   className={style["right-arrows"]}
                   sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
-                  fontSize='large'
+                  fontSize="large"
                 />
               </span>
             </div>
           </Link>
         ))}
+
+        {/*  LOGOUT  */}
         <div
           className={style["user-info-links"]}
           onClick={handleLogoutLinkClick}
@@ -143,7 +174,7 @@ const UserActions = () => {
             <Logout
               className={style.icons}
               sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
-              fontSize='large'
+              fontSize="large"
             />
           </div>
           <p>Log out</p>
@@ -151,7 +182,7 @@ const UserActions = () => {
             <KeyboardArrowRightOutlinedIcon
               className={style["right-arrows"]}
               sx={{ stroke: "#ffffff", strokeWidth: 0.5 }}
-              fontSize='large'
+              fontSize="large"
             />
           </span>
         </div>

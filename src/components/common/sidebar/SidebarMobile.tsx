@@ -98,10 +98,10 @@ const SidebarMobile = () => {
   };
 
   const getCurrentTab = () => {
-    const currentTab = allowedLinks.filter(
+    const tabs = allowedLinks.filter(
       (link) => link.path === window.location.pathname,
     );
-    setCurrentTab(currentTab[0]?.title);
+    setCurrentTab(tabs[0]?.title);
   };
 
   useEffect(() => {
