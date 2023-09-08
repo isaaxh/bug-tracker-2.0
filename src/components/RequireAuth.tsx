@@ -2,7 +2,7 @@ import { useLocation, Navigate } from "react-router-dom";
 import useAuth from "../hooks/useAuth";
 import { AuthContextType } from "../contexts/AuthContext";
 import Layout from "./common/Layout";
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import { Roles } from "../contexts/AuthContext";
 
 type RequireAuthPropsType = {
@@ -17,7 +17,7 @@ const RequireAuth = ({ allowedRole }: RequireAuthPropsType) => {
 
   const haveMatchingRoles = (allowedRole: Roles, userRoles: Roles) => {
     for (const role in allowedRole) {
-      if (allowedRole[role] && userRoles[role]) {
+      if (allowedRole.hasOwnProperty(role) && userRoles.hasOwnProperty(role)) {
         setIsAuthorized(true);
         return true;
       }
