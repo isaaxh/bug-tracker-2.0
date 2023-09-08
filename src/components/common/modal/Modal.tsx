@@ -3,7 +3,6 @@ import { GlobalContextType } from "../../../contexts/GlobalContext";
 import useGlobal from "../../../hooks/useGlobal.ts"
 import useFirestore from "../../../hooks/useFirestore";
 import InfoIcon from "@mui/icons-material/Info";
-// import { AuthContext, AuthContextType } from "../../../contexts/AuthContext";
 import ModalFullName from "./ModalFullName";
 import ModalProfilePic from "./ModalProfileImg";
 

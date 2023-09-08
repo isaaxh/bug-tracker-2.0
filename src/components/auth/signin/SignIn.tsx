@@ -5,6 +5,7 @@ import InfoIcon from "@mui/icons-material/Info";
 import { Link } from "react-router-dom";
 import BarLoader from "react-spinners/BarLoader";
 import useAuth from "../../../hooks/useAuth";
+import { AuthContextType } from "../../../contexts/AuthContext";
 
 interface demoUserData {
   email: string;
@@ -12,8 +13,6 @@ interface demoUserData {
 }
 
 const SignIn = () => {
-  // const [loading, setLoading] = useState<boolean>(false);
-  // const [error, setError] = useState<string>("");
   const [email, setEmail] = useState<string>("");
   const [password, setPassword] = useState<string>("");
   const [demoUser, setDemoUser] = useState<demoUserData>({
@@ -21,7 +20,7 @@ const SignIn = () => {
     password: "Aa123456",
   });
 
-  const { signIn, loading, error, setError } = useAuth();
+  const { signIn, loading, error, setError } = useAuth() as AuthContextType;
 
   const fillDemoUserCredential = () => {
     setEmail(demoUser.email);
@@ -31,18 +30,18 @@ const SignIn = () => {
   return (
     <div className={style.container}>
       <div className={style.header}>
-        <h1 className='app-title'>BugTracker 2.0</h1>
+        <h1 className="app-title">BugTracker 2.0</h1>
         <h1>
-          <LanguageIcon fontSize='large' />
+          <LanguageIcon fontSize="large" />
         </h1>
       </div>
       <div className={style.body}>
         {loading ? (
-          <div className='loader-container'>
+          <div className="loader-container">
             <BarLoader
               loading={loading}
-              aria-label='Loading Spinner'
-              data-testid='loader'
+              aria-label="Loading Spinner"
+              data-testid="loader"
             />
           </div>
         ) : null}
@@ -51,7 +50,7 @@ const SignIn = () => {
           {error && error ? (
             <div className={style["error-card"]}>
               <InfoIcon
-                fontSize='large'
+                fontSize="large"
                 style={{ color: "var(--color-error)" }}
               />
               {error}
@@ -63,11 +62,11 @@ const SignIn = () => {
             onSubmit={(e) => signIn({ e, email, password })}
           >
             <div className={style["input-container"]}>
-              <label htmlFor='email'>Email</label>
+              <label htmlFor="email">Email</label>
               <input
                 className={style["input-field"]}
-                type='email'
-                id='email'
+                type="email"
+                id="email"
                 value={email}
                 onChange={(e) => {
                   setError("");
@@ -76,11 +75,11 @@ const SignIn = () => {
               />
             </div>
             <div className={style["input-container"]}>
-              <label htmlFor='password'>Password</label>
+              <label htmlFor="password">Password</label>
               <input
                 className={style["input-field"]}
-                type='password'
-                id='password'
+                type="password"
+                id="password"
                 value={password}
                 onChange={(e) => {
                   setError("");
@@ -91,7 +90,7 @@ const SignIn = () => {
             <div className={style["btn-container"]}>
               <button
                 className={`${style.btn} ${style["btn-auth"]}`}
-                type='submit'
+                type="submit"
               >
                 Sign In
               </button>
@@ -117,7 +116,7 @@ const SignIn = () => {
             <Link to={"/signup"} style={{ width: "100%" }}>
               <button
                 className={`${style.btn} ${style["btn-create"]}`}
-                type='button'
+                type="button"
               >
                 Create Account
               </button>

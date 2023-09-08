@@ -1,4 +1,3 @@
-
 import { Route, Routes } from "react-router";
 import "./App.css";
 import Home from "./components/home/Home";
@@ -15,30 +14,39 @@ import RequireAuth from "./components/RequireAuth";
 import Unauthorized from "./components/Unauthorized";
 
 function App() {
-    return (
-        <main className='App'>
-            <Routes>
-                {/* public routes */}
-                <Route path='signin' element={<SignIn />} />
-                <Route path='signup' element={<SignUp />} />
-                <Route path='resetpass' element={<ResetPassword />} />
-                <Route path='unauthorized' element={<Unauthorized />} />
-                <Route element={<RequireAuth allowedRole={{ admin: true }} key={location.pathname} />}>
-                    <Route path='role_assignment' element={<RoleAssignment />} />
-                </Route>
-                <Route element={<RequireAuth allowedRole={{ manager: true, admin: true }} />}>
-                    <Route path='project_users' element={<ProjectUsers />} />
-                    <Route path='projects' element={<Projects />} />
-                </Route>
-                <Route element={<RequireAuth allowedRole={{ developer: true }} />}>
-                    <Route path='tickets' element={<Tickets />} />
-                    <Route path='/' element={<Home />} />
-                    <Route path='profile' element={<Profile />} />
-                </Route>
-                <Route path='*' element={<Page404 />} />
-            </Routes>
-        </main>
-    );
+  return (
+    <main className="App">
+      <Routes>
+        {/* public routes */}
+        <Route path="signin" element={<SignIn />} />
+        <Route path="signup" element={<SignUp />} />
+        <Route path="resetpass" element={<ResetPassword />} />
+        <Route path="unauthorized" element={<Unauthorized />} />
+        <Route
+          element={
+            <RequireAuth
+              allowedRole={{ admin: true }}
+              key={location.pathname}
+            />
+          }
+        >
+          <Route path="role_assignment" element={<RoleAssignment />} />
+        </Route>
+        <Route
+          element={<RequireAuth allowedRole={{ manager: true, admin: true }} />}
+        >
+          <Route path="project_users" element={<ProjectUsers />} />
+          <Route path="projects" element={<Projects />} />
+        </Route>
+        <Route element={<RequireAuth allowedRole={{ developer: true }} />}>
+          <Route path="tickets" element={<Tickets />} />
+          <Route path="/" element={<Home />} />
+          <Route path="profile" element={<Profile />} />
+        </Route>
+        <Route path="*" element={<Page404 />} />
+      </Routes>
+    </main>
+  );
 }
 
 export default App;

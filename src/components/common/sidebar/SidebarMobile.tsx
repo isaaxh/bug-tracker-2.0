@@ -14,7 +14,6 @@ import {
 import useGlobal from "../../../hooks/useGlobal";
 import useAuth from "../../../hooks/useAuth";
 import { AuthContextType } from "../../../contexts/AuthContext";
-import { useNavigate } from "react-router";
 
 const sidebarLinks = [
   {
@@ -24,7 +23,7 @@ const sidebarLinks = [
       <HomeOutlinedIcon
         className={style.icons}
         sx={{ stroke: "#ffffff", strokeWidth: 1 }}
-        fontSize='large'
+        fontSize="large"
       />
     ),
   },
@@ -36,7 +35,7 @@ const sidebarLinks = [
       <GroupAddOutlinedIcon
         className={style.icons}
         sx={{ stroke: "#ffffff", strokeWidth: 1 }}
-        fontSize='large'
+        fontSize="large"
       />
     ),
   },
@@ -47,7 +46,7 @@ const sidebarLinks = [
       <PeopleOutlineOutlinedIcon
         className={style.icons}
         sx={{ stroke: "#ffffff", strokeWidth: 1 }}
-        fontSize='large'
+        fontSize="large"
       />
     ),
   },
@@ -58,7 +57,7 @@ const sidebarLinks = [
       <BusinessCenterOutlinedIcon
         className={style.icons}
         sx={{ stroke: "#ffffff", strokeWidth: 1 }}
-        fontSize='large'
+        fontSize="large"
       />
     ),
   },
@@ -69,41 +68,46 @@ const sidebarLinks = [
       <ConfirmationNumberOutlinedIcon
         className={style.icons}
         sx={{ stroke: "#ffffff", strokeWidth: 1 }}
-        fontSize='large'
+        fontSize="large"
       />
     ),
   },
 ];
 
 const SidebarMobile = () => {
-    const { currentUserData } = useAuth() as AuthContextType; 
-    const [allowedLinks, setAllowedLinks] = useState(sidebarLinks);
-    const { setCurrentTab } = useGlobal() as GlobalContextType;
-    const { tabMenuOpen, toggleTabMenuOpen } = useContext(
-        GlobalContext
-    ) as GlobalContextType;
+  const { currentUserData } = useAuth() as AuthContextType;
+  const [allowedLinks, setAllowedLinks] = useState(sidebarLinks);
+  const { setCurrentTab } = useGlobal() as GlobalContextType;
+  const { tabMenuOpen, toggleTabMenuOpen } = useContext(
+    GlobalContext,
+  ) as GlobalContextType;
 
-    const filterAllowedRoles = () => {
+  const filterAllowedRoles = () => {
+    const filteredLinks = sidebarLinks.filter((link) => {
+      if (currentUserData?.roles?.admin) return true;
+      if (currentUserData?.roles?.manager && link.path !== "/role_assignment")
+        return true;
+      if (
+        currentUserData?.roles?.developer &&
+        (link.path === "/" || link.path === "/tickets")
+      )
+        return true;
+    });
 
-        const filteredLinks = sidebarLinks.filter((link) => {
-                if (currentUserData?.roles?.admin) return true;
-                if (currentUserData?.roles?.manager && link.path !== '/role_assignment') return true;
-                if (currentUserData?.roles?.developer && (link.path === '/' || link.path === '/tickets')) return true;
-            })
+    return filteredLinks;
+  };
 
-        return filteredLinks
-    }
-    
-    const getCurrentTab = () => {
-        const currentTab = allowedLinks.filter((link) => link.path === window.location.pathname)
-        setCurrentTab(currentTab[0].title)
-    }
+  const getCurrentTab = () => {
+    const currentTab = allowedLinks.filter(
+      (link) => link.path === window.location.pathname,
+    );
+    setCurrentTab(currentTab[0]?.title);
+  };
 
-    useEffect(() => {
-        setAllowedLinks(filterAllowedRoles())
-        getCurrentTab()
-    }, [])
-
+  useEffect(() => {
+    setAllowedLinks(filterAllowedRoles());
+    getCurrentTab();
+  }, []);
 
   return (
     <div
@@ -118,12 +122,16 @@ const SidebarMobile = () => {
         <ClearIcon
           className={style.cross}
           sx={{ stroke: "black" }}
-          fontSize='large'
+          fontSize="large"
         />
       </div>
       <ul className={style["tab-list"]}>
         {allowedLinks.map((link, index) => (
-          <li className={`${style.links}`} key={index} onClick={() => setCurrentTab(link.title)}>
+          <li
+            className={`${style.links}`}
+            key={index}
+            onClick={() => setCurrentTab(link.title)}
+          >
             <NavLink to={link.path} onClick={() => toggleTabMenuOpen()}>
               <div className={style["icon-container"]}>{link.icon}</div>
               {link.title}
