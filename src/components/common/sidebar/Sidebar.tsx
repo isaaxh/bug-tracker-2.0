@@ -79,13 +79,18 @@ const Sidebar = () => {
   const filterAllowedRoles = () => {
     const filteredLinks = sidebarLinks.filter((link) => {
       if (currentUserData?.roles?.admin) return true;
+
       if (currentUserData?.roles?.manager && link.path !== "/role_assignment")
         return true;
+
       if (
         currentUserData?.roles?.developer &&
-        (link.path === "/" || link.path === "/tickets")
+        link.path !== "/role_assignment" &&
+        link.path !== "/project_users"
       )
         return true;
+
+      if (currentUserData?.roles?.user && link.path === "/") return true;
     });
 
     setLoading(false);

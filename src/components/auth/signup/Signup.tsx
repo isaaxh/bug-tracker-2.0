@@ -33,7 +33,7 @@ const SignUp = () => {
   const userData: userDataType = {
     email: email,
     roles: {
-      developer: true,
+      user: true,
     },
     roleAssigned: false,
     password: password,

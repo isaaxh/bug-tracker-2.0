@@ -8,7 +8,7 @@ import SignIn from "./components/auth/signin/SignIn";
 import SignUp from "./components/auth/signup/Signup";
 import ResetPassword from "./components/auth/resetPass/ResetPassword";
 import RoleAssignment from "./components/roleAssignment/RoleAssignment";
-import ProjectUsers from "./components/ProjectUsers/ProjectUsers";
+import ProjectUsers from "./components/projectUsers/ProjectUsers";
 import Page404 from "./components/Page404";
 import RequireAuth from "./components/RequireAuth";
 import Unauthorized from "./components/Unauthorized";
@@ -22,6 +22,7 @@ function App() {
         <Route path="signup" element={<SignUp />} />
         <Route path="resetpass" element={<ResetPassword />} />
         <Route path="unauthorized" element={<Unauthorized />} />
+
         <Route
           element={
             <RequireAuth
@@ -36,10 +37,12 @@ function App() {
           element={<RequireAuth allowedRole={{ manager: true, admin: true }} />}
         >
           <Route path="project_users" element={<ProjectUsers />} />
-          <Route path="projects" element={<Projects />} />
         </Route>
         <Route element={<RequireAuth allowedRole={{ developer: true }} />}>
+          <Route path="projects" element={<Projects />} />
           <Route path="tickets" element={<Tickets />} />
+        </Route>
+        <Route element={<RequireAuth allowedRole={{ user: true }} />}>
           <Route path="/" element={<Home />} />
           <Route path="profile" element={<Profile />} />
         </Route>

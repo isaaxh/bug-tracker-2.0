@@ -27,7 +27,7 @@ const RequireAuth = ({ allowedRole }: RequireAuthPropsType) => {
   };
 
   useEffect(() => {
-    //works when app is loaded for the first time
+    //runs when app is loaded for the first time
     if (!currentUser && !currentUserData) {
       setLoading(false);
       return;
