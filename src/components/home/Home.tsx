@@ -41,7 +41,7 @@ const Home = () => {
     } else if (userData.roles.developer) {
       return "developer";
     } else {
-      return "unassigned";
+      return "submitter";
     }
   };
 

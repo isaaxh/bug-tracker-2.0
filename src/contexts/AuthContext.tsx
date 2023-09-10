@@ -55,7 +55,7 @@ export interface userDataType {
 }
 
 export interface Roles {
-  user?: boolean;
+  submitter?: boolean;
   admin?: boolean;
   manager?: boolean;
   developer?: boolean;

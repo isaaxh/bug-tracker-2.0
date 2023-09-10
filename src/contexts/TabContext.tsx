@@ -109,7 +109,11 @@ const TabProvider = ({ children }: TabProvideProps) => {
       )
         return true;
 
-      if (currentUserData?.roles?.user && link.path === "/") return true;
+      if (
+        (currentUserData?.roles?.submitter && link.path == "/tickets") ||
+        link.path === "/"
+      )
+        return true;
     });
 
     setLoading(false);
@@ -132,11 +136,6 @@ const TabProvider = ({ children }: TabProvideProps) => {
     setAuthorizedTabs(filterAuthorizedTabs());
     setLoading(false);
   }, [currentUserData]);
-
-  /* useEffect(() => { */
-  /*   if (!authorizedTabs) return; */
-  /*   getCurrentTab(); */
-  /* }, [authorizedTabs]); */
 
   const tabValues = {
     authorizedTabs,

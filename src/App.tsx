@@ -46,9 +46,9 @@ function App() {
           }
         >
           <Route path="projects" element={<Projects />} />
-          <Route path="tickets" element={<Tickets />} />
         </Route>
-        <Route element={<RequireAuth allowedRole={{ user: true }} />}>
+        <Route element={<RequireAuth allowedRole={{ submitter: true }} />}>
+          <Route path="tickets" element={<Tickets />} />
           <Route path="/" element={<Home />} />
           <Route path="profile" element={<Profile />} />
         </Route>
