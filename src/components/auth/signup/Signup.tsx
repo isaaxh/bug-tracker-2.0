@@ -14,8 +14,10 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [btnDisabled, setBtnDisabled] = useState(false);
+  const [currentFormattedDate, seCurrentFormattedDate] = useState<string>("");
+  const [loading, setLoading] = useState(false);
 
-  const { signUp, loading, error, setError } = useAuth() as AuthContextType;
+  const { signUp, error, setError } = useAuth() as AuthContextType;
 
   const validateInputValues = () => {
     if (
@@ -30,6 +32,19 @@ const SignUp = () => {
     }
   };
 
+  const formatDate = (date: Date) => {
+    const day = date.getDate().toString().padStart(2, "0");
+    const month = (date.getMonth() + 1).toString().padStart(2, "0");
+    const year = date.getFullYear();
+
+    const hours = date.getHours().toString().padStart(2, "0");
+    const minutes = date.getMinutes().toString().padStart(2, "0");
+    const seconds = date.getSeconds().toString().padStart(2, "0");
+
+    const formattedDate = `${day}/${month}/${year} ${hours}:${minutes}:${seconds}`;
+    seCurrentFormattedDate(formattedDate);
+  };
+
   const userData: userDataType = {
     email: email,
     roles: {
@@ -39,16 +54,24 @@ const SignUp = () => {
     password: password,
     confirmPassword: confirmPassword,
     displayName: firstName + " " + lastName,
-  };
-
-  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    signUp({ userData });
+    dateAdded: currentFormattedDate,
   };
 
   useEffect(() => {
     validateInputValues();
   }, [firstName, lastName, email, password, confirmPassword]);
+
+  const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
+    setLoading(true);
+    e.preventDefault();
+
+    formatDate(new Date());
+    setTimeout(() => {
+      console.log(currentFormattedDate);
+      signUp({ userData });
+      setLoading(false);
+    }, 2000);
+  };
 
   return (
     <div className={style.container}>
@@ -152,13 +175,17 @@ const SignUp = () => {
               />
             </div>
             <div className={style["btn-container"]}>
-              <button
-                className={`${style.btn} ${style["btn-auth"]}`}
-                type="submit"
-                disabled={btnDisabled}
-              >
-                Sign Up
-              </button>
+              {loading ? (
+                <div>loading...</div>
+              ) : (
+                <button
+                  className={`${style.btn} ${style["btn-auth"]}`}
+                  type="submit"
+                  disabled={btnDisabled}
+                >
+                  Sign Up
+                </button>
+              )}
             </div>
             <div className={style["alternate-option-container"]}>
               Already have an account?
