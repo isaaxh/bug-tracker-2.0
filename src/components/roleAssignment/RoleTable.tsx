@@ -23,6 +23,8 @@ const RoleTable = ({ allUserDocs, loading }: RoleTablePropsTypes) => {
     allUserDocs && console.log(allUserDocs);
   }, [allUserDocs]);
 
+  useEffect(() => {}, [records]);
+
   const getRole = (userData: DocumentData) => {
     if (userData.roles.admin) {
       return "admin";
@@ -37,7 +39,6 @@ const RoleTable = ({ allUserDocs, loading }: RoleTablePropsTypes) => {
 
   const prevPage = () => {
     if (currentPage !== 1) {
-      console.log(firstIndex);
       setCurrentPage(currentPage - 1);
     }
   };
@@ -69,6 +70,7 @@ const RoleTable = ({ allUserDocs, loading }: RoleTablePropsTypes) => {
                 <th>Name</th>
                 <th>Email</th>
                 <th>Role</th>
+                <th>Date Added</th>
               </tr>
             </thead>
 
