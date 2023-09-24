@@ -243,8 +243,8 @@ select {
 }
 
 .tab-dropdown-btn {
-    all: unset; 
-    display: flex;
+  all: unset;
+  display: flex;
   align-items: center;
   cursor: pointer;
 }
@@ -392,9 +392,9 @@ select {
 }
 
 .page-unauthorized {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }

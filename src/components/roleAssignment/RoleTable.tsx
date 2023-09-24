@@ -11,19 +11,11 @@ interface RoleTablePropsTypes {
 
 const RoleTable = ({ allUserDocs, loading }: RoleTablePropsTypes) => {
   const [currentPage, setCurrentPage] = useState(1);
-  /* const [records, setRecords] = useState(); */
-  const recordsPerPage = 4;
+  const recordsPerPage = 10;
   const lastIndex = currentPage * recordsPerPage;
   const firstIndex = lastIndex - recordsPerPage;
   const records = allUserDocs.slice(firstIndex, lastIndex);
   const totalPages = Math.ceil(allUserDocs.length / recordsPerPage);
-  const pageNumbers = [...Array(totalPages).keys()].slice(1);
-
-  useEffect(() => {
-    allUserDocs && console.log(allUserDocs);
-  }, [allUserDocs]);
-
-  useEffect(() => {}, [records]);
 
   const getRole = (userData: DocumentData) => {
     if (userData.roles.admin) {
@@ -46,9 +38,6 @@ const RoleTable = ({ allUserDocs, loading }: RoleTablePropsTypes) => {
     if (currentPage !== totalPages) {
       setCurrentPage(currentPage + 1);
     }
-  };
-  const changeCurrentPage = (newCurrentPage: number) => {
-    setCurrentPage(newCurrentPage);
   };
 
   return (
@@ -80,32 +69,22 @@ const RoleTable = ({ allUserDocs, loading }: RoleTablePropsTypes) => {
                   <td data-cell="name">{userData.displayName}</td>
                   <td data-cell="email">{userData.email}</td>
                   <td data-cell="role">{getRole(userData)}</td>
-                  <td data-cell="date-added">{userData.createdAt}</td>
+                  <td data-cell="date added">{userData.createdAt}</td>
                 </tr>
               ))}
             </tbody>
           </table>
         )}
-        <nav>
+        <nav className={style["pagination-wrapper"]}>
+          <div className={style["page-numbers"]}>
+            {currentPage} of {totalPages} pages.
+          </div>
           <ul className={style["table-pagination"]}>
             <li className={style["page-item"]}>
               <a href="#" className={style["page-link"]} onClick={prevPage}>
                 prev
               </a>
             </li>
-            {pageNumbers.map((number, index) => (
-              <li key={index}>
-                <a
-                  href="#"
-                  className={`${style["page-link"]} ${
-                    currentPage === number ? style.active : ""
-                  }`}
-                  onClick={() => changeCurrentPage(number)}
-                >
-                  {number}
-                </a>
-              </li>
-            ))}
             <li className={style["page-item"]}>
               <a href="#" className={style["page-link"]} onClick={nextPage}>
                 next

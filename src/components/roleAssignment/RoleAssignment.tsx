@@ -44,10 +44,6 @@ const RoleAssignment = () => {
     fetchAllData();
   }, []);
 
-  useEffect(() => {
-    console.log(selectedUsers);
-  }, [selectedUsers]);
-
   return (
     <div className={style.container}>
       <div className={style["title-container"]}>
