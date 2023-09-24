@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import BarLoader from "react-spinners/BarLoader";
 import useAuth from "../../../hooks/useAuth";
 import { AuthContextType, userDataType } from "../../../contexts/AuthContext";
+import { formatDate } from "../../../utils/FormatDate";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -39,6 +40,7 @@ const SignUp = () => {
     password: password,
     confirmPassword: confirmPassword,
     displayName: firstName + " " + lastName,
+    createdAt: formatDate(new Date()),
   };
 
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {

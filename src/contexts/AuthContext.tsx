@@ -52,6 +52,7 @@ export interface userDataType {
   password: string;
   confirmPassword: string;
   displayName: string;
+  createdAt: string;
 }
 
 export interface Roles {
@@ -127,7 +128,6 @@ const AuthProvider = ({ children }: AuthProviderPropsType) => {
       .signOut()
       .then(() => {
         setCurrentUserData(undefined);
-        console.log("signOut");
         navigate("/signin");
         setLoading(false);
       })
@@ -214,6 +214,7 @@ const AuthProvider = ({ children }: AuthProviderPropsType) => {
         email: userData.email,
         roleAssigned: userData.roleAssigned,
         roles: userData.roles,
+        createdAt: userData.createdAt,
       };
 
       writeData("users", userCredential.user.uid, data);
