@@ -80,6 +80,7 @@ const RoleTable = ({ allUserDocs, loading }: RoleTablePropsTypes) => {
                   <td data-cell="name">{userData.displayName}</td>
                   <td data-cell="email">{userData.email}</td>
                   <td data-cell="role">{getRole(userData)}</td>
+                  <td data-cell="date-added">{userData.createdAt}</td>
                 </tr>
               ))}
             </tbody>
