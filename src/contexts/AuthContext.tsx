@@ -222,7 +222,8 @@ const AuthProvider = ({ children }: AuthProviderPropsType) => {
       navigate("/");
       setLoading(false);
     } catch (error) {
-      setError("Something went wrong");
+      console.log("sign up failed");
+      setError("Sign up failed");
       setLoading(false);
     }
   };

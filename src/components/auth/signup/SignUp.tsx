@@ -3,10 +3,10 @@ import style from "../authPage.module.css";
 import LanguageIcon from "@mui/icons-material/Language";
 import InfoIcon from "@mui/icons-material/Info";
 import { Link } from "react-router-dom";
-import BarLoader from "react-spinners/BarLoader";
 import useAuth from "../../../hooks/useAuth";
 import { AuthContextType, userDataType } from "../../../contexts/AuthContext";
-import { formatDate } from "../../../utils/FormatDate";
+import { formatDate } from "../../../utils/Helpers";
+import Loader from "../../common/Loader";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
@@ -15,7 +15,16 @@ const SignUp = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [btnDisabled, setBtnDisabled] = useState(false);
-  const { signUp, loading, error, setError } = useAuth() as AuthContextType;
+
+  const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+    firstName: "",
+    lastName: "",
+  });
+
+  const { signUp, error, loading, setError } = useAuth() as AuthContextType;
 
   const validateInputValues = () => {
     if (
@@ -42,14 +51,14 @@ const SignUp = () => {
     createdAt: formatDate(new Date()),
   };
 
+  useEffect(() => {
+    validateInputValues();
+  }, [firstName, lastName, email, password, confirmPassword]);
+
   const handleFormSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     signUp({ userData });
   };
-
-  useEffect(() => {
-    validateInputValues();
-  }, [firstName, lastName, email, password, confirmPassword]);
 
   return (
     <div className={style.container}>
@@ -60,15 +69,7 @@ const SignUp = () => {
         </h1>
       </div>
       <div className={style.body}>
-        {loading ? (
-          <div className="loader-container">
-            <BarLoader
-              loading={loading}
-              aria-label="Loading Spinner"
-              data-testid="loader"
-            />
-          </div>
-        ) : null}
+        {loading ? <Loader loading={loading} /> : null}
         <div className={style.card}>
           <h1 className={style["card-title"]}>Create an Account</h1>
           {error && error ? (
@@ -153,13 +154,17 @@ const SignUp = () => {
               />
             </div>
             <div className={style["btn-container"]}>
-              <button
-                className={`${style.btn} ${style["btn-auth"]}`}
-                type="submit"
-                disabled={btnDisabled}
-              >
-                Sign Up
-              </button>
+              {loading ? (
+                <div>loading...</div>
+              ) : (
+                <button
+                  className={`${style.btn} ${style["btn-auth"]}`}
+                  type="submit"
+                  disabled={btnDisabled}
+                >
+                  Sign Up
+                </button>
+              )}
             </div>
             <div className={style["alternate-option-container"]}>
               Already have an account?

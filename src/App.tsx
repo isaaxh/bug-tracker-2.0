@@ -5,7 +5,7 @@ import Tickets from "./components/tickets/Tickets";
 import Profile from "./components/profile/ProfileSettings";
 import Projects from "./components/projects/Projects";
 import SignIn from "./components/auth/signin/SignIn";
-import SignUp from "./components/auth/signup/Signup";
+import SignUp from "./components/auth/signup/SignUp";
 import ResetPassword from "./components/auth/resetPass/ResetPassword";
 import RoleAssignment from "./components/roleAssignment/RoleAssignment";
 import ProjectUsers from "./components/projectUsers/ProjectUsers";
