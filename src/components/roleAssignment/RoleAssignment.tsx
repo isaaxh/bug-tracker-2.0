@@ -6,7 +6,7 @@ import {
   readMultipleDocsPropsType,
 } from "../../hooks/useFirestore";
 import { DocumentData } from "firebase/firestore";
-import RoleTable from "./RoleTable";
+import RoleTable from "./roleTable/RoleTable";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import SelectUser from "./SelectUser";
 
