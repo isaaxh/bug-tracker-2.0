@@ -16,14 +16,6 @@ const SignUp = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [btnDisabled, setBtnDisabled] = useState(false);
 
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-    confirmPassword: "",
-    firstName: "",
-    lastName: "",
-  });
-
   const { signUp, error, loading, setError } = useAuth() as AuthContextType;
 
   const validateInputValues = () => {
