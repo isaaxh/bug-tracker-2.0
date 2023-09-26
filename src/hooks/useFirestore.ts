@@ -7,6 +7,7 @@ import {
   collection,
   query,
   where,
+  orderBy,
   getDocs,
   WhereFilterOp,
 } from "firebase/firestore";
@@ -27,7 +28,13 @@ export interface readDocPropsType {
 
 export interface readAllDocsPropType {
   collectionName: string;
+  sorting: sortingProps;
 }
+
+export type sortingProps = {
+  column: "displayName" | "email" | "roles" | "createdAt";
+  order: "asc" | "desc";
+};
 
 export interface readMultipleDocsPropsType {
   collectionName: string;
@@ -93,13 +100,18 @@ const useFirestore = () => {
     }
   };
 
-  const readAllDocs = async ({ collectionName }: readAllDocsPropType) => {
+  const readAllDocs = async ({
+    collectionName,
+    sorting,
+  }: readAllDocsPropType) => {
     setLoading(true);
     setError("");
 
+    const usersRef = collection(db, collectionName);
+    const q = query(usersRef, orderBy(sorting.column, sorting.order));
     const docArray: Array<DocumentData> = [];
     try {
-      const querySnapshot = await getDocs(collection(db, collectionName));
+      const querySnapshot = await getDocs(q);
       querySnapshot.forEach((doc) => {
         docArray.push(doc.data());
       });
