@@ -29,11 +29,19 @@ export interface readDocPropsType {
 export interface readAllDocsPropType {
   collectionName: string;
   sorting: sortingProps;
+  filter: filterProps;
 }
 
-export type sortingProps = {
-  column: "displayName" | "email" | "roles" | "createdAt";
+export interface sortingProps extends tableColumn {
   order: "asc" | "desc";
+}
+
+export interface filterProps extends tableColumn {
+  value?: string;
+}
+
+export type tableColumn = {
+  column: "displayName" | "email" | "roles" | "createdAt";
 };
 
 export interface readMultipleDocsPropsType {
@@ -103,12 +111,19 @@ const useFirestore = () => {
   const readAllDocs = async ({
     collectionName,
     sorting,
+    filter,
   }: readAllDocsPropType) => {
     setLoading(true);
     setError("");
 
     const usersRef = collection(db, collectionName);
-    const q = query(usersRef, orderBy(sorting.column, sorting.order));
+    let q;
+    if (filter.value) {
+      const f = where(filter.column, "==", filter.value);
+      q = query(usersRef, orderBy(sorting.column, sorting.order), f);
+    } else {
+      q = query(usersRef, orderBy(sorting.column, sorting.order));
+    }
     const docArray: Array<DocumentData> = [];
     try {
       const querySnapshot = await getDocs(q);

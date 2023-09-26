@@ -1,10 +1,9 @@
-import { SortingProps } from "./RoleTable";
-import style from "../roleAssignment.module.css";
+import { sortingProps, tableColumn } from "../../../hooks/useFirestore";
 
 interface TableHeaderCellProps {
-  column: string;
-  sorting: SortingProps;
-  sortTable: (newSorting: SortingProps) => void;
+  column: tableColumn;
+  sorting: sortingProps;
+  sortTable: (newSorting: sortingProps) => void;
 }
 
 function TableHeaderCell({ column, sorting, sortTable }: TableHeaderCellProps) {
@@ -13,11 +12,7 @@ function TableHeaderCell({ column, sorting, sortTable }: TableHeaderCellProps) {
   const futureSortingOrder = isDescSorting ? "asc" : "desc";
 
   return (
-    <th
-      key={column}
-      className={style["table-header-cell"]}
-      onClick={() => sortTable({ column, order: futureSortingOrder })}
-    >
+    <th onClick={() => sortTable({ column, order: futureSortingOrder })}>
       {column}
       {isDescSorting && <span>▼</span>}
       {isAscSorting && <span>▲</span>}

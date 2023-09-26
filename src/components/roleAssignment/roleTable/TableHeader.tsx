@@ -1,10 +1,10 @@
 import TableHeaderCell from "./TableHeaderCell";
-import { SortingProps } from "./RoleTable.tsx";
+import { sortingProps } from "../../../hooks/useFirestore";
 
 interface TableHeaderProps {
   columns: string[];
-  sorting: SortingProps;
-  sortTable: (newSorting: SortingProps) => void;
+  sorting: sortingProps;
+  sortTable: (newSorting: sortingProps) => void;
 }
 const TableHeader = ({ columns, sorting, sortTable }: TableHeaderProps) => {
   return (

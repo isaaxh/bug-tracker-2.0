@@ -7,14 +7,17 @@ import TableSearchBar from "./TableSearchBar";
 import TableContent from "./TableContent";
 import TablePagination from "./TablePagination";
 import useFirestore, {
+  filterProps,
   readAllDocsPropType,
   sortingProps,
+  tableColumn,
 } from "../../../hooks/useFirestore";
 
 const RoleTable = () => {
   // user documents
   const [allEnteries, setAllEnteries] = useState<DocumentData>([]);
-  const { readAllDocs, readMultipleDocs, loading } = useFirestore();
+  const { readAllDocs } = useFirestore();
+  const loading = false;
 
   // table pagination
   const [currentPage, setCurrentPage] = useState(1);
@@ -23,9 +26,9 @@ const RoleTable = () => {
   const firstIndex = lastIndex - recordsPerPage;
   const records = allEnteries.slice(firstIndex, lastIndex);
   const totalPages = Math.ceil(allEnteries.length / recordsPerPage);
-  const columns = ["displayName", "email", "role", "createdAt"];
 
   //table sorting
+  const columns: string[] = ["displayName", "email", "roles", "createdAt"];
   const [sorting, setSorting] = useState<sortingProps>({
     column: "displayName",
     order: "asc",
@@ -35,15 +38,19 @@ const RoleTable = () => {
   };
 
   // table search
-  const [searchValue, setSearchValue] = useState("");
+  const [filter, setFilter] = useState<filterProps>({
+    column: "displayName",
+    value: "",
+  });
   const searchTable = (newSearchValue: string) => {
-    setSearchValue(newSearchValue);
+    setFilter({ ...filter, value: newSearchValue });
   };
 
   useEffect(() => {
     const allDocsQuery: readAllDocsPropType = {
       collectionName: "users",
       sorting: sorting,
+      filter: filter,
     };
 
     const fetchAllData = async () => {
@@ -52,7 +59,7 @@ const RoleTable = () => {
     };
 
     fetchAllData();
-  }, [sorting]);
+  }, [sorting, filter]);
 
   const prevPage = () => {
     if (currentPage !== 1) {
@@ -68,6 +75,7 @@ const RoleTable = () => {
   return (
     <div className={style["output-container"]}>
       <div className={style["table-wrapper"]}>
+        <TableSearchBar searchTable={searchTable} />
         {loading && loading ? (
           <MoonLoader
             className={style.spinner}
@@ -77,17 +85,14 @@ const RoleTable = () => {
             size={30}
           />
         ) : (
-          <>
-            <TableSearchBar />
-            <table>
-              <TableHeader
-                columns={columns}
-                sorting={sorting}
-                sortTable={sortTable}
-              />
-              <TableContent enteries={records} />
-            </table>
-          </>
+          <table>
+            <TableHeader
+              columns={columns}
+              sorting={sorting}
+              sortTable={sortTable}
+            />
+            <TableContent enteries={records} />
+          </table>
         )}
         <TablePagination
           currentPage={currentPage}

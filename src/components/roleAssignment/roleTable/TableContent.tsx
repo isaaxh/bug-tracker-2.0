@@ -7,8 +7,6 @@ interface TableContentProps {
 }
 
 const TableContent = ({ enteries }: TableContentProps) => {
-  console.log(enteries);
-
   return (
     <tbody>
       {enteries.map((userData: userDataType, index: number) => (

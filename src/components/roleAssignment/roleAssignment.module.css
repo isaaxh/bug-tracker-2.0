@@ -91,6 +91,8 @@
   background-color: rgb(var(--color-grey-70));
   overflow-y: auto;
   max-width: 1400px;
+  display: flex;
+  flex-direction: column;
   outline: 1px solid rgb(var(--color-grey-50));
   border-radius: var(--border-radius);
 }
@@ -110,8 +112,6 @@ th,
 td {
   padding: 1rem 2rem;
 }
-
-/* caption */
 
 .table-header {
   display: flex;
@@ -137,8 +137,8 @@ td {
 .table-header .search-container button {
   border: none;
   background-color: transparent;
-  padding-right: 1rem;
   height: 100%;
+  padding: 0 1rem;
 }
 
 .table-header .search-container button:hover {
@@ -170,6 +170,7 @@ caption,
 th {
   background-color: rgba(var(--color-grey-60), 1);
   text-align: left;
+  cursor: pointer;
   color: var(--text-color-1);
 }
 
