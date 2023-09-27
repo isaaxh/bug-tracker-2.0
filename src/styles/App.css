@@ -398,3 +398,27 @@ select {
   align-items: center;
   flex-direction: column;
 }
+
+/* popup styling */
+
+.popup {
+  position: relative;
+}
+
+.popup-content {
+  position: absolute;
+  background-color: rgb(var(--color-grey-60));
+  top: 80;
+  left: 0;
+  border: 1px solid rgb(var(--color-grey-50));
+  border-radius: var(--border-radius);
+  padding: 0.6em 1.2em;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  z-index: 1;
+}
+
+.popup-roles-items {
+  list-style: none;
+}
