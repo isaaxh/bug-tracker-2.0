@@ -91,7 +91,7 @@ const RoleTable = () => {
               sorting={sorting}
               sortTable={sortTable}
             />
-            <TableContent enteries={records} />
+            <TableContent entries={records} />
           </table>
         )}
         <TablePagination

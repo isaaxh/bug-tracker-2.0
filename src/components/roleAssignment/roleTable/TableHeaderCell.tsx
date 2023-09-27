@@ -1,4 +1,7 @@
 import { sortingProps, tableColumn } from "../../../hooks/useFirestore";
+import { GoChevronDown } from "react-icons/go";
+import { GoChevronUp } from "react-icons/go";
+import style from "../roleAssignment.module.css";
 
 interface TableHeaderCellProps {
   column: tableColumn;
@@ -13,9 +16,19 @@ function TableHeaderCell({ column, sorting, sortTable }: TableHeaderCellProps) {
 
   return (
     <th onClick={() => sortTable({ column, order: futureSortingOrder })}>
-      {column}
-      {isDescSorting && <span>▼</span>}
-      {isAscSorting && <span>▲</span>}
+      <span className={style["table-header-cell"]}>
+        {column}
+        {isDescSorting && (
+          <span>
+            <GoChevronUp />
+          </span>
+        )}
+        {isAscSorting && (
+          <span>
+            <GoChevronDown />
+          </span>
+        )}
+      </span>
     </th>
   );
 }

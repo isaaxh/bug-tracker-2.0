@@ -146,6 +146,12 @@ td {
   background-color: rgb(var(--color-grey-60));
 }
 
+.table-header-cell {
+  display: flex;
+  align-items: end;
+  gap: 1rem;
+}
+
 @media (max-width: 590px) {
   .table-header {
     flex-direction: column;
