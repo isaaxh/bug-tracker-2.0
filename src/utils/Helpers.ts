@@ -21,3 +21,22 @@ export const getRole = (userData: DocumentData) => {
     return "submitter";
   }
 };
+
+export const addNewRole = (newRole: string, userData: DocumentData) => {
+  switch (newRole) {
+    case "admin":
+      return {
+        ...userData,
+        roles: { ...userData.roles, admin: true },
+      };
+    case "manager":
+      return {
+        ...userData,
+        roles: { manager: true },
+      };
+    case "developer":
+      return { ...userData, roles: { developer: true } };
+    default:
+      return { ...userData, roles: { submitter: true } };
+  }
+};
