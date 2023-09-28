@@ -402,21 +402,28 @@ select {
 /* popup styling */
 
 .popup {
+  display: inline-block;
   position: relative;
+  cursor: pointer;
+}
+
+.popup-text {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .popup-content {
   position: absolute;
   background-color: rgb(var(--color-grey-60));
-  top: 80;
-  left: 0;
   border: 1px solid rgb(var(--color-grey-50));
   border-radius: var(--border-radius);
   padding: 0.6em 1.2em;
   display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  z-index: 1;
+  flex-direction: column;
+  justify-content: center;
+  gap: 0.8rem;
+  list-style: none;
 }
 
 .popup-roles-items {

@@ -9,7 +9,13 @@ interface TableRowProps {
 
 const TableRow = ({ userData }: TableRowProps) => {
   const [popupTrigger, setPopupTrigger] = useState(false);
-  const togglePopup = () => setPopupTrigger(!popupTrigger);
+
+  const togglePopup = (
+    e: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>,
+  ) => {
+    e.stopPropagation();
+    setPopupTrigger(!popupTrigger);
+  };
 
   const popupContent = (
     <>
@@ -24,7 +30,7 @@ const TableRow = ({ userData }: TableRowProps) => {
     <tr>
       <td data-cell="name">{userData.displayName}</td>
       <td data-cell="email">{userData.email}</td>
-      <td data-cell="role" onClick={() => togglePopup()}>
+      <td data-cell="role" onClick={(e) => togglePopup(e)}>
         <Popup popupTrigger={popupTrigger} popupContent={popupContent}>
           {getRole(userData)}
         </Popup>

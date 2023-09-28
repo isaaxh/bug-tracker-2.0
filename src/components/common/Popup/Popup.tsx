@@ -34,6 +34,7 @@ const Popup = ({ children, popupTrigger, popupContent }: PopupProps) => {
             ref={setPopperElement}
             style={styles.popper}
             {...attributes.popper}
+            onClick={(e) => e.stopPropagation()}
           >
             {popupContent}
           </ul>
