@@ -7,10 +7,22 @@ import { useState } from "react";
 interface PopupProps {
   children: String | React.ReactNode;
   popupTrigger: boolean;
-  popupContent: string | React.ReactNode;
+  listItems: listItem[];
+  onRoleSelect: (role: string) => void;
 }
 
-const Popup = ({ children, popupTrigger, popupContent }: PopupProps) => {
+type listItem = {
+  id: string;
+  name: string;
+  color: string;
+};
+
+const Popup = ({
+  children,
+  popupTrigger,
+  listItems,
+  onRoleSelect,
+}: PopupProps) => {
   const [referenceElement, setReferenceElement] = useState();
   const [popperElement, setPopperElement] = useState();
 
@@ -21,6 +33,8 @@ const Popup = ({ children, popupTrigger, popupContent }: PopupProps) => {
     ],
     placement: "bottom-start",
   });
+
+  console.log(listItems);
   return (
     <div className="popup" ref={setReferenceElement}>
       <div className="popup-text">
@@ -36,7 +50,19 @@ const Popup = ({ children, popupTrigger, popupContent }: PopupProps) => {
             {...attributes.popper}
             onClick={(e) => e.stopPropagation()}
           >
-            {popupContent}
+            {listItems.map((item) => (
+              <li
+                key={item.id}
+                className="popup-list-item"
+                style={{
+                  backgroundColor:
+                    item.color !== "" ? "rgba(var(--color-grey-50))" : "",
+                }}
+                onClick={() => onRoleSelect(item.id)}
+              >
+                {item.name}
+              </li>
+            ))}
           </ul>
         )}
       </Portal>
