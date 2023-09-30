@@ -5,6 +5,7 @@ import useFirestore from "../../hooks/useFirestore";
 import { DocumentData } from "firebase/firestore";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
 import { AuthContextType } from "../../contexts/AuthContext";
+import { getRole } from "../../utils/Helpers";
 
 const Home = () => {
   const [userData, setUserData] = useState<DocumentData>();
@@ -33,18 +34,6 @@ const Home = () => {
     fetchData();
   }, [currentUser]);
 
-  const getRole = (userData: DocumentData) => {
-    if (userData.roles.admin) {
-      return "admin";
-    } else if (userData.roles.manager) {
-      return "Manager";
-    } else if (userData.roles.developer) {
-      return "developer";
-    } else {
-      return "submitter";
-    }
-  };
-
   return (
     <div className={style.container}>
       <div className={style["page-title-container"]}>
@@ -53,7 +42,7 @@ const Home = () => {
       <div className={style["content-container"]}>
         <div>name: {currentUser?.displayName}</div>
         <div>email: {currentUser?.email}</div>
-        <div>role: {userData && getRole(userData)}</div>
+        <div>role: {userData && getRole(userData.roles)}</div>
       </div>
     </div>
   );
