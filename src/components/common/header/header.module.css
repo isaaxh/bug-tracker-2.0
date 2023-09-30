@@ -102,6 +102,11 @@
   align-items: center;
 }
 
+.user-info-text p {
+  color: rgba(var(--color-grey-30), 0.8);
+  margin-left: 0.1rem;
+}
+
 .user-info-avatar {
   margin-right: 1.5rem;
 }

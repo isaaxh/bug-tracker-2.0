@@ -1,5 +1,5 @@
 import style from "./header.module.css";
-import { useContext, useEffect } from "react";
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Avatar } from "@mui/material";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
@@ -7,12 +7,11 @@ import PersonOutlinedIcon from "@mui/icons-material/PersonOutlined";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import { Logout, NotificationsNoneOutlined } from "@mui/icons-material";
 import useAuth from "../../../hooks/useAuth";
-import {
-  GlobalContext,
-  GlobalContextType,
-} from "../../../contexts/GlobalContext";
-import { AuthContext, AuthContextType } from "../../../contexts/AuthContext";
+import { GlobalContextType } from "../../../contexts/GlobalContext";
+import { AuthContextType } from "../../../contexts/AuthContext";
 import useWindowDimensions from "../../../hooks/useWindowDimensions";
+import useGlobal from "../../../hooks/useGlobal";
+import { getRole } from "../../../utils/Helpers";
 
 const userActionsLinks = [
   {
@@ -43,13 +42,10 @@ const userActionsLinks = [
 
 const UserActions = () => {
   const { signOut } = useAuth() as AuthContextType;
-  const { userActionsOpen, toggleUserActionsOpen, setCurrentTab } = useContext(
-    GlobalContext,
-  ) as GlobalContextType;
+  const { userActionsOpen, toggleUserActionsOpen, setCurrentTab } =
+    useGlobal() as GlobalContextType;
 
-  const { currentUser, profileImg } = useContext(
-    AuthContext,
-  ) as AuthContextType;
+  const { currentUserData, profileImg } = useAuth() as AuthContextType;
 
   const { width } = useWindowDimensions();
 
@@ -90,7 +86,10 @@ const UserActions = () => {
             src={profileImg}
             sx={{ width: 40, height: 40 }}
           />
-          <h2>{currentUser?.displayName}</h2>
+          <div className={style["user-info-text"]}>
+            <h2>{currentUserData?.displayName}</h2>
+            <p>{currentUserData && getRole(currentUserData.roles)}</p>
+          </div>
         </div>
         <hr />
 
