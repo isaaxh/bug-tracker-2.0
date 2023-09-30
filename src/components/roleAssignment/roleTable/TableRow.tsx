@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import Popup from "../../common/Popup/Popup";
 import { AuthContextType, userDataType } from "../../../contexts/AuthContext";
 import { addNewRole, getRole } from "../../../utils/Helpers";
@@ -19,19 +19,23 @@ interface Updates {
 
 const TableRow = ({ userData }: TableRowProps) => {
   const [popupTrigger, setPopupTrigger] = useState(false);
+  const [updatedUserRoles, setUpdatedUserRoles] = useState(userData.roles);
   const { updateData, loading } = useFirestore();
   const { currentUser } = useAuth() as AuthContextType;
   const collectionName = "users";
   const docId = userData.uid;
 
   const onRoleSelect = (role: string) => {
+    // for updating the color of list items
+    setUpdatedUserRoles(addNewRole(role, userData));
+    // for storing in firestore
     closePopup({ roles: addNewRole(role, userData) });
   };
 
   const closePopup = (updates: Updates) => {
     if (!currentUser && !updates.roles) return;
     updateData({ collectionName, updates, docId });
-    setPopupTrigger(false);
+    loading ? null : setPopupTrigger(false);
   };
 
   const togglePopup = (
@@ -42,21 +46,25 @@ const TableRow = ({ userData }: TableRowProps) => {
   };
 
   const listItems = [
-    { id: "admin", name: "Admin", color: userData.roles.admin ? "green" : "" },
+    {
+      id: "admin",
+      name: "Admin",
+      color: updatedUserRoles.admin ? "green" : "",
+    },
     {
       id: "manager",
       name: "Manager",
-      color: userData.roles.manager ? "green" : "",
+      color: updatedUserRoles.manager ? "green" : "",
     },
     {
       id: "developer",
       name: "Developer",
-      color: userData.roles.developer ? "green" : "",
+      color: updatedUserRoles.developer ? "green" : "",
     },
     {
       id: "submitter",
       name: "Submitter",
-      color: userData.roles.submitter ? "green" : "",
+      color: updatedUserRoles.submitter ? "green" : "",
     },
   ];
 
