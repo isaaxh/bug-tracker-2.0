@@ -9,6 +9,7 @@ interface PopupProps {
   popupTrigger: boolean;
   listItems: listItem[];
   onRoleSelect: (role: string) => void;
+  loading: boolean;
 }
 
 type listItem = {
@@ -22,6 +23,7 @@ const Popup = ({
   popupTrigger,
   listItems,
   onRoleSelect,
+  loading,
 }: PopupProps) => {
   const [referenceElement, setReferenceElement] = useState();
   const [popperElement, setPopperElement] = useState();
@@ -49,19 +51,23 @@ const Popup = ({
             {...attributes.popper}
             onClick={(e) => e.stopPropagation()}
           >
-            {listItems.map((item) => (
-              <li
-                key={item.id}
-                className="popup-list-item"
-                style={{
-                  backgroundColor:
-                    item.color !== "" ? "rgba(var(--color-grey-50))" : "",
-                }}
-                onClick={() => onRoleSelect(item.id)}
-              >
-                {item.name}
-              </li>
-            ))}
+            {loading ? (
+              <div>Loading...</div>
+            ) : (
+              listItems.map((item) => (
+                <li
+                  key={item.id}
+                  className="popup-list-item"
+                  style={{
+                    backgroundColor:
+                      item.color !== "" ? "rgba(var(--color-grey-50))" : "",
+                  }}
+                  onClick={() => onRoleSelect(item.id)}
+                >
+                  {item.name}
+                </li>
+              ))
+            )}
           </ul>
         )}
       </Portal>

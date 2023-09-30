@@ -32,18 +32,6 @@ export interface readAllDocsPropType {
   filter: filterProps;
 }
 
-export interface sortingProps extends tableColumn {
-  order: "asc" | "desc";
-}
-
-export interface filterProps extends tableColumn {
-  value?: string;
-}
-
-export type tableColumn = {
-  column: "displayName" | "email" | "roles" | "createdAt";
-};
-
 export interface readMultipleDocsPropsType {
   collectionName: string;
   queryObject: queryObjectType;
@@ -56,9 +44,9 @@ interface queryObjectType {
 }
 
 export interface updateDataPropsType {
-  currentUser: User;
+  currentUser?: User;
   collectionName: string;
-  data: { [x: string]: any };
+  updates: { [x: string]: any };
   docId: string;
 }
 
@@ -66,9 +54,22 @@ export interface getCurrentUserDataPropsType {
   userId: string;
 }
 
+export interface sortingProps extends tableColumn {
+  order: "asc" | "desc";
+}
+
+export interface filterProps extends tableColumn {
+  value?: string;
+}
+
+export type tableColumn = {
+  column: "displayName" | "email" | "roles" | "createdAt";
+};
+
 const useFirestore = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<unknown | string>("");
+  const [success, setSuccess] = useState<string>("");
 
   const writeData = async (
     collectionName: string,
@@ -84,6 +85,7 @@ const useFirestore = () => {
     } catch (error) {
       console.log("Error adding document: ", error);
       setError("Failed to save data...");
+      setLoading(false);
     }
   };
 
@@ -170,30 +172,37 @@ const useFirestore = () => {
   const updateData = async ({
     currentUser,
     collectionName,
-    data,
+    updates,
     docId,
   }: updateDataPropsType) => {
     setLoading(true);
     setError("");
 
-    if (!currentUser) {
+    if (updates.displayName && !currentUser) {
+      console.log("currentUser Invalid");
       setError("Document ID invalid");
       return;
     }
-    if (data.displayName === "") {
+
+    if (updates.displayName === "") {
       setError("Invalid name");
       return;
     }
 
     try {
-      await updateProfile(currentUser, {
-        displayName: data.displayName,
-      });
-      await updateDoc(doc(db, collectionName, docId), data);
+      if (updates.displayName && currentUser) {
+        await updateProfile(currentUser, {
+          displayName: updates.displayName,
+        });
+      }
 
-      setLoading(true);
+      await updateDoc(doc(db, collectionName, docId), updates);
+
+      setLoading(false);
     } catch (error) {
+      console.log(error);
       setError("Failed to update information");
+      setLoading(false);
     }
   };
 

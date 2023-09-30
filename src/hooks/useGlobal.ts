@@ -1,8 +1,8 @@
 import { useContext } from "react";
 import { GlobalContext } from "../contexts/GlobalContext";
 
-const useGlobal = () => {
-    return useContext(GlobalContext); 
-}
+const useAuth = () => {
+  return useContext(GlobalContext);
+};
 
-export default useGlobal;
+export default useAuth;

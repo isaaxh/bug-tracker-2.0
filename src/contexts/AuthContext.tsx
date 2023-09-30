@@ -46,6 +46,7 @@ type signUpProps = {
 };
 
 export interface userDataType {
+  uid: string;
   email: string;
   roleAssigned: boolean;
   roles: Roles;

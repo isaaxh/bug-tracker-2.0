@@ -1,30 +1,38 @@
 import { useEffect, useState } from "react";
 import Popup from "../../common/Popup/Popup";
-import { userDataType } from "../../../contexts/AuthContext";
+import { AuthContextType, userDataType } from "../../../contexts/AuthContext";
 import { addNewRole, getRole } from "../../../utils/Helpers";
+import useFirestore from "../../../hooks/useFirestore";
+import useAuth from "../../../hooks/useAuth";
 
 interface TableRowProps {
   userData: userDataType;
 }
+interface Updates {
+  roles: {
+    admin?: boolean;
+    manager?: boolean;
+    developer?: boolean;
+    submitter?: boolean;
+  };
+}
 
 const TableRow = ({ userData }: TableRowProps) => {
   const [popupTrigger, setPopupTrigger] = useState(false);
-  const [updatedUserData, setUpdatedUserData] = useState<userDataType | null>(
-    null,
-  );
+  const { updateData, loading } = useFirestore();
+  const { currentUser } = useAuth() as AuthContextType;
+  const collectionName = "users";
+  const docId = userData.uid;
 
   const onRoleSelect = (role: string) => {
-    setUpdatedUserData(addNewRole(role, userData));
-    closePopup();
+    closePopup({ roles: addNewRole(role, userData) });
   };
 
-  const closePopup = () => {
+  const closePopup = (updates: Updates) => {
+    if (!currentUser && !updates.roles) return;
+    updateData({ collectionName, updates, docId });
     setPopupTrigger(false);
   };
-
-  useEffect(() => {
-    console.log(updatedUserData);
-  }, [updatedUserData]);
 
   const togglePopup = (
     e: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>,
@@ -61,6 +69,7 @@ const TableRow = ({ userData }: TableRowProps) => {
           popupTrigger={popupTrigger}
           listItems={listItems}
           onRoleSelect={onRoleSelect}
+          loading={loading}
         >
           {getRole(userData)}
         </Popup>
