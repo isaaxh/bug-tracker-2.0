@@ -34,7 +34,6 @@ const Popup = ({
     placement: "bottom-start",
   });
 
-  console.log(listItems);
   return (
     <div className="popup" ref={setReferenceElement}>
       <div className="popup-text">

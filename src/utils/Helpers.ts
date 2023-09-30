@@ -1,4 +1,5 @@
 import { DocumentData } from "firebase/firestore";
+import { userDataType } from "../contexts/AuthContext";
 
 export const formatDate = (date: Date) => {
   return date
@@ -22,21 +23,16 @@ export const getRole = (userData: DocumentData) => {
   }
 };
 
-export const addNewRole = (newRole: string, userData: DocumentData) => {
-  switch (newRole) {
-    case "admin":
-      return {
-        ...userData,
-        roles: { ...userData.roles, admin: true },
-      };
-    case "manager":
-      return {
-        ...userData,
-        roles: { manager: true },
-      };
-    case "developer":
-      return { ...userData, roles: { developer: true } };
-    default:
-      return { ...userData, roles: { submitter: true } };
+export const addNewRole = (
+  newRole: string,
+  userData: DocumentData,
+): userDataType => {
+  const updatedUserData = { ...userData };
+
+  if (updatedUserData.roles[newRole]) {
+    delete updatedUserData.roles[newRole];
+  } else {
+    updatedUserData.roles[newRole] = true;
   }
+  return updatedUserData as userDataType;
 };

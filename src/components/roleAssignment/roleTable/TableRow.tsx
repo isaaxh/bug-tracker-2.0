@@ -9,16 +9,22 @@ interface TableRowProps {
 
 const TableRow = ({ userData }: TableRowProps) => {
   const [popupTrigger, setPopupTrigger] = useState(false);
-  const [selectedRole, setSelectedRole] = useState("");
+  const [updatedUserData, setUpdatedUserData] = useState<userDataType | null>(
+    null,
+  );
 
   const onRoleSelect = (role: string) => {
-    setSelectedRole(role);
-    /* console.log(addNewRole(role, userData)); */
+    setUpdatedUserData(addNewRole(role, userData));
+    closePopup();
+  };
+
+  const closePopup = () => {
+    setPopupTrigger(false);
   };
 
   useEffect(() => {
-    console.log(userData.roles);
-  }, [userData, selectedRole]);
+    console.log(updatedUserData);
+  }, [updatedUserData]);
 
   const togglePopup = (
     e: React.MouseEvent<HTMLTableDataCellElement, MouseEvent>,
