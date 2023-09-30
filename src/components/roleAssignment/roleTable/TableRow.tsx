@@ -1,41 +1,38 @@
 import { useState } from "react";
 import Popup from "../../common/Popup/Popup";
-import { AuthContextType, userDataType } from "../../../contexts/AuthContext";
+import {
+  AuthContextType,
+  Roles,
+  userDataType,
+} from "../../../contexts/AuthContext";
 import { addNewRole, getRole } from "../../../utils/Helpers";
 import useFirestore from "../../../hooks/useFirestore";
 import useAuth from "../../../hooks/useAuth";
 
 interface TableRowProps {
   userData: userDataType;
+  triggerFetch: () => void;
 }
 interface Updates {
-  roles: {
-    admin?: boolean;
-    manager?: boolean;
-    developer?: boolean;
-    submitter?: boolean;
-  };
+  roles: Roles;
 }
 
-const TableRow = ({ userData }: TableRowProps) => {
+const TableRow = ({ userData, triggerFetch }: TableRowProps) => {
   const [popupTrigger, setPopupTrigger] = useState(false);
-  const [updatedUserRoles, setUpdatedUserRoles] = useState(userData.roles);
   const { updateData, loading } = useFirestore();
   const { currentUser } = useAuth() as AuthContextType;
   const collectionName = "users";
   const docId = userData.uid;
 
   const onRoleSelect = (role: string) => {
-    // for updating the color of list items
-    setUpdatedUserRoles(addNewRole(role, userData));
-    // for storing in firestore
     closePopup({ roles: addNewRole(role, userData) });
   };
 
   const closePopup = (updates: Updates) => {
     if (!currentUser && !updates.roles) return;
     updateData({ collectionName, updates, docId });
-    loading ? null : setPopupTrigger(false);
+    triggerFetch();
+    setPopupTrigger(false);
   };
 
   const togglePopup = (
@@ -49,22 +46,22 @@ const TableRow = ({ userData }: TableRowProps) => {
     {
       id: "admin",
       name: "Admin",
-      color: updatedUserRoles.admin ? "green" : "",
+      color: userData.roles.admin ? "green" : "",
     },
     {
       id: "manager",
       name: "Manager",
-      color: updatedUserRoles.manager ? "green" : "",
+      color: userData.roles.manager ? "green" : "",
     },
     {
       id: "developer",
       name: "Developer",
-      color: updatedUserRoles.developer ? "green" : "",
+      color: userData.roles.developer ? "green" : "",
     },
     {
       id: "submitter",
       name: "Submitter",
-      color: updatedUserRoles.submitter ? "green" : "",
+      color: userData.roles.submitter ? "green" : "",
     },
   ];
 
@@ -79,7 +76,7 @@ const TableRow = ({ userData }: TableRowProps) => {
           onRoleSelect={onRoleSelect}
           loading={loading}
         >
-          {getRole(userData)}
+          {getRole(userData.roles)}
         </Popup>
       </td>
       <td data-cell="date">{userData.createdAt}</td>

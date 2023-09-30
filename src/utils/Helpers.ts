@@ -1,4 +1,5 @@
 import { DocumentData } from "firebase/firestore";
+import { Roles } from "../contexts/AuthContext";
 
 export const formatDate = (date: Date) => {
   return date
@@ -10,12 +11,12 @@ export const formatDate = (date: Date) => {
     .toString();
 };
 
-export const getRole = (userData: DocumentData) => {
-  if (userData.roles.admin) {
+export const getRole = (roles: Roles) => {
+  if (roles.admin) {
     return "admin";
-  } else if (userData.roles.manager) {
+  } else if (roles.manager) {
     return "manager";
-  } else if (userData.roles.developer) {
+  } else if (roles.developer) {
     return "developer";
   } else {
     return "submitter";

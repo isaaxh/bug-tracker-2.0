@@ -17,6 +17,7 @@ const RoleTable = () => {
   // user documents
   const [allEnteries, setAllEnteries] = useState<DocumentData>([]);
   const { readAllDocs } = useFirestore();
+  const [fetch, setFetch] = useState(false);
   const loading = false;
 
   // table pagination
@@ -46,6 +47,11 @@ const RoleTable = () => {
     setFilter({ ...filter, value: newSearchValue });
   };
 
+  // fetching data on trigger
+  const triggerFetch = () => {
+    setFetch((fetch) => !fetch);
+  };
+
   useEffect(() => {
     const allDocsQuery: readAllDocsPropType = {
       collectionName: "users",
@@ -59,7 +65,7 @@ const RoleTable = () => {
     };
 
     fetchAllData();
-  }, [sorting, filter]);
+  }, [sorting, filter, fetch]);
 
   const prevPage = () => {
     if (currentPage !== 1) {
@@ -91,7 +97,7 @@ const RoleTable = () => {
               sorting={sorting}
               sortTable={sortTable}
             />
-            <TableContent entries={records} />
+            <TableContent entries={records} triggerFetch={triggerFetch} />
           </table>
         )}
         <TablePagination
