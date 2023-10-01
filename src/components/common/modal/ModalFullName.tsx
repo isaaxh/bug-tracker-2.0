@@ -63,7 +63,7 @@ const ModalFullName = () => {
     joinName();
   }, [firstName, lastName]);
 
-  const data = {
+  const updates = {
     displayName: fullName,
   };
 
@@ -94,37 +94,37 @@ const ModalFullName = () => {
     const collectionName = "users";
     const docId = currentUser.uid;
 
-    updateData({ currentUser, collectionName, data, docId });
+    updateData({ currentUser, collectionName, updates, docId });
 
     toggleModalOpen();
   };
 
   return (
-    <form className='modal-content' onSubmit={handleFormSubmit}>
-      <div className='modal-input-container'>
-        <label htmlFor='first_name'>First Name</label>
+    <form className="modal-content" onSubmit={handleFormSubmit}>
+      <div className="modal-input-container">
+        <label htmlFor="first_name">First Name</label>
         <input
-          className='modal-input-field'
-          type='text'
-          id='first_name'
-          autoComplete='off'
+          className="modal-input-field"
+          type="text"
+          id="first_name"
+          autoComplete="off"
           value={firstName}
           onChange={(e) => handleFirstNameChange(e)}
         />
       </div>
-      <div className='modal-input-container'>
-        <label htmlFor='last_name'>Last Name</label>
+      <div className="modal-input-container">
+        <label htmlFor="last_name">Last Name</label>
         <input
-          className='modal-input-field'
-          type='text'
-          id='last_name'
-          autoComplete='off'
+          className="modal-input-field"
+          type="text"
+          id="last_name"
+          autoComplete="off"
           value={lastName}
           onChange={(e) => handleLastNameChange(e)}
         />
       </div>
-      <div className='modal-btn-container'>
-        <button className='modal-btn' disabled={btnDisabled}>
+      <div className="modal-btn-container">
+        <button className="modal-btn" disabled={btnDisabled}>
           Update
         </button>
       </div>

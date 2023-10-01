@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint src --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "fb-em-persist": "firebase emulators:start --import ./src/fireEmulatorData/ --export-on-exit ./src/fireEmulatorData/",
+    "fb-em-export": "firebase emulators:export ./src/fireEmulatorData/"
   },
   "devDependencies": {
     "@types/react": "^17.0.2",
@@ -27,13 +29,17 @@
     "@material-ui/icons": "^4.11.3",
     "@mui/icons-material": "^5.11.16",
     "@mui/material": "^5.13.4",
+    "@popperjs/core": "^2.11.8",
     "@types/firebase": "^3.2.1",
     "firebase": "^9.23.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hook-form": "^7.45.0",
+    "react-icons": "^4.11.0",
+    "react-popper": "^2.3.0",
     "react-router": "^6.12.1",
     "react-router-dom": "^6.12.1",
+    "react-select": "^5.7.5",
     "react-spinners": "^0.13.8",
     "react-uuid": "^2.0.0",
     "uuid": "^9.0.0"

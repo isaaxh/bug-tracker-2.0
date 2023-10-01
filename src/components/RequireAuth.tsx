@@ -4,14 +4,14 @@ import { AuthContextType } from "../contexts/AuthContext";
 import Layout from "./common/Layout";
 import { useEffect, useState } from "react";
 import { Roles } from "../contexts/AuthContext";
+import Loader from "./common/Loader";
 
 type RequireAuthPropsType = {
   allowedRole: Roles;
 };
 
 const RequireAuth = ({ allowedRole }: RequireAuthPropsType) => {
-  const { currentUser, currentUserData, userDataPending } =
-    useAuth() as AuthContextType;
+  const { currentUser, currentUserData } = useAuth() as AuthContextType;
   const location = useLocation();
   const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
   const [loading, setLoading] = useState<boolean>(true);
@@ -27,7 +27,7 @@ const RequireAuth = ({ allowedRole }: RequireAuthPropsType) => {
   };
 
   useEffect(() => {
-    //works when app is loaded for the first time
+    //runs when app is loaded for the first time
     if (!currentUser && !currentUserData) {
       setLoading(false);
       return;
@@ -43,7 +43,7 @@ const RequireAuth = ({ allowedRole }: RequireAuthPropsType) => {
   }, [currentUser, currentUserData, location]);
 
   if (loading) {
-    return <div style={{ backgroundColor: "transparent" }}></div>;
+    return <Loader loading={loading} />;
   }
 
   return isAuthorized ? (

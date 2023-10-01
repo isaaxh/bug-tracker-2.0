@@ -16,6 +16,9 @@ dist
 dist-ssr
 *.local
 
+#firebase emulator files
+src/fireEmulatorsData/*
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

@@ -14,23 +14,30 @@ const Layout = () => {
   const { currentTab } = useGlobal() as GlobalContextType;
   const { width } = useWindowDimensions();
   return (
-    <main className='main-container'>
-      <div className='header-container'>
+    <main className="main-container">
+      <div className="header-container">
         <Header />
       </div>
       <div
         className={
           width > 1200 ? "content-container" : "mobile-content-container"
-            }>
+        }
+      >
         {width && width > 1200 ? (
           <Sidebar />
         ) : (
           <>
-            <button type="button" className='tab-dropdown-btn' onClick={() => {toggleTabMenuOpen()}}>
+            <button
+              type="button"
+              className="tab-dropdown-btn"
+              onClick={() => {
+                toggleTabMenuOpen();
+              }}
+            >
               <h2>{currentTab}</h2>
               <KeyboardArrowDownIcon
-                className='tab-dropdown-icon'
-                fontSize='large'
+                className="tab-dropdown-icon"
+                fontSize="large"
               />
             </button>
             <SidebarMobile />

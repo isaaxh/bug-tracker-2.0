@@ -4,12 +4,13 @@ import { useEffect, useState } from "react";
 import useFirestore from "../../hooks/useFirestore";
 import { DocumentData } from "firebase/firestore";
 import useWindowDimensions from "../../hooks/useWindowDimensions";
-import { userDataType } from "../../hooks/useAuth";
+import { AuthContextType } from "../../contexts/AuthContext";
+import { getRole } from "../../utils/Helpers";
 
 const Home = () => {
   const [userData, setUserData] = useState<DocumentData>();
   const { width } = useWindowDimensions();
-  const { currentUser } = useAuth();
+  const { currentUser } = useAuth() as AuthContextType;
 
   const { readDoc, error } = useFirestore();
 
@@ -22,30 +23,16 @@ const Home = () => {
     };
 
     const fetchData = async () => {
-        try {
+      try {
         const userData = await readDoc(queryRequestData);
         setUserData(userData);
-        } catch (error) {
-            console.log('Error fetching user data:' + error)
-        }
+      } catch (error) {
+        console.log("Error fetching user data:" + error);
+      }
     };
 
     fetchData();
-
   }, [currentUser]);
-
-
-  const getRole = (userData: DocumentData) => {
-    if (userData.roles.admin) {
-      return "admin";
-    } else if (userData.roles.manager) {
-      return "Manager";
-    } else if (userData.roles.developer) {
-      return "developer";
-    } else {
-        return 'unassigned';
-    }
-  }
 
   return (
     <div className={style.container}>
@@ -55,7 +42,7 @@ const Home = () => {
       <div className={style["content-container"]}>
         <div>name: {currentUser?.displayName}</div>
         <div>email: {currentUser?.email}</div>
-        <div>role: {userData && getRole(userData)}</div>
+        <div>role: {userData && getRole(userData.roles)}</div>
       </div>
     </div>
   );

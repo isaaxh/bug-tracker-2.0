@@ -46,15 +46,18 @@ type signUpProps = {
 };
 
 export interface userDataType {
+  uid: string;
   email: string;
   roleAssigned: boolean;
   roles: Roles;
   password: string;
   confirmPassword: string;
   displayName: string;
+  createdAt: string;
 }
 
 export interface Roles {
+  submitter?: boolean;
   admin?: boolean;
   manager?: boolean;
   developer?: boolean;
@@ -126,7 +129,6 @@ const AuthProvider = ({ children }: AuthProviderPropsType) => {
       .signOut()
       .then(() => {
         setCurrentUserData(undefined);
-        console.log("signOut");
         navigate("/signin");
         setLoading(false);
       })
@@ -213,6 +215,7 @@ const AuthProvider = ({ children }: AuthProviderPropsType) => {
         email: userData.email,
         roleAssigned: userData.roleAssigned,
         roles: userData.roles,
+        createdAt: userData.createdAt,
       };
 
       writeData("users", userCredential.user.uid, data);
@@ -220,7 +223,8 @@ const AuthProvider = ({ children }: AuthProviderPropsType) => {
       navigate("/");
       setLoading(false);
     } catch (error) {
-      setError("Something went wrong");
+      console.log("sign up failed");
+      setError("Sign up failed");
       setLoading(false);
     }
   };
