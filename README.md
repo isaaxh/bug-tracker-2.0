@@ -6,6 +6,7 @@ This app provides a way to complete projects in a productive way.
 - Typescript
 - React
 - Vanilla CSS
+- firebase as backend
 
 ## How to use
 
